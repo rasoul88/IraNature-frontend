@@ -1,0 +1,186 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders signin-signup component 1`] = `
+<indexstyles__SectionContainer
+  data-test="component-signin-signup"
+  id="signin-signup"
+  mode="signin"
+>
+  <indexstyles__FormsContainer
+    data-aos="fade-up"
+    data-aos-anchor-placement="top-bottom"
+    data-aos-delay="500"
+    data-aos-duration="1000"
+  >
+    <indexstyles__SignInSignUp
+      mode="signin"
+    >
+      <indexstyles__SignInForm
+        action=""
+        mode="signin"
+        onSubmit={[Function]}
+      >
+        <indexstyles__TitleContainer>
+           ورود
+        </indexstyles__TitleContainer>
+        <indexstyles__InputContainer>
+          <indexstyles__InputField
+            placeholder="نام کاربری"
+            required={true}
+            type="text"
+          />
+          <test-file-stub />
+        </indexstyles__InputContainer>
+        <indexstyles__InputContainer>
+          <indexstyles__InputField
+            placeholder="کلمه عبور"
+            required={true}
+            type="password"
+          />
+          <test-file-stub />
+        </indexstyles__InputContainer>
+        <indexstyles__SubmitButton
+          solid={true}
+          type="submit"
+          value="ورود به حساب "
+        />
+        <indexstyles__SocialTextContainer>
+          با شبکه های اجتماعی زیر وارد شوید
+        </indexstyles__SocialTextContainer>
+        <indexstyles__SocialMediaContainer>
+          <indexstyles__SocialIconContainer
+            color="#8a3ab9"
+          >
+            <test-file-stub />
+          </indexstyles__SocialIconContainer>
+          <indexstyles__SocialIconContainer
+            color="#00acee"
+          >
+            <test-file-stub />
+          </indexstyles__SocialIconContainer>
+          <indexstyles__SocialIconContainer
+            color="#ea4335"
+          >
+            <test-file-stub />
+          </indexstyles__SocialIconContainer>
+          <indexstyles__SocialIconContainer
+            color="#0e76a8"
+          >
+            <test-file-stub />
+          </indexstyles__SocialIconContainer>
+        </indexstyles__SocialMediaContainer>
+      </indexstyles__SignInForm>
+      <indexstyles__SignUpForm
+        action=""
+        mode="signin"
+      >
+        <indexstyles__TitleContainer>
+          ثبت نام
+        </indexstyles__TitleContainer>
+        <indexstyles__InputContainer>
+          <indexstyles__InputField
+            placeholder="نام کاربری"
+            required={true}
+            type="text"
+          />
+          <test-file-stub />
+        </indexstyles__InputContainer>
+        <indexstyles__InputContainer>
+          <indexstyles__InputField
+            placeholder="ایمیل"
+            required={true}
+            type="email"
+          />
+          <test-file-stub />
+        </indexstyles__InputContainer>
+        <indexstyles__InputContainer>
+          <indexstyles__InputField
+            placeholder="کلمه عبور"
+            required={true}
+            type="password"
+          />
+          <test-file-stub />
+        </indexstyles__InputContainer>
+        <indexstyles__SubmitButton
+          type="submit"
+          value="ثبت نام"
+        />
+        <indexstyles__SocialTextContainer>
+          با شبکه های اجتماعی زیر ثبت نام کنید
+           
+        </indexstyles__SocialTextContainer>
+        <indexstyles__SocialMediaContainer>
+          <indexstyles__SocialIconContainer
+            color="#8a3ab9"
+          >
+            <test-file-stub />
+          </indexstyles__SocialIconContainer>
+          <indexstyles__SocialIconContainer
+            color="#00acee"
+          >
+            <test-file-stub />
+          </indexstyles__SocialIconContainer>
+          <indexstyles__SocialIconContainer
+            color="#ea4335"
+          >
+            <test-file-stub />
+          </indexstyles__SocialIconContainer>
+          <indexstyles__SocialIconContainer
+            color="#0e76a8"
+          >
+            <test-file-stub />
+          </indexstyles__SocialIconContainer>
+        </indexstyles__SocialMediaContainer>
+      </indexstyles__SignUpForm>
+    </indexstyles__SignInSignUp>
+  </indexstyles__FormsContainer>
+  <indexstyles__PannelsContainer>
+    <indexstyles__LeftPannelsContainer
+      mode="signin"
+    >
+      <indexstyles__ContentContainer>
+        <h3>
+          حساب کاربری ندارید؟
+        </h3>
+        <p>
+           
+          لطفا بر روی دکمه ی زیر کلیک کنید و با ایجاد حساب کاربری از تمام مزایای وب سایت ما بهره مند شوید
+        </p>
+        <button
+          data-test="signup-button"
+          onClick={[Function]}
+        >
+          ثبت نام
+        </button>
+      </indexstyles__ContentContainer>
+      <indexstyles__ImageContainer
+        alt="login"
+        src="/assets/icons/register.svg"
+      />
+    </indexstyles__LeftPannelsContainer>
+    <indexstyles__RightPannelsContainer
+      mode="signin"
+    >
+      <indexstyles__ContentContainer>
+        <h3>
+          حساب کاربری دارید؟
+        </h3>
+        <p>
+           
+          لطفا بر روی دکمه ی زیر کلیک کنید و با ورود به حساب کاربری که قبلا ایجاد کرده اید از تمام مزایای وب سایت ما بهره مند شوید
+        </p>
+        <button
+          data-test="signin-button"
+          onClick={[Function]}
+        >
+          ورود
+        </button>
+      </indexstyles__ContentContainer>
+      <indexstyles__ImageContainer
+        alt="register"
+        src="/assets/icons/Login2.svg"
+      />
+    </indexstyles__RightPannelsContainer>
+  </indexstyles__PannelsContainer>
+</indexstyles__SectionContainer>
+`;
