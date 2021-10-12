@@ -1,4 +1,10 @@
 import Head from "next/head";
+import Header from "../components/header/header.component";
+import About from "../components/about-section/about.component";
+import Features from "../components/features/features.component";
+import Tours from "../components/tours-section/tours.component";
+import Stories from "../components/stories-section/stories.component";
+import Footer from "../components/footer/footer.component";
 
 export default function Home() {
   return (
@@ -9,9 +15,17 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>Helllllo</main>
+      <main>
+        <Header />
+        <About />
+        <Features />
+        <Tours />
+        <Stories />
+      </main>
 
-      <footer></footer>
+      <footer>
+        <Footer />
+      </footer>
     </div>
   );
 }

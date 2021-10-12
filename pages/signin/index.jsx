@@ -123,6 +123,7 @@ const SignInSignUpPage = () => {
           </ContentContainer>
           <ImageContainer src="/assets/icons/register.svg" alt="login" />
         </LeftPannelsContainer>
+
         <RightPannelsContainer mode={mode}>
           <ContentContainer>
             <h3>حساب کاربری دارید؟</h3>

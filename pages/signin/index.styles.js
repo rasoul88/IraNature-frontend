@@ -92,6 +92,7 @@ export const FormsContainer = styled.div`
   height: 100%;
   top: 0;
   left: 0;
+  z-index: 5;
 `;
 export const SignInSignUp = styled.div`
   position: absolute;
@@ -101,7 +102,6 @@ export const SignInSignUp = styled.div`
   width: 50%;
   display: grid;
   grid-template-columns: 1fr;
-  z-index: 5;
   transition: 1s 0.7s ease-in-out;
 
   @media only screen and (max-width: 870px) {
