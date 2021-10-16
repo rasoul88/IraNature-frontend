@@ -21,6 +21,7 @@ export const LogoContainer = styled.div`
 
   & svg {
     border: none !important;
+    margin-right: -3.5rem;
   }
 `;
 

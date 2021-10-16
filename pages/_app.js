@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }) {
   }, []);
   return (
     <div>
-      <Navigation />
+      <Navigation currentUser={{ name: "رسول صحرایی" }} />
       <Component {...pageProps} />
     </div>
   );

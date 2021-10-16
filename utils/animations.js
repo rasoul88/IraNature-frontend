@@ -32,7 +32,6 @@ export const moveInRight = keyframes`
     }
 `;
 
-
 export const moveInBottom = keyframes`
     0% {
         opacity: 0;
@@ -45,7 +44,6 @@ export const moveInBottom = keyframes`
     }
 `;
 
-
 export const Shake = keyframes`
     0% {
         transform: translateX(-.3rem);
@@ -55,4 +53,3 @@ export const Shake = keyframes`
         transform: translateX(.3rem);
     }
 `;
-

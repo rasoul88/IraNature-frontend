@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-
 export const NavigationContainer = styled.div``;
 
 const GetOpenedStyle = css`
@@ -45,6 +44,10 @@ export const Icon = styled.span`
   }
 
   ${(props) => (props.toggle ? GetOpenedStyle : null)}
+
+  @media only screen and (max-width: 28.75em) {
+    margin-top: 3rem;
+  }
 `;
 
 export const IconContainer = styled.label`
@@ -69,11 +72,72 @@ export const IconContainer = styled.label`
     right: 3rem;
   }
 
+  @media only screen and (max-width: 28.75em) {
+    width: 6rem;
+    height: 6rem;
+  }
+
   &:hover ${Icon}::before {
     top: ${(props) => (props.toggle ? "0" : "-1rem")};
   }
   &:hover ${Icon}::after {
     top: ${(props) => (props.toggle ? "0" : "1rem")};
+  }
+`;
+
+export const Controller = styled.label`
+  background-color: white;
+  width: 20rem;
+  height: 6rem;
+  border-radius: 200px;
+  position: absolute;
+  top: 6.5rem;
+  right: 14rem;
+  z-index: 10;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  @media only screen and (max-width: 56.25em) {
+    top: 4.5rem;
+    right: 12rem;
+  }
+  @media only screen and (max-width: 37.5em) {
+    width: 15rem;
+    top: 3.5rem;
+    right: 2.7rem;
+    height: 7rem;
+    top: 3rem;
+    justify-content: flex-start;
+    & p {
+      display: none;
+    }
+
+    & svg {
+      margin-left: 1.5rem;
+    }
+  }
+
+  @media only screen and (max-width: 28.75em) {
+    width: 13rem;
+    top: 3.5rem;
+    right: 2.7rem;
+    height: 6rem;
+    top: 3rem;
+    justify-content: flex-start;
+  }
+
+  & svg {
+    width: 3.5rem;
+    height: 3.5rem;
+    transition: all 0.3s;
+  }
+
+  &:hover svg {
+    transform: translateX(3px);
   }
 `;
 
@@ -101,6 +165,11 @@ export const BackgroundContainer = styled.div`
   @media only screen and (max-width: 37.5em) {
     top: 3.5rem;
     right: 3.5rem;
+  }
+
+  @media only screen and (max-width: 28.75em) {
+    width: 5rem;
+    height: 5rem;
   }
 `;
 

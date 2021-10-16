@@ -8,8 +8,6 @@ import {
 } from "./header.styles";
 
 import CustomButton from "../custom-button/custom-button.component";
-import TextLogo from "../text-logo/text-logo.component";
-//somr cooment
 
 const Header = () => {
   return (
@@ -20,8 +18,8 @@ const Header = () => {
       </LogoContainer>
       <TextBoxContainer>
         <HeadingContainer>
-          <span>...طبیعت</span>
-          <span>جایی که زندگی رخ می دهد</span>
+          <span>...ایرانیچر</span>
+          <span>شما را با طبیعت آشتی می دهد</span>
         </HeadingContainer>
         <CustomButton
           targetElement="#section-tours"

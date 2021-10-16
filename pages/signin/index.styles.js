@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { moveInBottom } from "../../utils/animations";
 
 const GetFormStyles = css`
   display: flex;
@@ -132,6 +133,21 @@ export const SignInForm = styled.form`
     transform: scale(0.85);
   }
 `;
+
+export const SignInFormContainer = styled.div`
+  ${GetFormStyles};
+  animation-name: ${moveInBottom};
+  animation-duration: 0.4s;
+  animation-timing-function: ease-out;
+`;
+
+export const ForgotFormContainer = styled.div`
+  ${GetFormStyles};
+  animation-name: ${moveInBottom};
+  animation-duration: 0.5s;
+  animation-timing-function: ease-out;
+`;
+
 export const TitleContainer = styled.h2`
   font-size: 3.5rem;
   color: #444;
@@ -388,4 +404,10 @@ export const RightPannelsContainer = styled.div`
   @media only screen and (max-width: 600px) {
     padding: 1rem;
   }
+`;
+
+export const ForgotPasswordButton = styled.p`
+  font-size: 1.2rem;
+  text-decoration: underline;
+  cursor: pointer;
 `;

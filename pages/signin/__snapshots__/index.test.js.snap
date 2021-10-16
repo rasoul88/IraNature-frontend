@@ -20,55 +20,63 @@ exports[`renders signin-signup component 1`] = `
         mode="signin"
         onSubmit={[Function]}
       >
-        <indexstyles__TitleContainer>
-           ورود
-        </indexstyles__TitleContainer>
-        <indexstyles__InputContainer>
-          <indexstyles__InputField
-            placeholder="نام کاربری"
-            required={true}
-            type="text"
+        <indexstyles__SignInFormContainer>
+          <indexstyles__TitleContainer>
+             ورود
+          </indexstyles__TitleContainer>
+          <indexstyles__InputContainer>
+            <indexstyles__InputField
+              placeholder="نام کاربری"
+              required={true}
+              type="text"
+            />
+            <test-file-stub />
+          </indexstyles__InputContainer>
+          <indexstyles__InputContainer>
+            <indexstyles__InputField
+              placeholder="کلمه عبور"
+              required={true}
+              type="password"
+            />
+            <test-file-stub />
+          </indexstyles__InputContainer>
+          <indexstyles__SubmitButton
+            solid={true}
+            type="submit"
+            value="ورود به حساب "
           />
-          <test-file-stub />
-        </indexstyles__InputContainer>
-        <indexstyles__InputContainer>
-          <indexstyles__InputField
-            placeholder="کلمه عبور"
-            required={true}
-            type="password"
-          />
-          <test-file-stub />
-        </indexstyles__InputContainer>
-        <indexstyles__SubmitButton
-          solid={true}
-          type="submit"
-          value="ورود به حساب "
-        />
-        <indexstyles__SocialTextContainer>
-          با شبکه های اجتماعی زیر وارد شوید
-        </indexstyles__SocialTextContainer>
-        <indexstyles__SocialMediaContainer>
-          <indexstyles__SocialIconContainer
-            color="#8a3ab9"
+          <indexstyles__ForgotPasswordButton
+            data-test="forgotPassword-button"
+            onClick={[Function]}
           >
-            <test-file-stub />
-          </indexstyles__SocialIconContainer>
-          <indexstyles__SocialIconContainer
-            color="#00acee"
-          >
-            <test-file-stub />
-          </indexstyles__SocialIconContainer>
-          <indexstyles__SocialIconContainer
-            color="#ea4335"
-          >
-            <test-file-stub />
-          </indexstyles__SocialIconContainer>
-          <indexstyles__SocialIconContainer
-            color="#0e76a8"
-          >
-            <test-file-stub />
-          </indexstyles__SocialIconContainer>
-        </indexstyles__SocialMediaContainer>
+            رمز عبور خود را فراموش کرده اید؟
+          </indexstyles__ForgotPasswordButton>
+          <indexstyles__SocialTextContainer>
+            با شبکه های اجتماعی زیر وارد شوید
+          </indexstyles__SocialTextContainer>
+          <indexstyles__SocialMediaContainer>
+            <indexstyles__SocialIconContainer
+              color="#8a3ab9"
+            >
+              <test-file-stub />
+            </indexstyles__SocialIconContainer>
+            <indexstyles__SocialIconContainer
+              color="#00acee"
+            >
+              <test-file-stub />
+            </indexstyles__SocialIconContainer>
+            <indexstyles__SocialIconContainer
+              color="#ea4335"
+            >
+              <test-file-stub />
+            </indexstyles__SocialIconContainer>
+            <indexstyles__SocialIconContainer
+              color="#0e76a8"
+            >
+              <test-file-stub />
+            </indexstyles__SocialIconContainer>
+          </indexstyles__SocialMediaContainer>
+        </indexstyles__SignInFormContainer>
       </indexstyles__SignInForm>
       <indexstyles__SignUpForm
         action=""

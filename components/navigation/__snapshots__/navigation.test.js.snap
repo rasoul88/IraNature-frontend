@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders \`Navigation\` component 1`] = `
+<navigationstyles__NavigationContainer
+  data-test="component-navigation"
+>
+  <navigationstyles__IconContainer
+    data-test="burger-menu"
+    onClick={[Function]}
+    toggle={false}
+  >
+    <navigationstyles__Icon
+      toggle={false}
+    >
+       
+    </navigationstyles__Icon>
+  </navigationstyles__IconContainer>
+  <navigationstyles__Controller
+    data-test="login-controller"
+    onClick={[Function]}
+  >
+    <test-file-stub />
+    <p>
+      ثبت نام | ورود
+    </p>
+  </navigationstyles__Controller>
+  <navigationstyles__BackgroundContainer
+    toggle={false}
+  >
+     
+  </navigationstyles__BackgroundContainer>
+  <navigationstyles__NavContainer
+    toggle={false}
+  >
+    <navigationstyles__NavList
+      onClick={[Function]}
+    >
+      <navigationstyles__Item>
+        <navigationstyles__Link
+          onClick={[Function]}
+        >
+          صفحه اصلی
+        </navigationstyles__Link>
+      </navigationstyles__Item>
+      <navigationstyles__Item>
+        <navigationstyles__Link>
+          درباره ایرانیچر
+        </navigationstyles__Link>
+      </navigationstyles__Item>
+      <navigationstyles__Item>
+        <navigationstyles__Link
+          onClick={[Function]}
+        >
+          تور ها
+        </navigationstyles__Link>
+      </navigationstyles__Item>
+      <navigationstyles__Item>
+        <navigationstyles__Link
+          onClick={[Function]}
+        >
+          ثبت نام | ورود
+        </navigationstyles__Link>
+      </navigationstyles__Item>
+      <navigationstyles__Item>
+        <navigationstyles__Link>
+          همکاری با ایرانیچر
+        </navigationstyles__Link>
+      </navigationstyles__Item>
+      <navigationstyles__Item>
+        <navigationstyles__Link>
+          وبلاگ
+        </navigationstyles__Link>
+      </navigationstyles__Item>
+    </navigationstyles__NavList>
+  </navigationstyles__NavContainer>
+</navigationstyles__NavigationContainer>
+`;

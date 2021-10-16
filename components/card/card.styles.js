@@ -184,7 +184,7 @@ export const CardContainer = styled.div`
   -moz-perspective: 150rem;
   position: relative;
   height: 52rem;
-  min-width: 30rem;
+  min-width: 32rem;
   width: 21%;
   margin: 0 3rem;
 

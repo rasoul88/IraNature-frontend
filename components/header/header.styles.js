@@ -31,6 +31,13 @@ export const LogoContainer = styled.div`
   position: absolute;
   top: 2rem;
   left: 2rem;
+  @media only screen and (max-width: 28.75em) {
+    left: -2rem;
+    top: 1.5rem;
+    & svg {
+      transform: scale(0.8);
+    }
+  }
 `;
 
 export const TextBoxContainer = styled.div`

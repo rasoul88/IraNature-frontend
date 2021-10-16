@@ -1,39 +1,32 @@
 import styled from "styled-components";
 
-export const ToursContainer = styled.div`
+export const PageContainer = styled.div`
   background-color: #f7f7f7;
-  padding: 25rem 0 15rem 0;
-  margin-top: -11rem;
+  padding: 12rem 10rem;
   display: flex;
   flex-direction: column;
   overflow: hidden;
 
   @media only screen and (max-width: 37.5em) {
     padding-bottom: 5rem;
+    padding: 15rem 2rem;
   }
 `;
 
 export const CardsContainer = styled.div`
-  display: flex;
+  /* display: flex;
   justify-content: center;
+  flex-wrap: wrap; */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(31.5rem, 1fr));
+  grid-gap: 4rem;
+  justify-items: center;
+  direction: rtl;
 
   @media only screen and (max-width: 56.25em) {
-    flex-direction: column;
+    /* flex-direction: column; */
   }
   @media only screen and (hover: none) {
     z-index: 1;
-  }
-`;
-
-export const ButtonContainer = styled.div`
-  margin-top: 8rem;
-  text-align: center;
-
-  @media only screen and (max-width: 37.5em) {
-    margin-top: 5rem;
-  }
-
-  @media only screen and (hover: none) {
-    z-index: 0;
   }
 `;

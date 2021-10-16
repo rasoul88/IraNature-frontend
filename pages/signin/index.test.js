@@ -16,30 +16,126 @@ test("renders signin-signup component", () => {
   expect(toJson(wrapper)).toMatchSnapshot();
 });
 
-describe("setState hook calls when click 'signup' and 'signin' button", () => {
+describe("userReducer hook calls when click 'signup', 'signin', 'forgotPassword' and 'signinWithPassword' buttons", () => {
   let wrapper;
-  const mockSetMode = jest.fn();
+  const mockDispatch = jest.fn();
   beforeEach(() => {
-    mockSetMode.mockClear();
+    mockDispatch.mockClear();
 
-    React.useState = jest.fn().mockReturnValue(["", mockSetMode]);
+    React.useReducer = jest.fn().mockReturnValue(["", mockDispatch]);
 
     wrapper = setup();
   });
 
   test("correct initial value ('sinin')", () => {
-    expect(mockSetMode).not.toHaveBeenCalled();
+    expect(mockDispatch).not.toHaveBeenCalled();
   });
 
-  test("click on signup Button", () => {
+  test("click on 'signup' Button", () => {
     const signupButton = findByTestAttribute(wrapper, "signup-button");
     signupButton.simulate("click");
-    expect(mockSetMode).toHaveBeenCalledWith("signup");
+    expect(mockDispatch).toHaveBeenCalledWith({
+      type: "setMode",
+      payload: "signup",
+    });
   });
 
-  test("click on signin Button", () => {
+  test("click on 'signin' Button", () => {
     const signinButton = findByTestAttribute(wrapper, "signin-button");
     signinButton.simulate("click");
-    expect(mockSetMode).toHaveBeenCalledWith("signin");
+    expect(mockDispatch).toHaveBeenCalledWith({
+      type: "setMode",
+      payload: "signin",
+    });
+  });
+
+  describe("when state.forgotPassword is 'false'", () => {
+    let forgotPasswordButton;
+    let signinWithPasswordButton;
+
+    beforeEach(() => {
+      mockDispatch.mockClear();
+
+      React.useReducer = jest.fn().mockReturnValue([
+        {
+          mode: "signin",
+          forgotPassword: false,
+        },
+        mockDispatch,
+      ]);
+
+      wrapper = setup();
+
+      forgotPasswordButton = findByTestAttribute(
+        wrapper,
+        "forgotPassword-button"
+      );
+
+      signinWithPasswordButton = findByTestAttribute(
+        wrapper,
+        "signinWithPassword-button"
+      );
+    });
+
+    test("renders `forgotPassword` button correctly", () => {
+      expect(forgotPasswordButton.length).toBe(1);
+    });
+
+    test("does not render `signinWithPassword` button", () => {
+      expect(signinWithPasswordButton.length).toBe(0);
+    });
+
+    test("click on 'forgotPassword' Button", () => {
+      forgotPasswordButton.simulate("click");
+      expect(mockDispatch).toHaveBeenCalledWith({
+        type: "forgotPassword",
+        payload: true,
+      });
+    });
+  });
+
+  describe("when state.forgotPassword is 'true'", () => {
+    let forgotPasswordButton;
+    let signinWithPasswordButton;
+
+    beforeEach(() => {
+      mockDispatch.mockClear();
+
+      React.useReducer = jest.fn().mockReturnValue([
+        {
+          mode: "signin",
+          forgotPassword: true,
+        },
+        mockDispatch,
+      ]);
+
+      wrapper = setup();
+
+      forgotPasswordButton = findByTestAttribute(
+        wrapper,
+        "forgotPassword-button"
+      );
+
+      signinWithPasswordButton = findByTestAttribute(
+        wrapper,
+        "singinWithPassword-button"
+      );
+    });
+
+    test("renders `forgotPassword` button correctly", () => {
+      expect(forgotPasswordButton.length).toBe(0);
+    });
+
+    test("does not render `signinWithPassword` button", () => {
+      expect(signinWithPasswordButton.length).toBe(1);
+    });
+
+    test("click on 'forgotPassword' Button", () => {
+      signinWithPasswordButton.simulate("click");
+      expect(mockDispatch).toHaveBeenCalledWith({
+        type: "forgotPassword",
+        payload: false,
+      });
+    });
   });
 });
