@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import {
   CardContainer,
   FrontContainer,
@@ -17,15 +18,18 @@ import {
 
 import CustomButton from "../custom-button/custom-button.component";
 
-const Card = ({
-  title,
-  items,
-  backgroundImage,
-  gradientColor,
-  gradientText,
-  payValue,
-}) => {
+const Card = (props) => {
+  const {
+    id,
+    title,
+    items,
+    backgroundImage,
+    gradientColor,
+    gradientText,
+    payValue,
+  } = props;
   const [isOpen, setOpen] = useState(false);
+  const router = useRouter();
   return (
     <CardContainer
       data-aos="zoom-in-up"
@@ -66,7 +70,11 @@ const Card = ({
             <ValueContainer>{payValue}</ValueContainer>
           </PriceContainer>
           <CustomButton
-            targetElement="#popup"
+            onClick={() =>
+              router.push({
+                pathname: `/tours/${id}`,
+              })
+            }
             color="#999"
             backgroundColor="white"
           >

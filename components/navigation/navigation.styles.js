@@ -90,7 +90,7 @@ export const Controller = styled.label`
   width: 20rem;
   height: 6rem;
   border-radius: 200px;
-  position: absolute;
+  position: fixed;
   top: 6.5rem;
   right: 14rem;
   z-index: 10;
@@ -106,7 +106,7 @@ export const Controller = styled.label`
     right: 12rem;
   }
   @media only screen and (max-width: 37.5em) {
-    width: 15rem;
+    width: ${(props) => (props.mode === "return" ? "7rem" : "15rem")};
     top: 3.5rem;
     right: 2.7rem;
     height: 7rem;
@@ -122,12 +122,17 @@ export const Controller = styled.label`
   }
 
   @media only screen and (max-width: 28.75em) {
-    width: 13rem;
+    width: ${(props) => (props.mode === "return" ? "6rem" : "13rem")};
     top: 3.5rem;
     right: 2.7rem;
     height: 6rem;
     top: 3rem;
-    justify-content: flex-start;
+    justify-content: ${(props) =>
+      props.mode === "return" ? "center" : "flex-start;"};
+
+    & svg {
+      ${(props) => props.mode === "return" && "margin-left: 0"};
+    }
   }
 
   & svg {
@@ -137,7 +142,8 @@ export const Controller = styled.label`
   }
 
   &:hover svg {
-    transform: translateX(3px);
+    transform: ${(props) =>
+      props.mode === "return" ? "translateX(-3px)" : "translateX(3px)"};
   }
 `;
 

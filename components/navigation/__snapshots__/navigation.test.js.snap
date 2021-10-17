@@ -2,7 +2,23 @@
 
 exports[`renders \`Navigation\` component 1`] = `
 <navigationstyles__NavigationContainer
+  currentUser={
+    Object {
+      "email": "sahrayeDelha@gmail.com",
+      "name": "rasoul",
+    }
+  }
   data-test="component-navigation"
+  dispatch={[Function]}
+  store={
+    Object {
+      "@@observable": [Function],
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
 >
   <navigationstyles__IconContainer
     data-test="burger-menu"
@@ -16,12 +32,12 @@ exports[`renders \`Navigation\` component 1`] = `
     </navigationstyles__Icon>
   </navigationstyles__IconContainer>
   <navigationstyles__Controller
-    data-test="login-controller"
+    data-test="user-controller"
     onClick={[Function]}
   >
     <test-file-stub />
     <p>
-      ثبت نام | ورود
+      رسول صحرایی
     </p>
   </navigationstyles__Controller>
   <navigationstyles__BackgroundContainer

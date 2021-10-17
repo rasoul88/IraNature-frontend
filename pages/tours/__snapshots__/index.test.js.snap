@@ -5,7 +5,7 @@ exports[`renders ToursPage correctly 1`] = `
   data-test="component-tours-page"
 >
   <SecodaryHeading>
-     همه ی تورهای فعال
+     تورهای فعال
   </SecodaryHeading>
   <indexstyles__CardsContainer>
     <Card

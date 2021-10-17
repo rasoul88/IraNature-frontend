@@ -106,7 +106,7 @@ const toursData = [
 const ToursPage = () => {
   return (
     <PageContainer data-test="component-tours-page">
-      <SecondaryHeading> همه ی تورهای فعال</SecondaryHeading>
+      <SecondaryHeading> تورهای فعال</SecondaryHeading>
       <CardsContainer>
         {toursData.map((tour) => (
           <Card key={tour.id} {...tour} />

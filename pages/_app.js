@@ -1,18 +1,23 @@
 import React from "react";
+import { Provider } from "react-redux";
 import "../styles/globals.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Navigation from "../components/navigation/navigation.component";
+import store from "../redux/store";
 
 function MyApp({ Component, pageProps }) {
   React.useEffect(() => {
     AOS.init();
   }, []);
+
   return (
-    <div>
-      <Navigation currentUser={{ name: "رسول صحرایی" }} />
-      <Component {...pageProps} />
-    </div>
+    <Provider store={store}>
+      <div>
+        <Navigation />
+        <Component {...pageProps} />
+      </div>
+    </Provider>
   );
 }
 

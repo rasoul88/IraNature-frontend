@@ -37,6 +37,7 @@ export const Button = styled.a`
     border: none;
     cursor: pointer;
     backface-visibility: hidden;
+    text-align: center;
   }
 
   &:hover {

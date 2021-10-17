@@ -1,5 +1,6 @@
 import React from "react";
 import * as nextRouter from "next/router";
+import { connect } from "react-redux";
 import {
   BackgroundContainer,
   Icon,
@@ -18,6 +19,7 @@ const Navigation = (props) => {
   const router = nextRouter.useRouter();
   const [toggle, settoggle] = React.useState(false);
 
+  // console.log(props);
   const handleMenuItemClick = (href) => {
     router.push(href);
   };
@@ -79,4 +81,7 @@ const Navigation = (props) => {
   );
 };
 
-export default Navigation;
+const mapStateToProps = ({ user: { currentUser } }) => ({
+  currentUser,
+});
+export default connect(mapStateToProps)(Navigation);
