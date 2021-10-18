@@ -22,6 +22,7 @@ export const CardsContainer = styled.div`
   grid-gap: 4rem;
   justify-items: center;
   direction: rtl;
+  margin-top: 6rem;
 
   @media only screen and (max-width: 56.25em) {
     /* flex-direction: column; */

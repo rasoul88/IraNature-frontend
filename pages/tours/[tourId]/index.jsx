@@ -1,4 +1,6 @@
 import { useRouter } from "next/router";
+import ImageGallery from "react-image-gallery";
+// import "react-image-gallery/styles/css/image-gallery.css";
 import {
   HeaderContainer,
   HeaderContentContainer,
@@ -8,8 +10,12 @@ import {
   InformationSection,
   InfoContainer,
   AboutContainer,
+  ItemsContainer,
   InfoItem,
-  AvatarContainer,
+  GallerySection,
+  CommentsSection,
+  CommentsContainer,
+  CommentsInfoContainer,
 } from "./index.styles";
 import SecodaryHeading from "../../../components/heading/heading.component";
 import ReturnIcon from "../../../public/assets/icons/back-return-svgrepo-com.svg";
@@ -20,13 +26,14 @@ import CalenderIcon from "../../../public/assets/icons/calendar.svg";
 import DifficultyIcon from "../../../public/assets/icons/flag.svg";
 import ParticipantsIcon from "../../../public/assets/icons/users.svg";
 import StarIcon from "../../../public/assets/icons/star-full.svg";
-import DefaultAvatar from "../../../public/assets/icons/avatar-svgrepo-com.svg";
+import Avatar from "../../../components/avatar/avatar.component";
+import CommentBox from "../../../components/comment-box/comment-box.component";
 
 const tour = {
   id: 0,
   title: "کاوشگری دریا",
   items: {
-    time: "سوم ابان",
+    time: "سوم آبان",
     participants: "تا 50 نفر",
     guides: "راهنمای تور : 2 نفر",
     camp: "خواب در هتل دنج",
@@ -34,18 +41,43 @@ const tour = {
     rating: 4.6,
   },
   backgroundImage: "/assets/img/nat-5.jpg",
-  gradientColor: "linear-gradient(to right bottom, #ffb900, #ff7730)",
+  // gradientColor: "linear-gradient(to right bottom, #ffb900, #ff7730)",
+  // gradientText:
+  //   "linear-gradient(to right bottom, rgba(255, 185, 0, 0.85), rgba(255, 119, 48, 0.85))",
+  // iconsColor: "rgba(255, 119, 48, 0.85)",
+  gradientColor:
+    "linear-gradient(to right bottom,  rgba(41, 152, 255),   rgba(86, 67, 250))",
   gradientText:
-    "linear-gradient(to right bottom, rgba(255, 185, 0, 0.85), rgba(255, 119, 48, 0.85))",
+    "linear-gradient(to right bottom,  rgba(41, 152, 255, 0.85),   rgba(86, 67, 250, 0.85))",
+  iconsColor: "rgb(24, 123, 205)",
+  // gradientColor: "linear-gradient(to right bottom, #7ed56f,  #28b485)",
+  // gradientText:
+  //   "linear-gradient(to right bottom, rgba(126, 213, 111, 0.85),  rgba(40, 180, 133, 0.85))",
+  // iconsColor: "rgba(40, 180, 133, 0.85)",
   payValue: "3,000,000",
 };
+
+const images = [
+  {
+    original: "https://picsum.photos/id/1018/1000/600/",
+    thumbnail: "https://picsum.photos/id/1018/250/150/",
+  },
+  {
+    original: "https://picsum.photos/id/1015/1000/600/",
+    thumbnail: "https://picsum.photos/id/1015/250/150/",
+  },
+  {
+    original: "https://picsum.photos/id/1019/1000/600/",
+    thumbnail: "https://picsum.photos/id/1019/250/150/",
+  },
+];
 
 const TourPage = () => {
   const router = useRouter();
   const { tourId } = router.query;
 
   return (
-    <>
+    <div style={{ backgroundColor: "#fafafa", width: "100vw" }}>
       <Controller
         style={{ position: "fixed", left: "4rem" }}
         onClick={() => router.back()}
@@ -76,7 +108,9 @@ const TourPage = () => {
       </HeaderContainer>
       <InformationSection>
         <AboutContainer>
-          <SecodaryHeading>درباره ی این تور</SecodaryHeading>
+          <SecodaryHeading background={tour.gradientColor}>
+            درباره ی این تور
+          </SecodaryHeading>
           <p>
             لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
             استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در
@@ -92,47 +126,79 @@ const TourPage = () => {
           </p>
         </AboutContainer>
         <InfoContainer>
-          <SecodaryHeading>ویژگی ها</SecodaryHeading>
-          <InfoItem iconColor="#ff7730">
-            <p>{tour.items.time}</p>
-            <h4>تاریخ تور</h4>
-            <CalenderIcon />
-          </InfoItem>
-          <InfoItem iconColor="#ff7730">
-            <p>{tour.items.difficulty}</p>
-            <h4>دشواری</h4>
-            <DifficultyIcon />
-          </InfoItem>
-          <InfoItem iconColor="#ff7730">
-            <p>{tour.items.participants}</p>
-            <h4>تعداد افراذ</h4>
-            <ParticipantsIcon />
-          </InfoItem>
-          <InfoItem iconColor="#ff7730">
-            <p>{tour.items.rating} / 5</p>
-            <h4>امتیاز</h4>
-            <StarIcon />
-          </InfoItem>
+          <ItemsContainer>
+            <SecodaryHeading background={tour.gradientColor}>
+              ویژگی ها
+            </SecodaryHeading>
+            <InfoItem iconColor={tour.iconsColor}>
+              <p>{tour.items.time}</p>
+              <h4>تاریخ تور</h4>
+              <CalenderIcon />
+            </InfoItem>
+            <InfoItem iconColor={tour.iconsColor}>
+              <p>{tour.items.difficulty}</p>
+              <h4>دشواری</h4>
+              <DifficultyIcon />
+            </InfoItem>
+            <InfoItem iconColor={tour.iconsColor}>
+              <p>{tour.items.participants}</p>
+              <h4>تعداد افراد</h4>
+              <ParticipantsIcon />
+            </InfoItem>
+            <InfoItem iconColor={tour.iconsColor}>
+              <p>{tour.items.rating} / 5</p>
+              <h4>امتیاز</h4>
+              <StarIcon />
+            </InfoItem>
+          </ItemsContainer>
+          <ItemsContainer>
+            <SecodaryHeading background={tour.gradientColor}>
+              راهنماهای تور
+            </SecodaryHeading>
 
-          <SecodaryHeading>راهنماهای تور</SecodaryHeading>
-
-          <InfoItem>
-            <p>رسول صحرایی</p>
-            <h4>تور لیدر</h4>
-            <AvatarContainer>
-              <DefaultAvatar />
-            </AvatarContainer>
-          </InfoItem>
-          <InfoItem>
-            <p>محسن زینی وند</p>
-            <h4>راهنما</h4>
-            <AvatarContainer>
-              <DefaultAvatar />
-            </AvatarContainer>
-          </InfoItem>
+            <InfoItem>
+              <p>رسول صحرایی</p>
+              <h4>تور لیدر</h4>
+              <Avatar image="/assets/img/iran1.jpg" name="rasoul" />
+            </InfoItem>
+            <InfoItem>
+              <p>محسن زینی وند</p>
+              <h4>راهنما</h4>
+              <Avatar />
+            </InfoItem>
+          </ItemsContainer>
         </InfoContainer>
       </InformationSection>
-    </>
+      <GallerySection>
+        <SecodaryHeading background={tour.gradientColor}>
+          تصاویر تور
+        </SecodaryHeading>
+        <ImageGallery items={images} />
+      </GallerySection>
+
+      {/* change */}
+      <CommentsSection>
+        <SecodaryHeading background={tour.gradientColor}>
+          نظرات کاربران
+        </SecodaryHeading>
+        <CommentsInfoContainer>
+          <p>تعداد نظرات: 6</p>
+        </CommentsInfoContainer>
+        <CommentsContainer scrollColor={tour.gradientColor}>
+          {Array(6)
+            .fill()
+            .map((el, index) => (
+              <CommentBox
+                key={index}
+                image="/assets/img/iran1.jpg"
+                name="رسول صحرایی"
+                createdDate="1400/11/3 22:45"
+                iconColor={tour.iconsColor}
+              />
+            ))}
+        </CommentsContainer>
+      </CommentsSection>
+    </div>
   );
 };
 

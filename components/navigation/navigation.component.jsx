@@ -13,7 +13,7 @@ import {
   Controller,
 } from "./navigation.styles";
 import LoginIcon from "../../public/assets/icons/login-svgrepo-com.svg";
-import DefaultAvatar from "../../public/assets/icons/avatar-svgrepo-com.svg";
+import Avatar from "../avatar/avatar.component";
 
 const Navigation = (props) => {
   const router = nextRouter.useRouter();
@@ -38,7 +38,7 @@ const Navigation = (props) => {
             data-test="user-controller"
             onClick={() => handleMenuItemClick("/signin")}
           >
-            <DefaultAvatar />
+            <Avatar />
             <p>رسول صحرایی</p>
           </Controller>
         ) : (

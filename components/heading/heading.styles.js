@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const HeadingContainer = styled.div`
-  margin-bottom: 8rem;
+  /* margin-bottom: 8rem; */
   text-align: center;
 `;
 
@@ -10,7 +10,10 @@ export const Heading2 = styled.h2`
   font-weight: 700;
   text-transform: uppercase;
   display: inline-block;
-  background: linear-gradient(to right, rgb(24, 123, 205), rgb(3, 37, 76));
+  background: ${(props) =>
+    props.background
+      ? props.background
+      : "linear-gradient(to right, rgb(24, 123, 205), rgb(3, 37, 76))"};
   -webkit-background-clip: text;
   color: transparent;
   letter-spacing: 0.2rem;

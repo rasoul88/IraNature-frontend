@@ -18,6 +18,7 @@ const Stories = () => {
         data-aos="fade-right"
         data-aos-anchor-placement="top-bottom"
         data-aos-duration="1000"
+        style={{ marginTop: "8rem" }}
       >
         <Story
           name="مریم مرادی"

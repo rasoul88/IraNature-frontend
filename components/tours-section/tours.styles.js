@@ -16,6 +16,7 @@ export const ToursContainer = styled.div`
 export const CardsContainer = styled.div`
   display: flex;
   justify-content: center;
+  margin-top: 8rem;
 
   @media only screen and (max-width: 56.25em) {
     flex-direction: column;

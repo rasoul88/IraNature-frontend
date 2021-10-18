@@ -17,6 +17,7 @@ export const AboutContainer = styled.div`
 export const ContentContainer = styled.div`
   max-width: 1400px;
   display: flex;
+  margin-top: 8rem;
 
   @media only screen and (max-width: 56.25em) {
     flex-direction: column;

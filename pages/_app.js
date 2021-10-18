@@ -5,6 +5,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import Navigation from "../components/navigation/navigation.component";
 import store from "../redux/store";
+import Footer from "../components/footer/footer.component";
 
 function MyApp({ Component, pageProps }) {
   React.useEffect(() => {
@@ -16,6 +17,9 @@ function MyApp({ Component, pageProps }) {
       <div>
         <Navigation />
         <Component {...pageProps} />
+        {/* <footer>
+          <Footer />
+        </footer> */}
       </div>
     </Provider>
   );

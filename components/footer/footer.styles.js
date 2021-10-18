@@ -67,9 +67,9 @@ export const IconsContainer = styled.div`
   justify-content: center;
   margin-bottom: 3rem;
 
-  @media only screen and (max-width: 900px) {
+  /* @media only screen and (max-width: 900px) {
     transform: scale(1.1);
-  }
+  } */
 `;
 
 export const SocialIconContainer = styled.a`
