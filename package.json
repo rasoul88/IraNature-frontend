@@ -10,16 +10,19 @@
     "test": "jest --watch"
   },
   "dependencies": {
+    "@hassanmojab/react-modern-calendar-datepicker": "^3.1.7",
     "@svgr/webpack": "^5.5.0",
     "aos": "^2.3.4",
+    "multiselect-react-dropdown": "^2.0.7",
     "next": "11.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-image-gallery": "^1.2.7",
+    "react-range": "^1.8.11",
     "react-redux": "^7.2.5",
     "redux": "^4.1.1",
     "redux-logger": "^3.0.6",
-    "styled-components": "^5.3.1"
+    "styled-components": "^5.3.3"
   },
   "devDependencies": {
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",

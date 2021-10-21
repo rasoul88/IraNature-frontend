@@ -1,6 +1,12 @@
-import { PageContainer, CardsContainer } from "./index.styles";
+import { connect } from "react-redux";
+import {
+  PageContainer,
+  ContentContainer,
+  CardsContainer,
+} from "./index.styles";
 import Card from "../../components/card/card.component";
 import SecondaryHeading from "../../components/heading/heading.component";
+import FilterPanel from "../../components/filter-panel/filter-panel.component";
 
 const toursData = [
   {
@@ -103,17 +109,23 @@ const toursData = [
   },
 ];
 
-const ToursPage = () => {
+const ToursPage = ({ panelStatus }) => {
   return (
     <PageContainer data-test="component-tours-page">
-      <SecondaryHeading> تورهای فعال</SecondaryHeading>
-      <CardsContainer>
-        {toursData.map((tour) => (
-          <Card key={tour.id} {...tour} />
-        ))}
-      </CardsContainer>
+      <FilterPanel />
+      <ContentContainer panelStatus={panelStatus}>
+        <SecondaryHeading> تورهای فعال</SecondaryHeading>
+        <CardsContainer>
+          {toursData.map((tour) => (
+            <Card key={tour.id} {...tour} />
+          ))}
+        </CardsContainer>
+      </ContentContainer>
     </PageContainer>
   );
 };
 
-export default ToursPage;
+const mapStateToProps = ({ tours: { panelStatus } }) => ({
+  panelStatus,
+});
+export default connect(mapStateToProps)(ToursPage);

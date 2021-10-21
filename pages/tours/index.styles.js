@@ -2,14 +2,28 @@ import styled from "styled-components";
 
 export const PageContainer = styled.div`
   background-color: #f7f7f7;
+  display: flex;
+`;
+
+export const ContentContainer = styled.div`
+  width: ${(props) => (props.panelStatus ? "calc(100% - 30rem)" : "100%")};
   padding: 12rem 10rem;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  margin-left: ${(props) => (props.panelStatus ? "30rem" : "0")};
+  transition: all 0.5s ease-in-out;
+
+  /* for mobile size {
+      width: 100%;
+      margin-left: 0;
+    } */
 
   @media only screen and (max-width: 37.5em) {
     padding-bottom: 5rem;
     padding: 15rem 2rem;
+    width: 100%;
+    margin-left: 0;
   }
 `;
 

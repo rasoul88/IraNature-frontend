@@ -10,7 +10,7 @@ const FeatureBox = ({ id, title, content, SVG }) => {
       data-aos-delay="150"
     >
       <FeatureBoxContainer>
-        <SVGContainer>
+        <SVGContainer id={id}>
           <SVG />
         </SVGContainer>
         <h3>{title}</h3>
