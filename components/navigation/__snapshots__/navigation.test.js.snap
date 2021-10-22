@@ -35,7 +35,7 @@ exports[`renders \`Navigation\` component 1`] = `
     data-test="user-controller"
     onClick={[Function]}
   >
-    <test-file-stub />
+    <Avatar />
     <p>
       رسول صحرایی
     </p>

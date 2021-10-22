@@ -216,5 +216,9 @@ export const CommentsContainer = styled.div`
   direction: rtl;
   margin-bottom: 5rem;
 
+  @media only screen and (hover: none) {
+    scroll-snap-type: x mandatory;
+  }
+
   ${scrollbarStyle}
 `;

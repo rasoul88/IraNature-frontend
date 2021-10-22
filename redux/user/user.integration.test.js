@@ -8,10 +8,10 @@ describe("setCurrentUser action dispatcher", () => {
     const store = storeFactory(initialState);
     store.dispatch(setCurrentUser(user));
 
-    const expectedState = { user: { currentUser: user } };
-    const newState = store.getState();
+    const expectedUserState = { currentUser: user };
+    const newUserState = store.getState().user;
 
-    expect(newState).toEqual(expectedState);
+    expect(newUserState).toEqual(expectedUserState);
   });
 
   test("if user log out", () => {
@@ -20,9 +20,9 @@ describe("setCurrentUser action dispatcher", () => {
     const store = storeFactory(initialState);
     store.dispatch(setCurrentUser(null));
 
-    const expectedState = { user: { currentUser: null } };
-    const newState = store.getState();
+    const expectedUserState = { currentUser: null };
+    const newUserState = store.getState().user;
 
-    expect(newState).toEqual(expectedState);
+    expect(newUserState).toEqual(expectedUserState);
   });
 });

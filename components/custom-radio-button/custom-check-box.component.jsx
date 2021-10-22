@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, CheckboxItem } from "./custom-check-box.styles";
 
-const CustomRadioButton = ({
+const CustomCheckbox = ({
   children,
   selectedValues,
   onChange,
@@ -30,4 +30,4 @@ const CustomRadioButton = ({
   );
 };
 
-export default CustomRadioButton;
+export default CustomCheckbox;

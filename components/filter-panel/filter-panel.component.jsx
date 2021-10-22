@@ -10,33 +10,37 @@ import {
   ItemHeaderContainer,
 } from "./filter-panel.styles";
 import FilterIcon from "../../public/assets/icons/filters-2-svgrepo-com.svg";
-import { toggleFilterPanel } from "../../redux/tours/tours.actions";
 import CustomRangeSlider from "../custom-range-slider/custom-range-slider";
 import CustomButton from "../custom-button/custom-button.component";
 import CustomInput from "../custom-input/custom-input.component";
-import DatePicker from "../data-picker/date-picker.component";
+import CustomDatePicker from "../data-picker/date-picker.component";
 import CustomCkeckbox from "../custom-radio-button/custom-check-box.component";
 import { CheckboxItem } from "../custom-radio-button/custom-check-box.styles";
 
+import { toggleFilterPanel } from "../../redux/tours/tours.actions";
 import { setFilterItem } from "../../redux/tours/tours.actions";
 
-const FilterPanel = ({
+export const UnconnectedFilterPanel = ({
   panelStatus,
   filterItems,
   dataLimits,
   activeCities,
-  dispatch,
+  toggleFilterPanel,
+  setFilterItem,
 }) => {
   const { name, price, cities, days, dateRange, difficulty, maxParticipants } =
     filterItems;
 
   const filterItemsChangeHandler = (itemName, value) => {
-    dispatch(setFilterItem(itemName, value));
+    setFilterItem(itemName, value);
   };
 
   return (
-    <PanelContainer isOpen={panelStatus}>
-      <FilterIconContainer onClick={() => dispatch(toggleFilterPanel())}>
+    <PanelContainer data-test="component-filter-panel" isOpen={panelStatus}>
+      <FilterIconContainer
+        data-test="toggle-filter-panel-button"
+        onClick={() => toggleFilterPanel()}
+      >
         <FilterIcon />
       </FilterIconContainer>
       <ContentContainer isOpen={panelStatus}>
@@ -49,6 +53,7 @@ const FilterPanel = ({
             <h5>نام </h5>
           </ItemHeaderContainer>
           <CustomInput
+            data-test="name-input"
             type="text"
             onBlur={(event) =>
               filterItemsChangeHandler("name", event.target.value)
@@ -66,13 +71,12 @@ const FilterPanel = ({
             )}
           </ItemHeaderContainer>
           <CustomRangeSlider
+            data-test="price-range-slider"
             min={dataLimits.price.min}
             max={dataLimits.price.max}
             step={dataLimits.price.step}
             values={price}
-            handleChange={(newValue) =>
-              filterItemsChangeHandler("price", newValue)
-            }
+            onChange={(newValue) => filterItemsChangeHandler("price", newValue)}
             valueLabelDisplay="off"
           />
         </FilterItemContainer>
@@ -86,13 +90,12 @@ const FilterPanel = ({
             )}
           </ItemHeaderContainer>
           <CustomRangeSlider
+            data-test="days-range-slider"
             min={dataLimits.days.min}
             max={dataLimits.days.max}
             step={dataLimits.days.step}
             values={days}
-            handleChange={(newValue) =>
-              filterItemsChangeHandler("days", newValue)
-            }
+            onChange={(newValue) => filterItemsChangeHandler("days", newValue)}
             valueLabelDisplay="on"
           />
         </FilterItemContainer>
@@ -100,9 +103,10 @@ const FilterPanel = ({
           <ItemHeaderContainer>
             <h5>محدوده زمانی شروع </h5>
           </ItemHeaderContainer>
-          <DatePicker
+          <CustomDatePicker
+            data-test="dateRange-date-picker"
             selectedRange={dateRange}
-            calenderChangeHandler={(newValue) =>
+            onChange={(newValue) =>
               filterItemsChangeHandler("dateRange", newValue)
             }
           />
@@ -112,6 +116,7 @@ const FilterPanel = ({
             <h5>شهر مبدا </h5>
           </ItemHeaderContainer>
           <Multiselect
+            data-test="cities-multiselector"
             id="multiselect-react-dropdown"
             options={activeCities}
             selectedValues={cities}
@@ -146,6 +151,7 @@ const FilterPanel = ({
             <h5>درجه سختی</h5>
           </ItemHeaderContainer>
           <CustomCkeckbox
+            data-test="difficulty-checkbox"
             selectedValues={difficulty}
             onChange={(newValue) =>
               filterItemsChangeHandler("difficulty", newValue)
@@ -162,10 +168,11 @@ const FilterPanel = ({
             {maxParticipants[0] && <p>تا {maxParticipants} نفر</p>}
           </ItemHeaderContainer>
           <CustomRangeSlider
+            data-test="maxParticipants-range-slider"
             min={dataLimits.maxParticipants.min}
             max={dataLimits.maxParticipants.max}
             values={maxParticipants}
-            handleChange={(newValue) =>
+            onChange={(newValue) =>
               filterItemsChangeHandler("maxParticipants", newValue)
             }
             valueLabelDisplay="on"
@@ -192,4 +199,12 @@ const mapStateToProps = ({
   activeCities,
 });
 
-export default connect(mapStateToProps)(FilterPanel);
+const mapDipatchToProps = (dispatch) => ({
+  toggleFilterPanel: () => dispatch(toggleFilterPanel()),
+  setFilterItem: (itemName, value) => dispatch(setFilterItem(itemName, value)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDipatchToProps
+)(UnconnectedFilterPanel);

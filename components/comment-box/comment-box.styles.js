@@ -10,6 +10,10 @@ export const Container = styled.div`
   box-shadow: 0 1rem 3rem rgb(0 0 0 / 30%);
   border-radius: 10px;
   margin: 0 2rem;
+
+  @media only screen and (hover: none) {
+    scroll-snap-align: center;
+  }
 `;
 
 export const HeaderContainer = styled.div`

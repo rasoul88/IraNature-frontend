@@ -91,6 +91,28 @@ export const PanelHeader = styled.div`
 export const FilterItemContainer = styled.div`
   width: 100%;
   padding: 1rem 2rem;
+
+  & #multiselect-react-dropdown .optionListContainer {
+    box-shadow: 0 1rem 3rem rgb(0 0 0 / 70%);
+    border-radius: 8px;
+    overflow: hidden;
+
+    & .optionContainer::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      background-color: white;
+      border-radius: 8px;
+    }
+
+    & .optionContainer::-webkit-scrollbar {
+      width: 3px;
+      background-color: white;
+    }
+
+    & .optionContainer::-webkit-scrollbar-thumb {
+      border-radius: 8px;
+      background: linear-gradient(45deg, #021b79, #0575e6, #205e9b);
+    }
+  }
 `;
 
 export const ItemHeaderContainer = styled.div`

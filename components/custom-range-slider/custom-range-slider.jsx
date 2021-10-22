@@ -4,7 +4,7 @@ import { CustomLable, CustomThumb } from "./custom-range-slider.styles";
 
 const CustomRangeSlider = ({
   values,
-  handleChange,
+  onChange,
   max,
   min,
   step,
@@ -29,7 +29,7 @@ const CustomRangeSlider = ({
         step={step}
         min={min}
         max={max}
-        onChange={(values) => handleChange(values)}
+        onChange={(values) => onChange(values)}
         renderMark={({ props, index }) => (
           <div
             {...props}

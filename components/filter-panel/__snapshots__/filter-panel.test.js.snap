@@ -1,0 +1,249 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders filterPanel correctly 1`] = `
+<filter-panelstyles__PanelContainer
+  data-test="component-filter-panel"
+  isOpen={false}
+>
+  <filter-panelstyles__FilterIconContainer
+    data-test="toggle-filter-panel-button"
+    onClick={[Function]}
+  >
+    <test-file-stub />
+  </filter-panelstyles__FilterIconContainer>
+  <filter-panelstyles__ContentContainer
+    isOpen={false}
+  >
+    <filter-panelstyles__PanelHeader>
+      <p>
+        4
+      </p>
+      <h4>
+        فیلترها
+      </h4>
+    </filter-panelstyles__PanelHeader>
+    <filter-panelstyles__FilterItemContainer>
+      <filter-panelstyles__ItemHeaderContainer>
+        <h5>
+          نام 
+        </h5>
+      </filter-panelstyles__ItemHeaderContainer>
+      <CustomInput
+        data-test="name-input"
+        onBlur={[Function]}
+        placeholder="نام تور را وارد کنید"
+        type="text"
+      />
+    </filter-panelstyles__FilterItemContainer>
+    <filter-panelstyles__FilterItemContainer>
+      <filter-panelstyles__ItemHeaderContainer>
+        <h5>
+          محدوده قیمت
+        </h5>
+        <p>
+          از 
+          200,000
+           تا 
+          4,000,000
+        </p>
+      </filter-panelstyles__ItemHeaderContainer>
+      <CustomRangeSlider
+        data-test="price-range-slider"
+        max={4000000}
+        min={200000}
+        onChange={[Function]}
+        step={50000}
+        valueLabelDisplay="off"
+        values={
+          Array [
+            200000,
+            4000000,
+          ]
+        }
+      />
+    </filter-panelstyles__FilterItemContainer>
+    <filter-panelstyles__FilterItemContainer>
+      <filter-panelstyles__ItemHeaderContainer>
+        <h5>
+          مدت 
+        </h5>
+        <p>
+          از 
+          1
+           تا 
+          20
+           روز
+        </p>
+      </filter-panelstyles__ItemHeaderContainer>
+      <CustomRangeSlider
+        data-test="days-range-slider"
+        max={20}
+        min={1}
+        onChange={[Function]}
+        step={1}
+        valueLabelDisplay="on"
+        values={
+          Array [
+            1,
+            20,
+          ]
+        }
+      />
+    </filter-panelstyles__FilterItemContainer>
+    <filter-panelstyles__FilterItemContainer>
+      <filter-panelstyles__ItemHeaderContainer>
+        <h5>
+          محدوده زمانی شروع 
+        </h5>
+      </filter-panelstyles__ItemHeaderContainer>
+      <CustomDatePicker
+        data-test="dateRange-date-picker"
+        onChange={[Function]}
+        selectedRange={
+          Object {
+            "from": null,
+            "to": null,
+          }
+        }
+      />
+    </filter-panelstyles__FilterItemContainer>
+    <filter-panelstyles__FilterItemContainer>
+      <filter-panelstyles__ItemHeaderContainer>
+        <h5>
+          شهر مبدا 
+        </h5>
+      </filter-panelstyles__ItemHeaderContainer>
+      <Multiselect
+        avoidHighlightFirstOption={false}
+        caseSensitiveSearch={false}
+        closeIcon="circle2"
+        closeOnSelect={true}
+        customCloseIcon=""
+        data-test="cities-multiselector"
+        disablePreSelectedValues={false}
+        displayValue="name"
+        emptyRecordMsg="در حال حاضر شهر دیگری برای انتخاب وجود ندارد"
+        groupBy=""
+        hidePlaceholder={false}
+        id="multiselect-react-dropdown"
+        isObject={true}
+        keepSearchTerm={false}
+        onRemove={[Function]}
+        onSelect={[Function]}
+        options={
+          Array [
+            Object {
+              "id": 1,
+              "name": "تهران",
+            },
+            Object {
+              "id": 2,
+              "name": "اصفهان",
+            },
+            Object {
+              "id": 3,
+              "name": "تبریز",
+            },
+            Object {
+              "id": 4,
+              "name": "کرج",
+            },
+            Object {
+              "id": 5,
+              "name": "شیراز",
+            },
+          ]
+        }
+        placeholder="انتخاب"
+        selectedValues={null}
+        selectionLimit={-1}
+        showArrow={true}
+        showCheckbox={false}
+        singleSelect={false}
+        style={
+          Object {
+            "inputField": Object {
+              "fontFamily": "Iransans",
+              "marginRight": "2rem",
+              "textAlign": "right",
+              "width": "5rem",
+            },
+            "optionContainer": Object {
+              "fontSize": "14px",
+              "textAlign": "right",
+            },
+            "searchBox": Object {
+              "fontSize": "1.4rem",
+              "minHeight": "4.6rem",
+              "textAlign": "right",
+            },
+          }
+        }
+      />
+    </filter-panelstyles__FilterItemContainer>
+    <filter-panelstyles__FilterItemContainer>
+      <filter-panelstyles__ItemHeaderContainer>
+        <h5>
+          درجه سختی
+        </h5>
+      </filter-panelstyles__ItemHeaderContainer>
+      <CustomCheckbox
+        data-test="difficulty-checkbox"
+        onChange={[Function]}
+        selectedValues={Array []}
+      >
+        <custom-check-boxstyles__CheckboxItem
+          key="hard"
+        >
+          سخت
+        </custom-check-boxstyles__CheckboxItem>
+        <custom-check-boxstyles__CheckboxItem
+          key="medium"
+        >
+          متوسط
+        </custom-check-boxstyles__CheckboxItem>
+        <custom-check-boxstyles__CheckboxItem
+          key="easy"
+        >
+          آسان
+        </custom-check-boxstyles__CheckboxItem>
+      </CustomCheckbox>
+    </filter-panelstyles__FilterItemContainer>
+    <filter-panelstyles__FilterItemContainer>
+      <filter-panelstyles__ItemHeaderContainer>
+        <h5>
+          حداکثر تعداد شرکت کننده
+        </h5>
+        <p>
+          تا 
+          40
+           نفر
+        </p>
+      </filter-panelstyles__ItemHeaderContainer>
+      <CustomRangeSlider
+        data-test="maxParticipants-range-slider"
+        max={40}
+        min={5}
+        onChange={[Function]}
+        valueLabelDisplay="on"
+        values={
+          Array [
+            40,
+          ]
+        }
+      />
+    </filter-panelstyles__FilterItemContainer>
+    <CustomButton
+      backgroundColor="#1976D2"
+      color="white"
+      style={
+        Object {
+          "margin": "2rem 0",
+        }
+      }
+    >
+      اعمال فیلتر ها
+    </CustomButton>
+  </filter-panelstyles__ContentContainer>
+</filter-panelstyles__PanelContainer>
+`;

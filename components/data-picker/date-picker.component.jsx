@@ -5,7 +5,7 @@ import DatePicker, {
   utils,
 } from "@hassanmojab/react-modern-calendar-datepicker";
 
-const CustomDatePicker = ({ selectedRange, calenderChangeHandler }) => {
+const CustomDatePicker = ({ selectedRange, onChange }) => {
   const dateFormater = (date) => {
     return `${date.year}/${date.month}/${date.day}`;
   };
@@ -38,7 +38,7 @@ const CustomDatePicker = ({ selectedRange, calenderChangeHandler }) => {
   return (
     <DatePicker
       value={selectedRange}
-      onChange={calenderChangeHandler}
+      onChange={onChange}
       minimumDate={utils("fa").getToday()}
       renderInput={renderCustomInput}
       shouldHighlightWeekends
