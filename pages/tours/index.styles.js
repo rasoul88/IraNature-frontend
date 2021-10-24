@@ -45,3 +45,11 @@ export const CardsContainer = styled.div`
     z-index: 1;
   }
 `;
+
+export const PaginateContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 6rem;
+`;

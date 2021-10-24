@@ -2,12 +2,7 @@
 
 exports[`renders \`Navigation\` component 1`] = `
 <navigationstyles__NavigationContainer
-  currentUser={
-    Object {
-      "email": "sahrayeDelha@gmail.com",
-      "name": "rasoul",
-    }
-  }
+  currentUser={null}
   data-test="component-navigation"
   dispatch={[Function]}
   store={
@@ -32,12 +27,12 @@ exports[`renders \`Navigation\` component 1`] = `
     </navigationstyles__Icon>
   </navigationstyles__IconContainer>
   <navigationstyles__Controller
-    data-test="user-controller"
+    data-test="login-controller"
     onClick={[Function]}
   >
-    <Avatar />
+    <test-file-stub />
     <p>
-      رسول صحرایی
+      ثبت نام | ورود
     </p>
   </navigationstyles__Controller>
   <navigationstyles__BackgroundContainer
