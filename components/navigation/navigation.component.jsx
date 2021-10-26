@@ -36,10 +36,16 @@ const Navigation = (props) => {
         (props?.currentUser ? (
           <Controller
             data-test="user-controller"
-            onClick={() => handleMenuItemClick("/signin")}
+            onClick={() => {
+              props.dispatch({ type: "REMOVE_CURRENT_USER" });
+              // handleMenuItemClick("/signin")
+            }}
           >
-            <Avatar />
-            <p>رسول صحرایی</p>
+            <Avatar
+              name={props.currentUser.name}
+              // image={props.currentUser.photo}
+            />
+            <p>{props.currentUser.name}</p>
           </Controller>
         ) : (
           <Controller

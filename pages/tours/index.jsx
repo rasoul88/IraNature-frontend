@@ -11,7 +11,12 @@ import FilterPanel from "../../components/filter-panel/filter-panel.component";
 import Paginate from "../../components/paginate/paginate.component";
 import { setFilterItem } from "../../redux/tours/tours.actions";
 
-const ToursPage = ({ panelStatus, page, toursData, setFilterItem }) => {
+export const UnconnectedToursPage = ({
+  panelStatus,
+  page,
+  toursData,
+  setFilterItem,
+}) => {
   const filterItemsChangeHandler = (itemName, value) => {
     setFilterItem(itemName, value);
   };
@@ -27,6 +32,7 @@ const ToursPage = ({ panelStatus, page, toursData, setFilterItem }) => {
         </CardsContainer>
         <PaginateContainer>
           <Paginate
+            data-test="tours-pagination"
             maxPage={18}
             onChange={(newValue) => filterItemsChangeHandler("page", newValue)}
             selectedPage={page}
@@ -48,4 +54,7 @@ const mapStateToProps = ({
 const mapDipatchToProps = (dispatch) => ({
   setFilterItem: (itemName, value) => dispatch(setFilterItem(itemName, value)),
 });
-export default connect(mapStateToProps, mapDipatchToProps)(ToursPage);
+export default connect(
+  mapStateToProps,
+  mapDipatchToProps
+)(UnconnectedToursPage);

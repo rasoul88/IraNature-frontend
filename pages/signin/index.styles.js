@@ -124,7 +124,7 @@ export const SignInSignUp = styled.div`
         : null};
   }
 `;
-export const SignInForm = styled.form`
+export const SignInAndForgotFormContainer = styled.div`
   ${GetFormStyles};
   z-index: ${(props) => (props.mode === "signup" ? 1 : 2)};
   opacity: ${(props) => (props.mode === "signup" ? 0 : 1)};
@@ -255,11 +255,16 @@ export const SocialIconContainer = styled.a`
   }
 `;
 
-export const SignUpForm = styled.form`
+export const SignUpFormContainer = styled.div`
   ${GetFormStyles};
   z-index: ${(props) => (props.mode === "signup" ? 2 : 1)};
   opacity: ${(props) => (props.mode === "signup" ? 1 : 0)};
 
+  & form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   @media only screen and (max-width: 500px) {
     transform: scale(0.85);
   }
@@ -410,4 +415,12 @@ export const ForgotPasswordButton = styled.p`
   font-size: 1.2rem;
   text-decoration: underline;
   cursor: pointer;
+`;
+
+export const ErrorText = styled.p`
+  width: 100%;
+  text-align: right;
+  margin: -0.6rem 0 0 0;
+  font-size: 1.2rem;
+  color: red;
 `;

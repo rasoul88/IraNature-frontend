@@ -45,8 +45,8 @@ export const UnconnectedFilterPanel = ({
       </FilterIconContainer>
       <ContentContainer isOpen={panelStatus}>
         <PanelHeader>
-          <p>4</p>
           <h4>فیلترها</h4>
+          <p>4</p>
         </PanelHeader>
         <FilterItemContainer>
           <ItemHeaderContainer>

@@ -8,8 +8,7 @@ export const AvatarContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 1rem;
-  margin-right: 0.8rem;
+
   overflow: hidden;
 
   & > svg {

@@ -15,12 +15,12 @@ exports[`renders filterPanel correctly 1`] = `
     isOpen={false}
   >
     <filter-panelstyles__PanelHeader>
-      <p>
-        4
-      </p>
       <h4>
         فیلترها
       </h4>
+      <p>
+        4
+      </p>
     </filter-panelstyles__PanelHeader>
     <filter-panelstyles__FilterItemContainer>
       <filter-panelstyles__ItemHeaderContainer>

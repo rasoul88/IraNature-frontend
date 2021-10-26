@@ -6,7 +6,13 @@ const Avatar = ({ name, image }) => {
   return (
     <AvatarContainer>
       {image ? (
-        <Image src={image} width="100%" height="100%" alt={name.split("")[0]} />
+        // <Image
+        //   src={`/img/users/${image}`}
+        //   width="100%"
+        //   height="100%"
+        //   alt={name.split("")[0]}
+        // />
+        <img src={`http://localhost:6060/img/users/${image}`} alt="gooo" />
       ) : (
         <DefaultAvatar />
       )}

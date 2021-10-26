@@ -99,7 +99,8 @@ export const Controller = styled.label`
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding: 0 1.5rem;
 
   @media only screen and (max-width: 56.25em) {
     top: 4.5rem;
@@ -117,7 +118,7 @@ export const Controller = styled.label`
     }
 
     & svg {
-      margin-left: 1.5rem;
+      /* margin-left: 1.5rem; */
     }
   }
 

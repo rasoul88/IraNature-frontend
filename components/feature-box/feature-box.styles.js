@@ -31,6 +31,10 @@ export const SVGContainer = styled.div`
   fill: blue;
   backface-visibility: hidden;
 
+  & svg {
+    width: 64px;
+    height: 64px;
+  }
   @media only screen and (max-width: 56.25em) {
     margin-bottom: 0;
   }

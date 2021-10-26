@@ -159,7 +159,7 @@ const TourPage = () => {
             <InfoItem>
               <p>رسول صحرایی</p>
               <h4>تور لیدر</h4>
-              <Avatar image="/assets/img/iran1.jpg" name="rasoul" />
+              <Avatar name="rasoul" />
             </InfoItem>
             <InfoItem>
               <p>محسن زینی وند</p>
@@ -190,7 +190,7 @@ const TourPage = () => {
             .map((el, index) => (
               <CommentBox
                 key={index}
-                image="/assets/img/iran1.jpg"
+                // image="assets/img/iran1.jpg"
                 name="رسول صحرایی"
                 createdDate="1400/11/3 22:45"
                 iconColor={tour.iconsColor}

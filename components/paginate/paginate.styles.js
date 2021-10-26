@@ -24,6 +24,7 @@ export const NumberContainer = styled.div`
   justify-content: center;
   align-items: center;
   border-right: 1px solid lightgray;
+  user-select: none;
   /* ${(props) =>
     props.selectedPage && "background-color: #1976D2; color: white"} */
   ${(props) =>

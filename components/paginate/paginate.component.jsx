@@ -48,7 +48,8 @@ const Paginate = ({ maxPage, selectedPage, onChange }) => {
       }}
     >
       <PrevButton
-        onClick={() => {
+        onClick={(event) => {
+          event.stopPropagation();
           if (selectedPage !== 1) onChange(selectedPage - 1);
         }}
       />
@@ -58,7 +59,8 @@ const Paginate = ({ maxPage, selectedPage, onChange }) => {
         </NumberContainer>
       ))}
       <NextButton
-        onClick={() => {
+        onClick={(event) => {
+          event.stopPropagation();
           if (selectedPage !== maxPage) onChange(selectedPage + 1);
         }}
       />

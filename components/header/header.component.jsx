@@ -19,7 +19,9 @@ const Header = () => {
       <TextBoxContainer>
         <HeadingContainer>
           <span>...ایرانیچر</span>
-          <span>شما را با طبیعت آشتی می دهد</span>
+          <span style={{ textAlign: "center" }}>
+            شما را با طبیعت آشنا می کند
+          </span>
         </HeadingContainer>
         <CustomButton
           targetElement="#section-tours"

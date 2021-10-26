@@ -1,9 +1,11 @@
 import React from "react";
+import { connect } from "react-redux";
+import { useRouter } from "next/router";
 import {
   SectionContainer,
   FormsContainer,
   SignInSignUp,
-  SignInForm,
+  SignInAndForgotFormContainer,
   TitleContainer,
   InputContainer,
   InputField,
@@ -11,7 +13,7 @@ import {
   SocialTextContainer,
   SocialMediaContainer,
   SocialIconContainer,
-  SignUpForm,
+  SignUpFormContainer,
   PannelsContainer,
   LeftPannelsContainer,
   RightPannelsContainer,
@@ -20,6 +22,7 @@ import {
   ForgotPasswordButton,
   SignInFormContainer,
   ForgotFormContainer,
+  ErrorText,
 } from "./index.styles";
 import UserIcon from "../../public/assets/icons/user.svg";
 import KeyIcon from "../../public/assets/icons/key2.svg";
@@ -28,6 +31,223 @@ import Instagram from "../../public/assets/icons/instagram.svg";
 import Linkedin from "../../public/assets/icons/linkedin.svg";
 import Twitter from "../../public/assets/icons/twitter.svg";
 import Google from "../../public/assets/icons/google.svg";
+import {
+  emailSignInStart,
+  signUpStart,
+  forgotPassword,
+} from "../../redux/user/user.actions";
+
+const SignInForm = ({ userReducerDispatch, emailSignInStart }) => {
+  const emailRef = React.useRef();
+  const passwordRef = React.useRef();
+  const [errors, setErrors] = React.useState({
+    emailErr: false,
+    passErr: false,
+  });
+
+  return (
+    <form
+      action=""
+      onSubmit={(event) => {
+        event.preventDefault();
+        const email = emailRef.current.value;
+        const password = passwordRef.current.value;
+        if (!email || !password) {
+          return setErrors({ emailErr: !email, passErr: !password });
+        }
+        setErrors({ emailErr: false, passErr: false });
+        emailSignInStart({
+          email,
+          password,
+        });
+      }}
+    >
+      <SignInFormContainer>
+        <TitleContainer> ورود</TitleContainer>
+        <InputContainer>
+          <InputField ref={emailRef} type="text" placeholder="نام کاربری" />
+          <UserIcon />
+        </InputContainer>
+        {errors.emailErr && (
+          <ErrorText>لطفا نام کاربری یا ایمیل را وارد کنید</ErrorText>
+        )}
+        <InputContainer>
+          <InputField
+            ref={passwordRef}
+            type="password"
+            placeholder="کلمه عبور"
+          />
+          <KeyIcon />
+        </InputContainer>
+        {errors.passErr && <ErrorText>لطفا کلمه عبور را وارد کنید</ErrorText>}
+        <SubmitButton type="submit" value="ورود به حساب " solid />
+        <ForgotPasswordButton
+          data-test="forgotPassword-button"
+          onClick={() =>
+            userReducerDispatch({ type: "forgotPassword", payload: true })
+          }
+        >
+          رمز عبور خود را فراموش کرده اید؟
+        </ForgotPasswordButton>
+        <SocialTextContainer>
+          با شبکه های اجتماعی زیر وارد شوید
+        </SocialTextContainer>
+        <SocialMediaContainer>
+          <SocialIconContainer color="#8a3ab9">
+            <Instagram />
+          </SocialIconContainer>
+          <SocialIconContainer color="#00acee">
+            <Twitter />
+          </SocialIconContainer>
+          <SocialIconContainer color="#ea4335">
+            <Google />
+          </SocialIconContainer>
+          <SocialIconContainer color="#0e76a8">
+            <Linkedin />
+          </SocialIconContainer>
+        </SocialMediaContainer>
+      </SignInFormContainer>
+    </form>
+  );
+};
+
+const ForgotPasswordForm = ({ userReducerDispatch, forgotPassword }) => {
+  const emailRef = React.useRef();
+  const [errors, setErrors] = React.useState({
+    emailErr: false,
+  });
+  return (
+    <form
+      action=""
+      onSubmit={(event) => {
+        event.preventDefault();
+        const email = emailRef.current.value;
+        if (!email) {
+          return setErrors({ emailErr: !email });
+        }
+        setErrors({ emailErr: false });
+        forgotPassword(email);
+      }}
+    >
+      <ForgotFormContainer>
+        <TitleContainer> بازیابی رمز عبور</TitleContainer>
+        <InputContainer>
+          <InputField
+            ref={emailRef}
+            type="email"
+            required
+            placeholder="ایمیل"
+          />
+          <MailIcon />
+        </InputContainer>
+        {errors.emailErr && <ErrorText>لطفا ایمیل را وارد کنید</ErrorText>}
+        <SubmitButton type="submit" value="بازیابی " solid />
+        <ForgotPasswordButton
+          data-test="singinWithPassword-button"
+          onClick={() =>
+            userReducerDispatch({
+              type: "forgotPassword",
+              payload: false,
+            })
+          }
+        >
+          ورود با رمز عبور
+        </ForgotPasswordButton>
+        <SocialTextContainer>
+          با شبکه های اجتماعی زیر وارد شوید
+        </SocialTextContainer>
+        <SocialMediaContainer>
+          <SocialIconContainer color="#8a3ab9">
+            <Instagram />
+          </SocialIconContainer>
+          <SocialIconContainer color="#00acee">
+            <Twitter />
+          </SocialIconContainer>
+          <SocialIconContainer color="#ea4335">
+            <Google />
+          </SocialIconContainer>
+          <SocialIconContainer color="#0e76a8">
+            <Linkedin />
+          </SocialIconContainer>
+        </SocialMediaContainer>
+      </ForgotFormContainer>
+    </form>
+  );
+};
+
+const SignUpForm = ({ signUpStart }) => {
+  const nameRef = React.useRef();
+  const emailRef = React.useRef();
+  const passwordRef = React.useRef();
+  const confirmPasswordRef = React.useRef();
+  const [errors, setErrors] = React.useState({
+    nameErr: false,
+    emailErr: false,
+    passErr: false,
+    confirmPassErr: false,
+  });
+  return (
+    <form
+      action=""
+      onSubmit={(event) => {
+        event.preventDefault();
+        const name = nameRef.current.value;
+        const email = emailRef.current.value;
+        const password = passwordRef.current.value;
+        const confirmPassword = confirmPasswordRef.current.value;
+        if (!name || !email || !password || !confirmPassword) {
+          return setErrors({
+            nameErr: !name,
+            emailErr: !email,
+            passErr: !password,
+            confirmPassErr: !confirmPassword,
+          });
+        }
+        setErrors({
+          nameErr: false,
+          emailErr: false,
+          passErr: false,
+          confirmPassErr: false,
+        });
+        signUpStart({
+          name,
+          email,
+          password,
+          confirmPassword,
+        });
+      }}
+    >
+      <TitleContainer>ثبت نام</TitleContainer>
+      <InputContainer>
+        <InputField ref={nameRef} type="text" placeholder="نام کاربری" />
+        <UserIcon />
+      </InputContainer>
+      {errors.nameErr && <ErrorText>لطفا نام کاربری را وارد کنید</ErrorText>}
+      <InputContainer>
+        <InputField ref={emailRef} type="email" placeholder="ایمیل" />
+        <MailIcon />
+      </InputContainer>
+      {errors.emailErr && <ErrorText>لطفا ایمیل را وارد کنید</ErrorText>}
+      <InputContainer>
+        <InputField ref={passwordRef} type="password" placeholder="کلمه عبور" />
+        <KeyIcon />
+      </InputContainer>
+      {errors.passErr && <ErrorText>لطفا کلمه عبور را وارد کنید</ErrorText>}
+      <InputContainer>
+        <InputField
+          ref={confirmPasswordRef}
+          type="password"
+          placeholder="تکرار کلمه عبور"
+        />
+        <KeyIcon />
+      </InputContainer>
+      {errors.confirmPassErr && (
+        <ErrorText>لطفا تکرار کلمه عبور را وارد کنید</ErrorText>
+      )}
+      <SubmitButton type="submit" value="ثبت نام" />
+    </form>
+  );
+};
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -43,11 +263,23 @@ const reducer = (state, action) => {
       };
   }
 };
-const SignInSignUpPage = () => {
-  const [state, dispatch] = React.useReducer(reducer, {
+
+export const UnconnectedSignInSignUpPage = ({
+  currentUser,
+  emailSignInStart,
+  signUpStart,
+  forgotPassword,
+}) => {
+  const [state, userReducerDispatch] = React.useReducer(reducer, {
     mode: "signin",
     forgotPassword: false,
   });
+
+  const router = useRouter();
+
+  React.useEffect(() => {
+    if (currentUser) router.push("/");
+  }, [router, currentUser]);
 
   return (
     <SectionContainer
@@ -62,123 +294,24 @@ const SignInSignUpPage = () => {
         data-aos-delay="500"
       >
         <SignInSignUp mode={state.mode}>
-          <SignInForm
-            mode={state.mode}
-            action=""
-            onSubmit={() => alert("helllo")}
-          >
+          <SignInAndForgotFormContainer mode={state.mode}>
             {state.forgotPassword ? (
-              <ForgotFormContainer>
-                <TitleContainer> بازیابی رمز عبور</TitleContainer>
-                <InputContainer>
-                  <InputField type="email" required placeholder="ایمیل" />
-                  <MailIcon />
-                </InputContainer>
-                <SubmitButton type="submit" value="بازیابی " solid />
-                <ForgotPasswordButton
-                  data-test="singinWithPassword-button"
-                  onClick={() =>
-                    dispatch({ type: "forgotPassword", payload: false })
-                  }
-                >
-                  ورود با رمز عبور
-                </ForgotPasswordButton>
-                <SocialTextContainer>
-                  با شبکه های اجتماعی زیر وارد شوید
-                </SocialTextContainer>
-                <SocialMediaContainer>
-                  <SocialIconContainer color="#8a3ab9">
-                    <Instagram />
-                  </SocialIconContainer>
-                  <SocialIconContainer color="#00acee">
-                    <Twitter />
-                  </SocialIconContainer>
-                  <SocialIconContainer color="#ea4335">
-                    <Google />
-                  </SocialIconContainer>
-                  <SocialIconContainer color="#0e76a8">
-                    <Linkedin />
-                  </SocialIconContainer>
-                </SocialMediaContainer>
-              </ForgotFormContainer>
+              <ForgotPasswordForm
+                data-test="forgot-password-form"
+                userReducerDispatch={userReducerDispatch}
+                forgotPassword={forgotPassword}
+              />
             ) : (
-              <SignInFormContainer>
-                <TitleContainer> ورود</TitleContainer>
-                <InputContainer>
-                  <InputField type="text" required placeholder="نام کاربری" />
-                  <UserIcon />
-                </InputContainer>
-                <InputContainer>
-                  <InputField
-                    type="password"
-                    required
-                    placeholder="کلمه عبور"
-                  />
-                  <KeyIcon />
-                </InputContainer>
-                <SubmitButton type="submit" value="ورود به حساب " solid />
-                <ForgotPasswordButton
-                  data-test="forgotPassword-button"
-                  onClick={() =>
-                    dispatch({ type: "forgotPassword", payload: true })
-                  }
-                >
-                  رمز عبور خود را فراموش کرده اید؟
-                </ForgotPasswordButton>
-                <SocialTextContainer>
-                  با شبکه های اجتماعی زیر وارد شوید
-                </SocialTextContainer>
-                <SocialMediaContainer>
-                  <SocialIconContainer color="#8a3ab9">
-                    <Instagram />
-                  </SocialIconContainer>
-                  <SocialIconContainer color="#00acee">
-                    <Twitter />
-                  </SocialIconContainer>
-                  <SocialIconContainer color="#ea4335">
-                    <Google />
-                  </SocialIconContainer>
-                  <SocialIconContainer color="#0e76a8">
-                    <Linkedin />
-                  </SocialIconContainer>
-                </SocialMediaContainer>
-              </SignInFormContainer>
+              <SignInForm
+                data-test="signin-form"
+                userReducerDispatch={userReducerDispatch}
+                emailSignInStart={emailSignInStart}
+              />
             )}
-          </SignInForm>
-
-          <SignUpForm mode={state.mode} action="">
-            <TitleContainer>ثبت نام</TitleContainer>
-            <InputContainer>
-              <InputField type="text" required placeholder="نام کاربری" />
-              <UserIcon />
-            </InputContainer>
-            <InputContainer>
-              <InputField type="email" required placeholder="ایمیل" />
-              <MailIcon />
-            </InputContainer>
-            <InputContainer>
-              <InputField type="password" required placeholder="کلمه عبور" />
-              <KeyIcon />
-            </InputContainer>
-            <SubmitButton type="submit" value="ثبت نام" />
-            <SocialTextContainer>
-              با شبکه های اجتماعی زیر ثبت نام کنید{" "}
-            </SocialTextContainer>
-            <SocialMediaContainer>
-              <SocialIconContainer color="#8a3ab9">
-                <Instagram />
-              </SocialIconContainer>
-              <SocialIconContainer color="#00acee">
-                <Twitter />
-              </SocialIconContainer>
-              <SocialIconContainer color="#ea4335">
-                <Google />
-              </SocialIconContainer>
-              <SocialIconContainer color="#0e76a8">
-                <Linkedin />
-              </SocialIconContainer>
-            </SocialMediaContainer>
-          </SignUpForm>
+          </SignInAndForgotFormContainer>
+          <SignUpFormContainer mode={state.mode}>
+            <SignUpForm signUpStart={signUpStart} />
+          </SignUpFormContainer>
         </SignInSignUp>
       </FormsContainer>
 
@@ -193,7 +326,9 @@ const SignInSignUpPage = () => {
             </p>
             <button
               data-test="signup-button"
-              onClick={() => dispatch({ type: "setMode", payload: "signup" })}
+              onClick={() =>
+                userReducerDispatch({ type: "setMode", payload: "signup" })
+              }
             >
               ثبت نام
             </button>
@@ -211,7 +346,9 @@ const SignInSignUpPage = () => {
             </p>
             <button
               data-test="signin-button"
-              onClick={() => dispatch({ type: "setMode", payload: "signin" })}
+              onClick={() =>
+                userReducerDispatch({ type: "setMode", payload: "signin" })
+              }
             >
               ورود
             </button>
@@ -223,4 +360,16 @@ const SignInSignUpPage = () => {
   );
 };
 
-export default SignInSignUpPage;
+const mapStateToProps = ({ user: { currentUser } }) => ({
+  currentUser,
+});
+
+const mapDipatchToProps = (dispatch) => ({
+  emailSignInStart: (credentials) => dispatch(emailSignInStart(credentials)),
+  signUpStart: (credentials) => dispatch(signUpStart(credentials)),
+  forgotPassword: (email) => dispatch(forgotPassword(email)),
+});
+export default connect(
+  mapStateToProps,
+  mapDipatchToProps
+)(UnconnectedSignInSignUpPage);

@@ -3,10 +3,10 @@ import { shallow } from "enzyme";
 import toJson from "enzyme-to-json";
 
 import { findByTestAttribute } from "../../test/utils";
-import SignInSignUpPage from ".";
+import { UnconnectedSignInSignUpPage } from ".";
 
 const setup = () => {
-  return shallow(<SignInSignUpPage />);
+  return shallow(<UnconnectedSignInSignUpPage />);
 };
 
 test("renders signin-signup component", () => {
@@ -16,7 +16,7 @@ test("renders signin-signup component", () => {
   expect(toJson(wrapper)).toMatchSnapshot();
 });
 
-describe("userReducer hook calls when click 'signup', 'signin', 'forgotPassword' and 'signinWithPassword' buttons", () => {
+describe("useReducer hook calls when click 'signup', 'signin', 'forgotPassword' and 'signinWithPassword' buttons", () => {
   let wrapper;
   const mockDispatch = jest.fn();
   beforeEach(() => {
@@ -51,7 +51,7 @@ describe("userReducer hook calls when click 'signup', 'signin', 'forgotPassword'
 
   describe("when state.forgotPassword is 'false'", () => {
     let forgotPasswordButton;
-    let signinWithPasswordButton;
+    let forgotPasswordForm;
 
     beforeEach(() => {
       mockDispatch.mockClear();
@@ -66,23 +66,25 @@ describe("userReducer hook calls when click 'signup', 'signin', 'forgotPassword'
 
       wrapper = setup();
 
-      forgotPasswordButton = findByTestAttribute(
+      const signinFormWrapper = findByTestAttribute(
         wrapper,
+        "signin-form"
+      ).shallow();
+
+      forgotPasswordButton = findByTestAttribute(
+        signinFormWrapper,
         "forgotPassword-button"
       );
 
-      signinWithPasswordButton = findByTestAttribute(
-        wrapper,
-        "signinWithPassword-button"
-      );
+      forgotPasswordForm = findByTestAttribute(wrapper, "forgot-password-form");
     });
 
     test("renders `forgotPassword` button correctly", () => {
       expect(forgotPasswordButton.length).toBe(1);
     });
 
-    test("does not render `signinWithPassword` button", () => {
-      expect(signinWithPasswordButton.length).toBe(0);
+    test("does not render `forgotPasswordForm` ", () => {
+      expect(forgotPasswordForm.length).toBe(0);
     });
 
     test("click on 'forgotPassword' Button", () => {
@@ -95,7 +97,7 @@ describe("userReducer hook calls when click 'signup', 'signin', 'forgotPassword'
   });
 
   describe("when state.forgotPassword is 'true'", () => {
-    let forgotPasswordButton;
+    let signinForm;
     let signinWithPasswordButton;
 
     beforeEach(() => {
@@ -111,22 +113,24 @@ describe("userReducer hook calls when click 'signup', 'signin', 'forgotPassword'
 
       wrapper = setup();
 
-      forgotPasswordButton = findByTestAttribute(
+      signinForm = findByTestAttribute(wrapper, "signin-form");
+
+      const forgotPasswordFormWrapper = findByTestAttribute(
         wrapper,
-        "forgotPassword-button"
-      );
+        "forgot-password-form"
+      ).shallow();
 
       signinWithPasswordButton = findByTestAttribute(
-        wrapper,
+        forgotPasswordFormWrapper,
         "singinWithPassword-button"
       );
     });
 
-    test("renders `forgotPassword` button correctly", () => {
-      expect(forgotPasswordButton.length).toBe(0);
+    test("does not renders `signinForm` button", () => {
+      expect(signinForm.length).toBe(0);
     });
 
-    test("does not render `signinWithPassword` button", () => {
+    test("renders `signinWithPassword` button", () => {
       expect(signinWithPasswordButton.length).toBe(1);
     });
 

@@ -10,6 +10,14 @@ exports[`renders ToursPage correctly 1`] = `
        تورهای فعال
     </SecodaryHeading>
     <indexstyles__CardsContainer />
+    <indexstyles__PaginateContainer>
+      <Paginate
+        data-test="tours-pagination"
+        maxPage={18}
+        onChange={[Function]}
+        selectedPage={1}
+      />
+    </indexstyles__PaginateContainer>
   </indexstyles__ContentContainer>
 </indexstyles__PageContainer>
 `;

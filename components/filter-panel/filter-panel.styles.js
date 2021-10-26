@@ -69,6 +69,7 @@ export const ContentContainer = styled.div`
 export const PanelHeader = styled.div`
   width: 100%;
   display: flex;
+  flex-direction: row-reverse;
   justify-content: space-between;
   align-items: center;
   height: 5rem;

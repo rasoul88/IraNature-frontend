@@ -1,7 +1,7 @@
 import React from "react";
 import { FeaturesContainer } from "./features.styles";
 import FeatureBox from "../feature-box/feature-box.component";
-import IranIcon from "../../public/assets/icons/ir.svg";
+import Animal from "../../public/assets/icons/animal.svg";
 import HeartIcon from "../../public/assets/icons/heart.svg";
 import MapIcon from "../../public/assets/icons/map.svg";
 import CompassIcon from "../../public/assets/icons/compass.svg";
@@ -9,10 +9,10 @@ import CompassIcon from "../../public/assets/icons/compass.svg";
 const featuresObj = [
   {
     id: 1,
-    title: "ایران رو بگرد",
+    title: "حیات وحش رو از نزدیک ببین",
     content:
       " و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد",
-    SVG: IranIcon,
+    SVG: Animal,
   },
   {
     id: 2,
