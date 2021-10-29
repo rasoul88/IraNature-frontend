@@ -19,8 +19,8 @@ exports[`renders signin-signup component 1`] = `
         mode="signin"
       >
         <SignInForm
+          URDispatch={[Function]}
           data-test="signin-form"
-          userReducerDispatch={[Function]}
         />
       </indexstyles__SignInAndForgotFormContainer>
       <indexstyles__SignUpFormContainer

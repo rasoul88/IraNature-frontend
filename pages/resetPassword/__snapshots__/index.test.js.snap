@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders resetPassword page snapshot test 1`] = `
+<indexstyles__PageContainer
+  data-test="component-reset-password"
+>
+  <indexstyles__FormContainer>
+    <form
+      action=""
+      data-test="reset-password-form"
+      onSubmit={[Function]}
+    >
+      <SecodaryHeading
+        style={
+          Object {
+            "fontSize": "3rem",
+          }
+        }
+      >
+        بازنشانی کلمه عبور
+      </SecodaryHeading>
+      <indexstyles__InputContainer>
+        <indexstyles__InputField
+          placeholder="کلمه عبور"
+          type="password"
+        />
+        <test-file-stub />
+      </indexstyles__InputContainer>
+      <indexstyles__InputContainer>
+        <indexstyles__InputField
+          placeholder="تکرار کلمه عبور"
+          type="password"
+        />
+        <test-file-stub />
+      </indexstyles__InputContainer>
+      <indexstyles__SubmitButton
+        type="submit"
+        value="بازنشانی"
+      />
+    </form>
+  </indexstyles__FormContainer>
+</indexstyles__PageContainer>
+`;

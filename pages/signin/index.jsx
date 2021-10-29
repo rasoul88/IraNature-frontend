@@ -6,248 +6,23 @@ import {
   FormsContainer,
   SignInSignUp,
   SignInAndForgotFormContainer,
-  TitleContainer,
-  InputContainer,
-  InputField,
-  SubmitButton,
-  SocialTextContainer,
-  SocialMediaContainer,
-  SocialIconContainer,
   SignUpFormContainer,
   PannelsContainer,
   LeftPannelsContainer,
   RightPannelsContainer,
   ContentContainer,
   ImageContainer,
-  ForgotPasswordButton,
-  SignInFormContainer,
-  ForgotFormContainer,
-  ErrorText,
 } from "./index.styles";
-import UserIcon from "../../public/assets/icons/user.svg";
-import KeyIcon from "../../public/assets/icons/key2.svg";
-import MailIcon from "../../public/assets/icons/envelop.svg";
-import Instagram from "../../public/assets/icons/instagram.svg";
-import Linkedin from "../../public/assets/icons/linkedin.svg";
-import Twitter from "../../public/assets/icons/twitter.svg";
-import Google from "../../public/assets/icons/google.svg";
+
 import {
   emailSignInStart,
   signUpStart,
   forgotPassword,
 } from "../../redux/user/user.actions";
 
-const SignInForm = ({ userReducerDispatch, emailSignInStart }) => {
-  const emailRef = React.useRef();
-  const passwordRef = React.useRef();
-  const [errors, setErrors] = React.useState({
-    emailErr: false,
-    passErr: false,
-  });
-
-  return (
-    <form
-      action=""
-      onSubmit={(event) => {
-        event.preventDefault();
-        const email = emailRef.current.value;
-        const password = passwordRef.current.value;
-        if (!email || !password) {
-          return setErrors({ emailErr: !email, passErr: !password });
-        }
-        setErrors({ emailErr: false, passErr: false });
-        emailSignInStart({
-          email,
-          password,
-        });
-      }}
-    >
-      <SignInFormContainer>
-        <TitleContainer> ورود</TitleContainer>
-        <InputContainer>
-          <InputField ref={emailRef} type="text" placeholder="نام کاربری" />
-          <UserIcon />
-        </InputContainer>
-        {errors.emailErr && (
-          <ErrorText>لطفا نام کاربری یا ایمیل را وارد کنید</ErrorText>
-        )}
-        <InputContainer>
-          <InputField
-            ref={passwordRef}
-            type="password"
-            placeholder="کلمه عبور"
-          />
-          <KeyIcon />
-        </InputContainer>
-        {errors.passErr && <ErrorText>لطفا کلمه عبور را وارد کنید</ErrorText>}
-        <SubmitButton type="submit" value="ورود به حساب " solid />
-        <ForgotPasswordButton
-          data-test="forgotPassword-button"
-          onClick={() =>
-            userReducerDispatch({ type: "forgotPassword", payload: true })
-          }
-        >
-          رمز عبور خود را فراموش کرده اید؟
-        </ForgotPasswordButton>
-        <SocialTextContainer>
-          با شبکه های اجتماعی زیر وارد شوید
-        </SocialTextContainer>
-        <SocialMediaContainer>
-          <SocialIconContainer color="#8a3ab9">
-            <Instagram />
-          </SocialIconContainer>
-          <SocialIconContainer color="#00acee">
-            <Twitter />
-          </SocialIconContainer>
-          <SocialIconContainer color="#ea4335">
-            <Google />
-          </SocialIconContainer>
-          <SocialIconContainer color="#0e76a8">
-            <Linkedin />
-          </SocialIconContainer>
-        </SocialMediaContainer>
-      </SignInFormContainer>
-    </form>
-  );
-};
-
-const ForgotPasswordForm = ({ userReducerDispatch, forgotPassword }) => {
-  const emailRef = React.useRef();
-  const [errors, setErrors] = React.useState({
-    emailErr: false,
-  });
-  return (
-    <form
-      action=""
-      onSubmit={(event) => {
-        event.preventDefault();
-        const email = emailRef.current.value;
-        if (!email) {
-          return setErrors({ emailErr: !email });
-        }
-        setErrors({ emailErr: false });
-        forgotPassword(email);
-      }}
-    >
-      <ForgotFormContainer>
-        <TitleContainer> بازیابی رمز عبور</TitleContainer>
-        <InputContainer>
-          <InputField
-            ref={emailRef}
-            type="email"
-            required
-            placeholder="ایمیل"
-          />
-          <MailIcon />
-        </InputContainer>
-        {errors.emailErr && <ErrorText>لطفا ایمیل را وارد کنید</ErrorText>}
-        <SubmitButton type="submit" value="بازیابی " solid />
-        <ForgotPasswordButton
-          data-test="singinWithPassword-button"
-          onClick={() =>
-            userReducerDispatch({
-              type: "forgotPassword",
-              payload: false,
-            })
-          }
-        >
-          ورود با رمز عبور
-        </ForgotPasswordButton>
-        <SocialTextContainer>
-          با شبکه های اجتماعی زیر وارد شوید
-        </SocialTextContainer>
-        <SocialMediaContainer>
-          <SocialIconContainer color="#8a3ab9">
-            <Instagram />
-          </SocialIconContainer>
-          <SocialIconContainer color="#00acee">
-            <Twitter />
-          </SocialIconContainer>
-          <SocialIconContainer color="#ea4335">
-            <Google />
-          </SocialIconContainer>
-          <SocialIconContainer color="#0e76a8">
-            <Linkedin />
-          </SocialIconContainer>
-        </SocialMediaContainer>
-      </ForgotFormContainer>
-    </form>
-  );
-};
-
-const SignUpForm = ({ signUpStart }) => {
-  const nameRef = React.useRef();
-  const emailRef = React.useRef();
-  const passwordRef = React.useRef();
-  const confirmPasswordRef = React.useRef();
-  const [errors, setErrors] = React.useState({
-    nameErr: false,
-    emailErr: false,
-    passErr: false,
-    confirmPassErr: false,
-  });
-  return (
-    <form
-      action=""
-      onSubmit={(event) => {
-        event.preventDefault();
-        const name = nameRef.current.value;
-        const email = emailRef.current.value;
-        const password = passwordRef.current.value;
-        const confirmPassword = confirmPasswordRef.current.value;
-        if (!name || !email || !password || !confirmPassword) {
-          return setErrors({
-            nameErr: !name,
-            emailErr: !email,
-            passErr: !password,
-            confirmPassErr: !confirmPassword,
-          });
-        }
-        setErrors({
-          nameErr: false,
-          emailErr: false,
-          passErr: false,
-          confirmPassErr: false,
-        });
-        signUpStart({
-          name,
-          email,
-          password,
-          confirmPassword,
-        });
-      }}
-    >
-      <TitleContainer>ثبت نام</TitleContainer>
-      <InputContainer>
-        <InputField ref={nameRef} type="text" placeholder="نام کاربری" />
-        <UserIcon />
-      </InputContainer>
-      {errors.nameErr && <ErrorText>لطفا نام کاربری را وارد کنید</ErrorText>}
-      <InputContainer>
-        <InputField ref={emailRef} type="email" placeholder="ایمیل" />
-        <MailIcon />
-      </InputContainer>
-      {errors.emailErr && <ErrorText>لطفا ایمیل را وارد کنید</ErrorText>}
-      <InputContainer>
-        <InputField ref={passwordRef} type="password" placeholder="کلمه عبور" />
-        <KeyIcon />
-      </InputContainer>
-      {errors.passErr && <ErrorText>لطفا کلمه عبور را وارد کنید</ErrorText>}
-      <InputContainer>
-        <InputField
-          ref={confirmPasswordRef}
-          type="password"
-          placeholder="تکرار کلمه عبور"
-        />
-        <KeyIcon />
-      </InputContainer>
-      {errors.confirmPassErr && (
-        <ErrorText>لطفا تکرار کلمه عبور را وارد کنید</ErrorText>
-      )}
-      <SubmitButton type="submit" value="ثبت نام" />
-    </form>
-  );
-};
+import SignInForm from "../../components/forms/signin-form.component";
+import SignUpForm from "../../components/forms/signup-form.component";
+import ForgotPasswordForm from "../../components/forms/forgotPassword-form.component";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -270,7 +45,7 @@ export const UnconnectedSignInSignUpPage = ({
   signUpStart,
   forgotPassword,
 }) => {
-  const [state, userReducerDispatch] = React.useReducer(reducer, {
+  const [state, URDispatch] = React.useReducer(reducer, {
     mode: "signin",
     forgotPassword: false,
   });
@@ -298,13 +73,13 @@ export const UnconnectedSignInSignUpPage = ({
             {state.forgotPassword ? (
               <ForgotPasswordForm
                 data-test="forgot-password-form"
-                userReducerDispatch={userReducerDispatch}
+                URDispatch={URDispatch}
                 forgotPassword={forgotPassword}
               />
             ) : (
               <SignInForm
                 data-test="signin-form"
-                userReducerDispatch={userReducerDispatch}
+                URDispatch={URDispatch}
                 emailSignInStart={emailSignInStart}
               />
             )}
@@ -326,9 +101,7 @@ export const UnconnectedSignInSignUpPage = ({
             </p>
             <button
               data-test="signup-button"
-              onClick={() =>
-                userReducerDispatch({ type: "setMode", payload: "signup" })
-              }
+              onClick={() => URDispatch({ type: "setMode", payload: "signup" })}
             >
               ثبت نام
             </button>
@@ -346,9 +119,7 @@ export const UnconnectedSignInSignUpPage = ({
             </p>
             <button
               data-test="signin-button"
-              onClick={() =>
-                userReducerDispatch({ type: "setMode", payload: "signin" })
-              }
+              onClick={() => URDispatch({ type: "setMode", payload: "signin" })}
             >
               ورود
             </button>

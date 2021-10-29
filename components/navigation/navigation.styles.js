@@ -93,7 +93,7 @@ export const Controller = styled.label`
   position: fixed;
   top: 6.5rem;
   right: 14rem;
-  z-index: 10;
+  z-index: 1001;
   box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
   text-align: center;
   cursor: pointer;
@@ -159,7 +159,7 @@ export const BackgroundContainer = styled.div`
     rgba(24, 123, 205, 1),
     rgba(3, 37, 76, 1) 70%
   );
-  z-index: 1000;
+  z-index: 1500;
   transition: all 0.8s cubic-bezier(0.83, 0, 0.17, 1);
   backface-visibility: none;
 

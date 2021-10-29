@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { useRouter } from "next/router";
+import * as nextRouter from "next/router";
 import { PageContainer, FormContainer } from "./index.styles";
 import {
   InputContainer,
@@ -12,15 +12,15 @@ import SecondaryHeading from "../../components/heading/heading.component";
 import KeyIcon from "../../public/assets/icons/key2.svg";
 import { resetPassword } from "../../redux/user/user.actions";
 
-const ResetPassword = ({ currentUser, resetPassword }) => {
-  const router = useRouter();
+export const UnconnectedResetPassword = ({ currentUser, resetPassword }) => {
+  const router = nextRouter.useRouter();
   const passwordRef = React.useRef();
   const confirmPasswordRef = React.useRef();
   const [errors, setErrors] = React.useState({
     passErr: false,
     confirmPassErr: false,
+    notMatchErr: false,
   });
-  console.log(router.query);
 
   React.useEffect(() => {
     if (currentUser) {
@@ -28,32 +28,41 @@ const ResetPassword = ({ currentUser, resetPassword }) => {
     }
   }, [currentUser, router]);
 
+  const onFormSubmit = (event) => {
+    event.preventDefault();
+    const password = passwordRef.current.value;
+    const confirmPassword = confirmPasswordRef.current.value;
+    if (!password || !confirmPassword) {
+      return setErrors({
+        passErr: !password,
+        confirmPassErr: !confirmPassword,
+        notMatchErr: false,
+      });
+    }
+
+    if (password !== confirmPassword) {
+      return setErrors({
+        passErr: false,
+        confirmPassErr: false,
+        notMatchErr: true,
+      });
+    }
+
+    setErrors({
+      passErr: false,
+      confirmPassErr: false,
+      notMatchErr: false,
+    });
+    resetPassword({
+      token: router.query.token,
+      password,
+      confirmPassword,
+    });
+  };
   return (
-    <PageContainer>
+    <PageContainer data-test="component-reset-password">
       <FormContainer>
-        <form
-          action=""
-          onSubmit={(event) => {
-            event.preventDefault();
-            const password = passwordRef.current.value;
-            const confirmPassword = confirmPasswordRef.current.value;
-            if (!password || !confirmPassword) {
-              return setErrors({
-                passErr: !password,
-                confirmPassErr: !confirmPassword,
-              });
-            }
-            setErrors({
-              passErr: false,
-              confirmPassErr: false,
-            });
-            resetPassword({
-              token: router.query.token,
-              password,
-              confirmPassword,
-            });
-          }}
-        >
+        <form data-test="reset-password-form" action="" onSubmit={onFormSubmit}>
           <SecondaryHeading style={{ fontSize: "3rem" }}>
             بازنشانی کلمه عبور
           </SecondaryHeading>
@@ -65,7 +74,11 @@ const ResetPassword = ({ currentUser, resetPassword }) => {
             />
             <KeyIcon />
           </InputContainer>
-          {errors.passErr && <ErrorText>لطفا کلمه عبور را وارد کنید</ErrorText>}
+          {errors.passErr && (
+            <ErrorText data-test="pass-error-text">
+              لطفا کلمه عبور را وارد کنید
+            </ErrorText>
+          )}
           <InputContainer>
             <InputField
               ref={confirmPasswordRef}
@@ -75,7 +88,14 @@ const ResetPassword = ({ currentUser, resetPassword }) => {
             <KeyIcon />
           </InputContainer>
           {errors.confirmPassErr && (
-            <ErrorText>لطفا تکرار کلمه عبور را وارد کنید</ErrorText>
+            <ErrorText data-test="confirm-pass-error-text">
+              لطفا تکرار کلمه عبور را وارد کنید
+            </ErrorText>
+          )}
+          {errors.notMatchErr && (
+            <ErrorText data-test="notMatch-error-text">
+              کلمه های عبور با هم یکسان نیستند
+            </ErrorText>
           )}
           <SubmitButton type="submit" value="بازنشانی" />
         </form>
@@ -91,4 +111,7 @@ const mapStateToProps = ({ user: { currentUser } }) => ({
 const mapDipatchToProps = (dispatch) => ({
   resetPassword: (credentials) => dispatch(resetPassword(credentials)),
 });
-export default connect(mapStateToProps, mapDipatchToProps)(ResetPassword);
+export default connect(
+  mapStateToProps,
+  mapDipatchToProps
+)(UnconnectedResetPassword);

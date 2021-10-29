@@ -46,6 +46,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.2.5",
     "jest-enzyme": "^7.1.2",
+    "jest-react-hooks-shallow": "^1.5.1",
     "prettier": "^2.4.1"
   }
 }

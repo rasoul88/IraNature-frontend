@@ -14,12 +14,12 @@ import {
 } from "./navigation.styles";
 import LoginIcon from "../../public/assets/icons/login-svgrepo-com.svg";
 import Avatar from "../avatar/avatar.component";
+import ProfilePanel from "../profile-panel/profile-panel.component";
 
 const Navigation = (props) => {
   const router = nextRouter.useRouter();
   const [toggle, settoggle] = React.useState(false);
 
-  // console.log(props);
   const handleMenuItemClick = (href) => {
     router.push(href);
   };
@@ -56,6 +56,8 @@ const Navigation = (props) => {
             <p>ثبت نام | ورود</p>
           </Controller>
         ))}
+
+      <ProfilePanel />
 
       <BackgroundContainer toggle={toggle}>&nbsp;</BackgroundContainer>
 
