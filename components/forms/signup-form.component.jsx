@@ -3,9 +3,10 @@ import {
   TitleContainer,
   InputContainer,
   InputField,
-  SubmitButton,
   ErrorText,
 } from "../../pages/signin/index.styles";
+import SubmitButton from "../../components/submit-button/submit-button.component";
+
 import UserIcon from "../../public/assets/icons/user.svg";
 import KeyIcon from "../../public/assets/icons/key2.svg";
 import MailIcon from "../../public/assets/icons/envelop.svg";
@@ -102,7 +103,7 @@ const SignUpForm = ({ signUpStart }) => {
           لطفا تکرار کلمه عبور را وارد کنید
         </ErrorText>
       )}
-      <SubmitButton type="submit" value="ثبت نام" />
+      <SubmitButton value="ثبت نام" />
     </form>
   );
 };

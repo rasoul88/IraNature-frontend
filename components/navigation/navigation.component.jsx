@@ -16,9 +16,27 @@ import LoginIcon from "../../public/assets/icons/login-svgrepo-com.svg";
 import Avatar from "../avatar/avatar.component";
 import ProfilePanel from "../profile-panel/profile-panel.component";
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "menu":
+      return {
+        ...state,
+        menu: !state.menu,
+      };
+    case "profilePanel":
+      return {
+        ...state,
+        profilePanel: !state.profilePanel,
+      };
+  }
+};
 const Navigation = (props) => {
   const router = nextRouter.useRouter();
-  const [toggle, settoggle] = React.useState(false);
+
+  const [toggleStates, URDispatch] = React.useReducer(reducer, {
+    menu: false,
+    profilePanel: false,
+  });
 
   const handleMenuItemClick = (href) => {
     router.push(href);
@@ -27,19 +45,17 @@ const Navigation = (props) => {
     <NavigationContainer {...props} data-test="component-navigation">
       <IconContainer
         data-test="burger-menu"
-        toggle={toggle}
-        onClick={() => settoggle(!toggle)}
+        toggle={toggleStates.menu}
+        onClick={() => URDispatch({ type: "menu" })}
       >
-        <Icon toggle={toggle}>&nbsp;</Icon>
+        <Icon toggle={toggleStates.menu}>&nbsp;</Icon>
       </IconContainer>
       {router.pathname !== "/signin" &&
+        router.pathname !== "/userPage" &&
         (props?.currentUser ? (
           <Controller
             data-test="user-controller"
-            onClick={() => {
-              props.dispatch({ type: "REMOVE_CURRENT_USER" });
-              // handleMenuItemClick("/signin")
-            }}
+            onClick={() => URDispatch({ type: "profilePanel" })}
           >
             <Avatar
               name={props.currentUser.name}
@@ -56,13 +72,18 @@ const Navigation = (props) => {
             <p>ثبت نام | ورود</p>
           </Controller>
         ))}
+      {router.pathname !== "/signin" && router.pathname !== "/userPage" && (
+        <ProfilePanel
+          toggle={toggleStates.profilePanel}
+          URDispatch={URDispatch}
+        />
+      )}
+      <BackgroundContainer toggle={toggleStates.menu}>
+        &nbsp;
+      </BackgroundContainer>
 
-      <ProfilePanel />
-
-      <BackgroundContainer toggle={toggle}>&nbsp;</BackgroundContainer>
-
-      <NavContainer toggle={toggle}>
-        <NavList onClick={() => settoggle(!toggle)}>
+      <NavContainer toggle={toggleStates.menu}>
+        <NavList onClick={() => URDispatch({ type: "menu" })}>
           <Item>
             <Link onClick={() => handleMenuItemClick("/")}>صفحه اصلی</Link>
           </Item>

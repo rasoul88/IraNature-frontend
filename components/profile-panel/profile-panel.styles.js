@@ -1,22 +1,11 @@
 import styled from "styled-components";
 
-export const BackdropContainer = styled.div`
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  right: 0;
-  background: transparent;
-  z-index: 1000;
-  backdrop-filter: blur(2px) brightness(85%);
-`;
-
 export const PanelContainer = styled.div`
   width: 42rem;
   height: 60rem;
   position: fixed;
   top: 14rem;
-  right: 8.5rem;
+  right: 14rem;
   border-radius: 1rem;
   background: white;
   box-shadow: 0 1rem 3rem rgb(0 0 0 / 30%);
@@ -25,10 +14,19 @@ export const PanelContainer = styled.div`
   flex-direction: column;
   align-items: center;
   direction: rtl;
-
+  transition: all 0.3s;
+  transform: ${(props) => (props.toggle ? "scale(1)" : "scale(0)")};
+  transform-origin: 80% top;
+  z-index: 1000;
   & > h4 {
-    margin-top: 0.5rem;
+    margin: 1rem;
     color: #333;
+  }
+
+  @media only screen and (max-width: 37.5em) {
+    width: 96%;
+    top: 10rem;
+    right: 2%;
   }
 `;
 
@@ -66,10 +64,6 @@ export const HeaderContainer = styled.div`
       transform: scale(1.08);
     }
   }
-  @media only screen and (max-width: 37.5em) {
-    -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
-    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
-  }
 `;
 
 export const UserPicture = styled.div`
@@ -94,7 +88,7 @@ export const ItemBanner = styled.div`
   justify-content: space-between;
   transition: all 0.2s ease-in-out;
   &:hover {
-    box-shadow: 0px 2px 8px 1px rgb(0 0 0 / 25%);
+    box-shadow: 0px 2px 8px 1px rgb(0 0 0 / 35%);
     & > svg {
       margin-left: -2.3rem;
     }
@@ -121,6 +115,19 @@ export const BannerContent = styled.div`
 
   & p {
     margin-top: 0.5rem;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
+
+  & svg {
+    fill: #2a75b5;
+  }
+`;
+
+export const PhotoSelectorContainer = styled.div`
+  width: 12rem;
+  height: 4rem;
+  position: absolute;
+  top: 19.8rem;
+  right: 6rem;
+  z-index: 2;
 `;

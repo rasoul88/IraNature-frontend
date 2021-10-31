@@ -93,7 +93,7 @@ export const Controller = styled.label`
   position: fixed;
   top: 6.5rem;
   right: 14rem;
-  z-index: 1001;
+  z-index: 100;
   box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
   text-align: center;
   cursor: pointer;

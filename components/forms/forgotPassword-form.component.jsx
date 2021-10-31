@@ -3,7 +3,6 @@ import {
   TitleContainer,
   InputContainer,
   InputField,
-  SubmitButton,
   SocialTextContainer,
   SocialMediaContainer,
   SocialIconContainer,
@@ -11,6 +10,7 @@ import {
   ForgotFormContainer,
   ErrorText,
 } from "../../pages/signin/index.styles";
+import SubmitButton from "../../components/submit-button/submit-button.component";
 
 import MailIcon from "../../public/assets/icons/envelop.svg";
 import Instagram from "../../public/assets/icons/instagram.svg";
@@ -47,7 +47,7 @@ const ForgotPasswordForm = ({ URDispatch, forgotPassword }) => {
             لطفا ایمیل را وارد کنید
           </ErrorText>
         )}
-        <SubmitButton type="submit" value="بازنشانی " solid />
+        <SubmitButton value="بازنشانی " solid />
         <ForgotPasswordButton
           data-test="singinWithPassword-button"
           onClick={() =>

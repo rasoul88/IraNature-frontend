@@ -53,3 +53,19 @@ export const Shake = keyframes`
         transform: translateX(.3rem);
     }
 `;
+
+export const pageInRight = keyframes`
+    0% {
+        opacity: 0;
+        transform: translateX(200%);
+    }
+
+    80% {
+        transform: translateX(-10rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+`;

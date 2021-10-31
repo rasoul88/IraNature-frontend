@@ -14,8 +14,8 @@ import CustomRangeSlider from "../custom-range-slider/custom-range-slider";
 import CustomButton from "../custom-button/custom-button.component";
 import CustomInput from "../custom-input/custom-input.component";
 import CustomDatePicker from "../data-picker/date-picker.component";
-import CustomCkeckbox from "../custom-radio-button/custom-check-box.component";
-import { CheckboxItem } from "../custom-radio-button/custom-check-box.styles";
+import CustomCkeckbox from "../custom-check-box/custom-check-box.component";
+import { CheckboxItem } from "../custom-check-box/custom-check-box.styles";
 
 import { toggleFilterPanel } from "../../redux/tours/tours.actions";
 import { setFilterItem } from "../../redux/tours/tours.actions";

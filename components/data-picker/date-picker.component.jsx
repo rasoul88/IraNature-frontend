@@ -5,7 +5,7 @@ import DatePicker, {
   utils,
 } from "@hassanmojab/react-modern-calendar-datepicker";
 
-const CustomDatePicker = ({ selectedRange, onChange }) => {
+const CustomDatePicker = ({ selectedRange, onChange, inputStyle }) => {
   const dateFormater = (date) => {
     return `${date.year}/${date.month}/${date.day}`;
   };
@@ -30,6 +30,7 @@ const CustomDatePicker = ({ selectedRange, onChange }) => {
         textAlign: "center",
         padding: "0.5rem 1rem",
         color: "#333",
+        ...inputStyle,
       }}
       // className="my-custom-input-class" // a styling class
     />
