@@ -22,7 +22,7 @@ const CustomDatePicker = ({ selectedRange, onChange, inputStyle }) => {
       placeholder="انتخاب تاریخ"
       value={dataRange}
       style={{
-        width: "26rem",
+        width: "100%",
         borderRadius: "5px",
         border: "1px solid lightgray",
         fontSize: "1.4rem",
@@ -38,6 +38,7 @@ const CustomDatePicker = ({ selectedRange, onChange, inputStyle }) => {
 
   return (
     <DatePicker
+      style={{ width: "100%" }}
       value={selectedRange}
       onChange={onChange}
       minimumDate={utils("fa").getToday()}

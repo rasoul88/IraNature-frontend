@@ -34,12 +34,12 @@ const CustomRangeSlider = ({
           <div
             {...props}
             style={{
-              ...props.style,
               marginBottom: "-7px",
               height: "3px",
               width: "2px",
               // backgroundColor: index * STEP < values[0] ? "#548BF4" : "#ccc",
               backgroundColor: "#548BF4",
+              ...props.style,
             }}
           />
         )}

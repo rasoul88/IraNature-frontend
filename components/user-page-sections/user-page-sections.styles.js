@@ -6,7 +6,6 @@ export const SectionContainer = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   justify-content: flex-start;
   margin: 5rem 0;
   /* animation: name duration timing-function delay iteration-count direction fill-mode; */
@@ -81,10 +80,7 @@ export const DataItem = styled.div`
     width: 100%;
     padding: 0 4rem;
   }
-  @media only screen and (max-width: 26.25em) {
-    width: 100%;
-    padding: 0 2rem;
-  }
+
   & > h4 {
     margin: 0;
     font-size: 1.5rem;
@@ -92,8 +88,12 @@ export const DataItem = styled.div`
   }
 
   & > div {
-    width: 22rem;
+    width: 26rem;
     direction: ltr;
+
+    & .DatePicker {
+      width: 100%;
+    }
 
     & #multiselect-react-dropdown .optionListContainer {
       box-shadow: 0 1rem 3rem rgb(0 0 0 / 70%);
@@ -120,6 +120,20 @@ export const DataItem = styled.div`
 
   & input {
     color: #333;
+  }
+
+  @media only screen and (max-width: 26.25em) {
+    width: 100%;
+    padding: 0 2rem;
+    flex-direction: column;
+    & > h4 {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+
+    & > div {
+      width: 90%;
+    }
   }
 `;
 
@@ -160,10 +174,26 @@ export const CreateTourContainer = styled.div`
 
 export const TextArea = styled.textarea`
   direction: rtl;
-  max-width: 52rem;
-  min-width: 52rem;
-  min-height: 5rem;
+  max-width: 100%;
+  min-width: 100%;
+  min-height: 7rem;
   border-color: lightgray;
   font-family: inherit;
   border-radius: 5px;
+
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: white;
+    border-radius: 8px;
+  }
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    background-color: white;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background: linear-gradient(45deg, #021b79, #0575e6, #205e9b);
+  }
 `;

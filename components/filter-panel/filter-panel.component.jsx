@@ -109,6 +109,7 @@ export const UnconnectedFilterPanel = ({
             onChange={(newValue) =>
               filterItemsChangeHandler("dateRange", newValue)
             }
+            inputStyle={{ width: "26rem" }}
           />
         </FilterItemContainer>
         <FilterItemContainer>
@@ -182,6 +183,7 @@ export const UnconnectedFilterPanel = ({
           style={{ margin: "2rem 0" }}
           backgroundColor="#1976D2"
           color="white"
+          onClick={() => console.log("heyyyyy im fired", name)}
         >
           اعمال فیلتر ها
         </CustomButton>

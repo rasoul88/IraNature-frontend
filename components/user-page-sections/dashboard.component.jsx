@@ -16,6 +16,7 @@ import CustomRangeSlider from "../custom-range-slider/custom-range-slider";
 import CustomCkeckbox from "../custom-check-box/custom-check-box.component";
 import { CheckboxItem } from "../custom-check-box/custom-check-box.styles";
 import CustomDatePicker from "../data-picker/date-picker.component";
+import ImageUpload from "../image-upload/image-upload.component";
 
 const activeGuides = [
   { name: "علی مرادی", id: 1 },
@@ -25,7 +26,37 @@ const activeGuides = [
   { name: "محسن زینی وند", id: 5 },
 ];
 
-const DashboardSection = ({ currentUser }) => {
+const INITIAL_STATE = {
+  name: "",
+  days: [0],
+  price: 0,
+  source: null,
+  destination: null,
+  startDates: [],
+  maxParticipants: [0],
+  difficulty: [],
+  tourGuides: null,
+  coverImage: null,
+  tourImages: null,
+  description: null,
+};
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "setTourData":
+      return {
+        ...state,
+        [action.payload.itemName]: action.payload.value,
+      };
+    default:
+      return state;
+  }
+};
+const DashboardSection = () => {
+  const [tourData, URDispatch] = React.useReducer(reducer, INITIAL_STATE);
+
+  const tourDataChangeHandler = (itemName, value) => {
+    URDispatch({ type: "setTourData", payload: { itemName, value } });
+  };
   return (
     <SectionContainer>
       <CreateTourContainer>
@@ -42,6 +73,9 @@ const DashboardSection = ({ currentUser }) => {
                 data-test="name-input"
                 type="text"
                 placeholder="نام تور را وارد کنید"
+                onBlur={(event) =>
+                  tourDataChangeHandler("name", event.target.value)
+                }
               />
             </div>
           </DataItem>
@@ -49,15 +83,11 @@ const DashboardSection = ({ currentUser }) => {
             <h4>مدت:</h4>
             <div>
               <CustomRangeSlider
-                data-test="days-range-slider"
                 min={0}
                 max={20}
                 step={1}
-                values={[0]}
-                onChange={(newValue) =>
-                  //   filterItemsChangeHandler("days", newValue)
-                  console.log(newValue)
-                }
+                values={tourData.days}
+                onChange={(newValue) => tourDataChangeHandler("days", newValue)}
                 valueLabelDisplay="on"
               />
             </div>
@@ -66,14 +96,12 @@ const DashboardSection = ({ currentUser }) => {
             <h4>حداکثر افراد:</h4>
             <div>
               <CustomRangeSlider
-                data-test="days-range-slider"
                 min={0}
                 max={40}
                 step={1}
-                values={[0]}
+                values={tourData.maxParticipants}
                 onChange={(newValue) =>
-                  //   filterItemsChangeHandler("days", newValue)
-                  console.log(newValue)
+                  tourDataChangeHandler("maxParticipants", newValue)
                 }
                 valueLabelDisplay="on"
               />
@@ -83,11 +111,9 @@ const DashboardSection = ({ currentUser }) => {
             <h4>درجه سختی:</h4>
             <div>
               <CustomCkeckbox
-                data-test="difficulty-checkbox"
-                selectedValues={[]}
+                selectedValues={tourData.difficulty}
                 onChange={(newValue) =>
-                  //   filterItemsChangeHandler("difficulty", newValue)
-                  console.log(newValue)
+                  tourDataChangeHandler("difficulty", newValue)
                 }
               >
                 <CheckboxItem key="hard">سخت</CheckboxItem>
@@ -105,32 +131,44 @@ const DashboardSection = ({ currentUser }) => {
                 type="number"
                 min="0"
                 step="10000"
+                onBlur={(event) =>
+                  tourDataChangeHandler("price", event.target.value)
+                }
               />
             </div>
           </DataItem>
           <DataItem>
             <h4> تصویر کاور:</h4>
             <div>
-              <CustomInput data-test="email-input" type="email" />
+              <ImageUpload
+                id="tour-cover-uploader"
+                onChange={(newValue) =>
+                  tourDataChangeHandler("coverImage", newValue)
+                }
+              />
             </div>
           </DataItem>
           <DataItem>
             <h4> تصویرهای تور:</h4>
             <div>
-              <CustomInput data-test="email-input" type="email" />
+              <ImageUpload
+                id="tour-images-uploader"
+                multiple={true}
+                onChange={(newValue) =>
+                  tourDataChangeHandler("tourImages", newValue)
+                }
+              />
             </div>
           </DataItem>
           <DataItem>
-            <h4> تاریخ های شروع تور:</h4>
+            <h4> تاریخ های شروع:</h4>
             <div>
               <CustomDatePicker
-                data-test="dateRange-date-picker"
                 selectedRange={{ from: null, to: null }}
                 onChange={(newValue) =>
                   //   filterItemsChangeHandler("dateRange", newValue)
                   console.log(newValue)
                 }
-                inputStyle={{ width: "22rem" }}
               />
             </div>
           </DataItem>
@@ -150,7 +188,6 @@ const DashboardSection = ({ currentUser }) => {
             <h4> راهنماهای تور:</h4>
             <div>
               <Multiselect
-                data-test="cities-multiselector"
                 id="multiselect-react-dropdown"
                 options={activeGuides}
                 selectedValues={null}

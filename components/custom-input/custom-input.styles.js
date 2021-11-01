@@ -8,4 +8,5 @@ export const Input = styled.input`
   font-family: "IranSans";
   text-align: right;
   padding: 0.5rem 1rem;
+  direction: rtl;
 `;
