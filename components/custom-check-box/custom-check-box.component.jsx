@@ -5,24 +5,27 @@ const CustomCheckbox = ({
   children,
   selectedValues,
   onChange,
+  singleChoice,
   ...otherProps
 }) => {
+  const onItemClick = (childKey) => {
+    if (singleChoice) return onChange(childKey);
+
+    if (selectedValues.includes(childKey)) {
+      const newSelectedArr = selectedValues.filter((el) => el !== childKey);
+      onChange(newSelectedArr);
+    } else {
+      onChange([...selectedValues, childKey]);
+    }
+  };
+
   return (
     <Container {...otherProps}>
       {children.map((child) => (
         <CheckboxItem
           key={child.key}
           {...child.props}
-          onClick={() => {
-            if (selectedValues.includes(child.key)) {
-              const newSelectedArr = selectedValues.filter(
-                (el) => el !== child.key
-              );
-              onChange(newSelectedArr);
-            } else {
-              onChange([...selectedValues, child.key]);
-            }
-          }}
+          onClick={() => onItemClick(child.key)}
           selected={selectedValues.includes(child.key)}
         />
       ))}

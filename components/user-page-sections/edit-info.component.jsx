@@ -17,7 +17,42 @@ import SecodaryHeading from "../../components/heading/heading.component";
 import CustomInput from "../../components/custom-input/custom-input.component";
 import SubmitButton from "../../components/submit-button/submit-button.component";
 
+const INITIAL_STATE = {
+  userData: {
+    name: "",
+    email: "",
+    oldPassword: "",
+    newPassword: "",
+    confirmNewPassword: "",
+  },
+  errors: {},
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "setUserData":
+      return {
+        ...state,
+        userData: {
+          ...state.data,
+          [action.payload.itemName]: action.payload.value,
+        },
+      };
+    case "setUserErrors":
+      return {
+        ...state,
+        errors: action.payload,
+      };
+    default:
+      return state;
+  }
+};
 const InfoSection = ({ currentUser }) => {
+  const [{ userData, errors }, URDispatch] = React.useReducer(
+    reducer,
+    INITIAL_STATE
+  );
+
   return (
     <SectionContainer>
       <EditInfoContainer>

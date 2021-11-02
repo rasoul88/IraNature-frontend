@@ -5,22 +5,32 @@ import DatePicker, {
   utils,
 } from "@hassanmojab/react-modern-calendar-datepicker";
 
-const CustomDatePicker = ({ selectedRange, onChange, inputStyle }) => {
+const CustomDatePicker = ({
+  selectedRange,
+  selectedDates,
+  onChange,
+  inputStyle,
+}) => {
   const dateFormater = (date) => {
     return `${date.year}/${date.month}/${date.day}`;
   };
   const dataRange =
-    selectedRange.from && selectedRange.to
+    selectedRange && selectedRange.from && selectedRange.to
       ? ` ${dateFormater(selectedRange.to)} از ${dateFormater(
           selectedRange.from
         )} تا`
       : "";
+  const datesString =
+    selectedDates && selectedDates[0]
+      ? selectedDates.reduce((acc, date) => {
+          return acc + `${dateFormater(date)} - `;
+        }, "")
+      : "";
   const renderCustomInput = ({ ref }) => (
     <input
-      readOnly
       ref={ref}
       placeholder="انتخاب تاریخ"
-      value={dataRange}
+      value={selectedRange ? dataRange : datesString}
       style={{
         width: "100%",
         borderRadius: "5px",
@@ -32,6 +42,8 @@ const CustomDatePicker = ({ selectedRange, onChange, inputStyle }) => {
         color: "#333",
         ...inputStyle,
       }}
+      readOnly
+
       // className="my-custom-input-class" // a styling class
     />
   );
@@ -39,7 +51,7 @@ const CustomDatePicker = ({ selectedRange, onChange, inputStyle }) => {
   return (
     <DatePicker
       style={{ width: "100%" }}
-      value={selectedRange}
+      value={selectedRange ? selectedRange : selectedDates}
       onChange={onChange}
       minimumDate={utils("fa").getToday()}
       renderInput={renderCustomInput}

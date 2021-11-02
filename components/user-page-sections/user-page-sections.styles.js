@@ -197,3 +197,20 @@ export const TextArea = styled.textarea`
     background: linear-gradient(45deg, #021b79, #0575e6, #205e9b);
   }
 `;
+
+export const CoverPreview = styled.div`
+  width: 100%;
+  height: 17rem;
+  background-size: cover;
+  background-blend-mode: screen;
+  background-image: ${(props) => props.gradientColor}
+    url(${(props) => props.backgroundImage});
+`;
+
+export const ErrorText = styled.p`
+  width: 100%;
+  text-align: right;
+  margin: 0;
+  font-size: 1.2rem;
+  color: red;
+`;
