@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from "react-redux";
+import { get } from "axios";
 import {
   SectionContainer,
   HeadingContainer,
@@ -10,7 +12,6 @@ import {
   ErrorText,
 } from "./user-page-sections.styles";
 import Multiselect from "multiselect-react-dropdown";
-
 import SecodaryHeading from "../../components/heading/heading.component";
 import CustomInput from "../../components/custom-input/custom-input.component";
 import SubmitButton from "../../components/submit-button/submit-button.component";
@@ -19,33 +20,27 @@ import CustomCkeckbox from "../custom-check-box/custom-check-box.component";
 import { CheckboxItem } from "../custom-check-box/custom-check-box.styles";
 import CustomDatePicker from "../data-picker/date-picker.component";
 import ImageUpload from "../image-upload/image-upload.component";
+import { createTourStart } from "../../redux/tours/tours.actions";
 // import { hexTorgba } from "../../utils/functions";
-
-const activeGuides = [
-  { name: "علی مرادی", id: 1 },
-  { name: "رسول صحرایی", id: 2 },
-  { name: "سعید محمدی", id: 3 },
-  { name: "رضا مهدیار", id: 4 },
-  { name: "محسن زینی وند", id: 5 },
-];
 
 const INITIAL_STATE = {
   data: {
     name: "",
-    days: [0],
+    duration: 0,
     price: 0,
-    source: null,
+    startLocation: null,
     destination: null,
     startDates: [],
-    maxParticipants: [0],
+    maxGroupSize: 0,
     difficulty: "",
-    tourGuides: null,
-    coverImage: null,
+    guides: null,
+    imageCover: null,
     gradientColor: { from: null, to: null },
-    tourImages: null,
-    description: null,
+    images: null,
+    summary: null,
   },
   errors: {},
+  activeTourGuides: [],
 };
 const reducer = (state, action) => {
   switch (action.type) {
@@ -62,12 +57,18 @@ const reducer = (state, action) => {
         ...state,
         errors: action.payload,
       };
+    case "setTourGuides":
+      return {
+        ...state,
+        activeTourGuides: action.payload,
+      };
     default:
       return state;
   }
 };
-const DashboardSection = () => {
-  const [{ data, errors }, URDispatch] = React.useReducer(
+
+const DashboardSection = ({ createTourStart }) => {
+  const [{ data, errors, activeTourGuides }, URDispatch] = React.useReducer(
     reducer,
     INITIAL_STATE
   );
@@ -81,12 +82,23 @@ const DashboardSection = () => {
     for (const item in data) {
       if (item === "gradientColor" && data[item].from && data[item].to)
         continue;
+      if (typeof data[item] === "number" && data[item] > 0) continue;
       if (!data[item] || !data[item][0]) {
         errors[item] = true;
       }
     }
     URDispatch({ type: "setTourErrors", payload: errors });
+    if (Object.keys(errors).length === 0) {
+      createTourStart(data);
+    }
   };
+
+  React.useEffect(() => {
+    get("users/tourGuides").then((res) =>
+      URDispatch({ type: "setTourGuides", payload: res.data.users })
+    );
+  }, []);
+
   return (
     <SectionContainer>
       <CreateTourContainer>
@@ -117,11 +129,15 @@ const DashboardSection = () => {
                 min={0}
                 max={20}
                 step={1}
-                values={data.days}
-                onChange={(newValue) => tourDataChangeHandler("days", newValue)}
+                values={[data.duration]}
+                onChange={(newValue) =>
+                  tourDataChangeHandler("duration", newValue[0] * 1)
+                }
                 valueLabelDisplay="on"
               />
-              {errors.days && <ErrorText>لطفا مدت تور را مشخص کنید</ErrorText>}
+              {errors.duration && (
+                <ErrorText>لطفا مدت تور را مشخص کنید</ErrorText>
+              )}
             </div>
           </DataItem>
           <DataItem>
@@ -131,13 +147,13 @@ const DashboardSection = () => {
                 min={0}
                 max={40}
                 step={1}
-                values={data.maxParticipants}
+                values={[data.maxGroupSize]}
                 onChange={(newValue) =>
-                  tourDataChangeHandler("maxParticipants", newValue)
+                  tourDataChangeHandler("maxGroupSize", newValue[0] * 1)
                 }
                 valueLabelDisplay="on"
               />
-              {errors.maxParticipants && (
+              {errors.maxGroupSize && (
                 <ErrorText>لطفا حداکثر افراد را مشخص کنید</ErrorText>
               )}
             </div>
@@ -171,7 +187,7 @@ const DashboardSection = () => {
                 min="0"
                 step="10000"
                 onBlur={(event) =>
-                  tourDataChangeHandler("price", event.target.value)
+                  tourDataChangeHandler("price", event.target.value * 1)
                 }
               />
               {errors.price && (
@@ -185,10 +201,10 @@ const DashboardSection = () => {
               <ImageUpload
                 id="tour-cover-uploader"
                 onChange={(newValue) =>
-                  tourDataChangeHandler("coverImage", newValue)
+                  tourDataChangeHandler("imageCover", newValue)
                 }
               />
-              {errors.coverImage && (
+              {errors.imageCover && (
                 <ErrorText>لطفا تصویر کاور را بارگزاری کنید</ErrorText>
               )}
             </div>
@@ -200,10 +216,10 @@ const DashboardSection = () => {
                 id="tour-images-uploader"
                 multiple={true}
                 onChange={(newValue) =>
-                  tourDataChangeHandler("tourImages", newValue)
+                  tourDataChangeHandler("images", newValue)
                 }
               />
-              {errors.tourImages && (
+              {errors.images && (
                 <ErrorText>لطفا تصویرهای تور را بارگزاری کنید</ErrorText>
               )}
             </div>
@@ -231,10 +247,10 @@ const DashboardSection = () => {
                 data-test="email-input"
                 type="text"
                 onBlur={(event) =>
-                  tourDataChangeHandler("source", event.target.value)
+                  tourDataChangeHandler("startLocation", event.target.value)
                 }
               />
-              {errors.source && (
+              {errors.startLocation && (
                 <ErrorText>لطفا شهر مبدا تور را مشخص کنید</ErrorText>
               )}
             </div>
@@ -259,14 +275,16 @@ const DashboardSection = () => {
             <div>
               <Multiselect
                 id="multiselect-react-dropdown"
-                options={activeGuides}
+                options={activeTourGuides}
                 selectedValues={null}
-                onSelect={(newValue) =>
-                  tourDataChangeHandler("tourGuides", newValue)
-                }
-                onRemove={(newValue) =>
-                  tourDataChangeHandler("tourGuides", newValue)
-                }
+                onSelect={(newValue) => {
+                  const idsArr = newValue.map((el) => el._id);
+                  tourDataChangeHandler("guides", idsArr);
+                }}
+                onRemove={(newValue) => {
+                  const idsArr = newValue.map((el) => el._id);
+                  tourDataChangeHandler("guides", idsArr);
+                }}
                 displayValue="name"
                 placeholder="انتخاب"
                 showArrow={true}
@@ -286,7 +304,7 @@ const DashboardSection = () => {
                   optionContainer: { textAlign: "right", fontSize: "14px" },
                 }}
               />
-              {errors.tourGuides && (
+              {errors.guides && (
                 <ErrorText>لطفا حداقل یک راهنما انتخاب کنید</ErrorText>
               )}
             </div>
@@ -309,9 +327,9 @@ const DashboardSection = () => {
                 <CoverPreview
                   gradientColor={`linear-gradient(to right bottom, ${data.gradientColor.from},  ${data.gradientColor.to}),`}
                   backgroundImage={
-                    data.coverImage &&
-                    data.coverImage[0] &&
-                    URL.createObjectURL(data.coverImage[0])
+                    data.imageCover &&
+                    data.imageCover[0] &&
+                    URL.createObjectURL(data.imageCover[0])
                   }
                 />
               )}
@@ -336,10 +354,10 @@ const DashboardSection = () => {
             <div style={{ direction: " rtl" }}>
               <TextArea
                 onBlur={(event) =>
-                  tourDataChangeHandler("description", event.target.value)
+                  tourDataChangeHandler("summary", event.target.value)
                 }
               />
-              {errors.description && (
+              {errors.summary && (
                 <ErrorText>لطفا برای تور یک خلاصه بنویسید</ErrorText>
               )}
             </div>
@@ -353,4 +371,11 @@ const DashboardSection = () => {
   );
 };
 
-export default DashboardSection;
+// const mapStateToProps = ({ user: { currentUser } }) => ({
+//   currentUser,
+// });
+
+const mapDispatchToProps = (dispatch) => ({
+  createTourStart: (data) => dispatch(createTourStart(data)),
+});
+export default connect(null, mapDispatchToProps)(DashboardSection);

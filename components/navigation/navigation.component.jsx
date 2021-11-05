@@ -15,6 +15,7 @@ import {
 import LoginIcon from "../../public/assets/icons/login-svgrepo-com.svg";
 import Avatar from "../avatar/avatar.component";
 import ProfilePanel from "../profile-panel/profile-panel.component";
+import { removeCurrentUser } from "../../redux/user/user.actions";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -30,7 +31,7 @@ const reducer = (state, action) => {
       };
   }
 };
-const Navigation = (props) => {
+const Navigation = ({ currentUser, removeCurrentUser }) => {
   const router = nextRouter.useRouter();
 
   const [toggleStates, URDispatch] = React.useReducer(reducer, {
@@ -42,7 +43,7 @@ const Navigation = (props) => {
     router.push(href);
   };
   return (
-    <NavigationContainer {...props} data-test="component-navigation">
+    <NavigationContainer data-test="component-navigation">
       <IconContainer
         data-test="burger-menu"
         toggle={toggleStates.menu}
@@ -52,16 +53,16 @@ const Navigation = (props) => {
       </IconContainer>
       {router.pathname !== "/signin" &&
         router.pathname !== "/userPage" &&
-        (props?.currentUser ? (
+        (currentUser ? (
           <Controller
             data-test="user-controller"
             onClick={() => URDispatch({ type: "profilePanel" })}
           >
             <Avatar
-              name={props.currentUser.name}
+              name={currentUser.name}
               // image={props.currentUser.photo}
             />
-            <p>{props.currentUser.name}</p>
+            <p>{currentUser.name}</p>
           </Controller>
         ) : (
           <Controller
@@ -76,6 +77,8 @@ const Navigation = (props) => {
         <ProfilePanel
           toggle={toggleStates.profilePanel}
           URDispatch={URDispatch}
+          removeCurrentUser={removeCurrentUser}
+          currentUser={currentUser}
         />
       )}
       <BackgroundContainer toggle={toggleStates.menu}>
@@ -113,4 +116,8 @@ const Navigation = (props) => {
 const mapStateToProps = ({ user: { currentUser } }) => ({
   currentUser,
 });
-export default connect(mapStateToProps)(Navigation);
+
+const mapDispatchToProps = (dispatch) => ({
+  removeCurrentUser: () => dispatch(removeCurrentUser()),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

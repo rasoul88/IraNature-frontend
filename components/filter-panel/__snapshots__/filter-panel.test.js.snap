@@ -98,6 +98,11 @@ exports[`renders filterPanel correctly 1`] = `
       </filter-panelstyles__ItemHeaderContainer>
       <CustomDatePicker
         data-test="dateRange-date-picker"
+        inputStyle={
+          Object {
+            "width": "26rem",
+          }
+        }
         onChange={[Function]}
         selectedRange={
           Object {
@@ -236,6 +241,7 @@ exports[`renders filterPanel correctly 1`] = `
     <CustomButton
       backgroundColor="#1976D2"
       color="white"
+      onClick={[Function]}
       style={
         Object {
           "margin": "2rem 0",

@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import Image from "next/image";
 import {
   SectionContainer,
@@ -10,6 +11,7 @@ import {
   DataItem,
   ButtonContainer,
   ChangePasswordContainer,
+  ErrorText,
 } from "./user-page-sections.styles";
 
 import PhotoSelector from "../../components/photo-selector/photo-selector.component";
@@ -17,23 +19,12 @@ import SecodaryHeading from "../../components/heading/heading.component";
 import CustomInput from "../../components/custom-input/custom-input.component";
 import SubmitButton from "../../components/submit-button/submit-button.component";
 
-const INITIAL_STATE = {
-  userData: {
-    name: "",
-    email: "",
-    oldPassword: "",
-    newPassword: "",
-    confirmNewPassword: "",
-  },
-  errors: {},
-};
-
 const reducer = (state, action) => {
   switch (action.type) {
     case "setUserData":
       return {
         ...state,
-        userData: {
+        data: {
           ...state.data,
           [action.payload.itemName]: action.payload.value,
         },
@@ -47,12 +38,51 @@ const reducer = (state, action) => {
       return state;
   }
 };
-const InfoSection = ({ currentUser }) => {
-  const [{ userData, errors }, URDispatch] = React.useReducer(
-    reducer,
-    INITIAL_STATE
-  );
 
+const InfoSection = ({ currentUser }) => {
+  const [{ data, errors }, URDispatch] = React.useReducer(reducer, {
+    data: {
+      name: currentUser.name,
+      email: currentUser.email,
+      oldPassword: "",
+      newPassword: "",
+      confirmNewPassword: "",
+    },
+    errors: {},
+  });
+
+  const onInfoEditSubmit = () => {
+    let errors = {};
+    if (!data.name || !data.email) {
+      errors.name = !data.name;
+      errors.email = !data.email;
+      return URDispatch({ type: "setUserErrors", payload: errors });
+    } else if (
+      data.name === currentUser.name &&
+      data.email === currentUser.email
+    ) {
+      errors.sameInfo = true;
+      return URDispatch({ type: "setUserErrors", payload: errors });
+    }
+    URDispatch({ type: "setUserErrors", payload: {} });
+  };
+
+  const onPasswordChangeSubmit = () => {
+    let errors = {};
+    if (!data.oldPassword || !data.newPassword || !data.confirmNewPassword) {
+      errors.oldPassword = !data.oldPassword;
+      errors.newPassword = !data.newPassword;
+      errors.confirmNewPassword = !data.confirmNewPassword;
+      return URDispatch({ type: "setUserErrors", payload: errors });
+    } else if (data.newPassword !== data.confirmNewPassword) {
+      errors.notMatch = true;
+      return URDispatch({ type: "setUserErrors", payload: errors });
+    } else if (data.oldPassword === data.newPassword) {
+      errors.samePasswords = true;
+      return URDispatch({ type: "setUserErrors", payload: errors });
+    }
+    URDispatch({ type: "setUserErrors", payload: {} });
+  };
   return (
     <SectionContainer>
       <EditInfoContainer>
@@ -69,7 +99,7 @@ const InfoSection = ({ currentUser }) => {
             <PhotoSelector />
           </PhotoSelectorContainer>
         </UserPictureContainer>
-        <form onSubmit={(event) => event.preventDefault()}>
+        <div>
           <HeadingContainer>
             <SecodaryHeading style={{ fontSize: "2rem" }}>
               ویرایش اطلاعات
@@ -82,7 +112,16 @@ const InfoSection = ({ currentUser }) => {
                 data-test="name-input"
                 type="text"
                 defaultValue={currentUser.name}
+                onBlur={(event) => {
+                  URDispatch({
+                    type: "setUserData",
+                    payload: { itemName: "name", value: event.target.value },
+                  });
+                }}
               />
+              {errors.name && (
+                <ErrorText>لطفا نام کاربری جدید را وارد کنید</ErrorText>
+              )}
             </div>
           </DataItem>
           <DataItem>
@@ -92,16 +131,30 @@ const InfoSection = ({ currentUser }) => {
                 data-test="email-input"
                 type="email"
                 defaultValue={currentUser.email}
+                onBlur={(event) => {
+                  URDispatch({
+                    type: "setUserData",
+                    payload: { itemName: "email", value: event.target.value },
+                  });
+                }}
               />
+              {errors.email && (
+                <ErrorText>لطفا ایمیل جدید را وارد کنید</ErrorText>
+              )}
             </div>
           </DataItem>
+          {errors.sameInfo && (
+            <ErrorText style={{ textAlign: "center" }}>
+              شما اطلاعات خود را تغییر نداده اید
+            </ErrorText>
+          )}
           <ButtonContainer>
-            <SubmitButton value="ویرایش" />
+            <SubmitButton value="ویرایش" onClick={onInfoEditSubmit} />
           </ButtonContainer>
-        </form>
+        </div>
       </EditInfoContainer>
       <ChangePasswordContainer>
-        <form onSubmit={(event) => event.preventDefault()}>
+        <div>
           <HeadingContainer>
             <SecodaryHeading style={{ fontSize: "2rem" }}>
               تغییر کلمه عبور
@@ -110,29 +163,86 @@ const InfoSection = ({ currentUser }) => {
           <DataItem>
             <h4>کلمه عبور قبلی:</h4>
             <div>
-              <CustomInput data-test="name-input" type="password" />
+              <CustomInput
+                data-test="name-input"
+                type="password"
+                onBlur={(event) => {
+                  URDispatch({
+                    type: "setUserData",
+                    payload: {
+                      itemName: "oldPassword",
+                      value: event.target.value,
+                    },
+                  });
+                }}
+              />
+              {errors.oldPassword && (
+                <ErrorText>لطفا کلمه عبور قبلی را وارد کنید</ErrorText>
+              )}
             </div>
           </DataItem>
           <DataItem>
             <h4>کلمه عبور جدید:</h4>
             <div>
-              <CustomInput data-test="email-input" type="password" />
+              <CustomInput
+                data-test="email-input"
+                type="password"
+                onBlur={(event) => {
+                  URDispatch({
+                    type: "setUserData",
+                    payload: {
+                      itemName: "newPassword",
+                      value: event.target.value,
+                    },
+                  });
+                }}
+              />
+              {errors.newPassword && (
+                <ErrorText>لطفا کلمه عبور جدید را وارد کنید</ErrorText>
+              )}
             </div>
           </DataItem>
           <DataItem>
             <h4>تکرار کلمه عبور جدید:</h4>
             <div>
-              <CustomInput data-test="email-input" type="password" />
+              <CustomInput
+                data-test="email-input"
+                type="password"
+                onBlur={(event) => {
+                  URDispatch({
+                    type: "setUserData",
+                    payload: {
+                      itemName: "confirmNewPassword",
+                      value: event.target.value,
+                    },
+                  });
+                }}
+              />
+              {errors.confirmNewPassword && (
+                <ErrorText>لطفا تکرار کلمه عبور جدید را وارد کنید</ErrorText>
+              )}
             </div>
           </DataItem>
-
+          {errors.samePasswords && (
+            <ErrorText style={{ textAlign: "center" }}>
+              کلمه عبور قبلی و جدید شما مشابه هستند
+            </ErrorText>
+          )}
+          {errors.notMatch && (
+            <ErrorText style={{ textAlign: "center" }}>
+              کلمه عبور جدید و تکرار آن یکسان نمی باشد
+            </ErrorText>
+          )}
           <ButtonContainer>
-            <SubmitButton value="تغییر" />
+            <SubmitButton value="تغییر" onClick={onPasswordChangeSubmit} />
           </ButtonContainer>
-        </form>
+        </div>
       </ChangePasswordContainer>
     </SectionContainer>
   );
 };
 
-export default InfoSection;
+const mapStateToProps = ({ user: { currentUser } }) => ({
+  currentUser,
+});
+export default connect(mapStateToProps)(InfoSection);

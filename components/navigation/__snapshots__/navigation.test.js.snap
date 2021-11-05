@@ -2,18 +2,7 @@
 
 exports[`renders \`Navigation\` component 1`] = `
 <navigationstyles__NavigationContainer
-  currentUser={null}
   data-test="component-navigation"
-  dispatch={[Function]}
-  store={
-    Object {
-      "@@observable": [Function],
-      "dispatch": [Function],
-      "getState": [Function],
-      "replaceReducer": [Function],
-      "subscribe": [Function],
-    }
-  }
 >
   <navigationstyles__IconContainer
     data-test="burger-menu"
@@ -35,6 +24,11 @@ exports[`renders \`Navigation\` component 1`] = `
       ثبت نام | ورود
     </p>
   </navigationstyles__Controller>
+  <ProfilePanel
+    URDispatch={[Function]}
+    removeCurrentUser={[Function]}
+    toggle={false}
+  />
   <navigationstyles__BackgroundContainer
     toggle={false}
   >

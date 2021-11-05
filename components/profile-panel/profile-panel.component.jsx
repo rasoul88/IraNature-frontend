@@ -17,13 +17,23 @@ import LeftIcon from "../../public/assets/icons/chevron-left-svgrepo-com.svg";
 import SettinIcon from "../../public/assets/icons/cogs-on-wheels-interface-symbol-for-settings-edition-button-svgrepo-com.svg";
 import PhotoSelector from "../photo-selector/photo-selector.component";
 
-const ProfilePanel = ({ toggle, URDispatch }) => {
+const ProfilePanel = ({
+  currentUser,
+  toggle,
+  URDispatch,
+  removeCurrentUser,
+}) => {
   const router = nextRouter.useRouter();
   return (
     <PanelContainer toggle={toggle}>
       <HeaderContainer>
         <CloseIcon onClick={() => URDispatch({ type: "profilePanel" })} />
-        <LogoutIcon />
+        <LogoutIcon
+          onClick={() => {
+            removeCurrentUser();
+            URDispatch({ type: "profilePanel" });
+          }}
+        />
       </HeaderContainer>
       <UserPicture>
         <Image
@@ -33,7 +43,7 @@ const ProfilePanel = ({ toggle, URDispatch }) => {
           height="140px"
         />
       </UserPicture>
-      <h4>رسول صحرایی</h4>
+      <h4>{currentUser?.name}</h4>
       <PhotoSelectorContainer>
         <PhotoSelector />
       </PhotoSelectorContainer>

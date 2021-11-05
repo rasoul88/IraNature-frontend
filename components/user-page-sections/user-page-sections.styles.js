@@ -25,7 +25,7 @@ export const EditInfoContainer = styled.div`
     width: 100%;
   }
 
-  & > form {
+  & > div {
     flex: 3;
     margin-left: 5rem;
     @media only screen and (max-width: 75em) {

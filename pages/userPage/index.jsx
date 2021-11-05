@@ -14,14 +14,14 @@ import SettinIcon from "../../public/assets/icons/cogs-on-wheels-interface-symbo
 import InfoSection from "../../components/user-page-sections/edit-info.component";
 import DashboardSection from "../../components/user-page-sections/dashboard.component";
 
-const selectCorrectContent = (selectedSidebarItem, currentUser) => {
+const selectCorrectContent = (selectedSidebarItem) => {
   switch (selectedSidebarItem) {
     case "tours":
       return <div>tours</div>;
     case "info":
-      return <InfoSection currentUser={currentUser} />;
+      return <InfoSection />;
     case "dashboard":
-      return <DashboardSection currentUser={currentUser} />;
+      return <DashboardSection />;
   }
 };
 
@@ -36,6 +36,7 @@ const UserPage = ({ currentUser }) => {
     }
     setSelectedSidebarItem(router.query.selectedSection);
   }, [router, currentUser]);
+
   return (
     <PageContainer>
       <div>

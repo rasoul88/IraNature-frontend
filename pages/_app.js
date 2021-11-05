@@ -12,8 +12,12 @@ import Axios from "axios";
 Axios.defaults.baseURL = "http://localhost:6060/api/v1";
 Axios.defaults.headers.common["Access-Control-Allow-Origin"] =
   "http://localhost:3000";
+
+Axios.defaults.withCredentials = true;
 Axios.defaults.headers.common["Access-Control-Allow-Methods"] =
   "GET,PUT,POST,DELETE";
+
+// Axios.defaults.headers.common["authorization"] = "";
 Axios.defaults.headers.common["Access-Control-Allow-Headers"] =
   "Origin, X-Requested-With, Content-Type, Accept";
 
