@@ -17,8 +17,9 @@ import Instagram from "../../public/assets/icons/instagram.svg";
 import Linkedin from "../../public/assets/icons/linkedin.svg";
 import Twitter from "../../public/assets/icons/twitter.svg";
 import Google from "../../public/assets/icons/google.svg";
+import SpinButton from "../../components/spin-button/spin-button.component";
 
-const ForgotPasswordForm = ({ URDispatch, forgotPassword }) => {
+const ForgotPasswordForm = ({ URDispatch, forgotPassword, isFetching }) => {
   const emailRef = React.useRef();
   const [errors, setErrors] = React.useState({
     emailErr: false,
@@ -47,7 +48,7 @@ const ForgotPasswordForm = ({ URDispatch, forgotPassword }) => {
             لطفا ایمیل را وارد کنید
           </ErrorText>
         )}
-        <SubmitButton value="بازنشانی " solid />
+        {isFetching ? <SpinButton /> : <SubmitButton value="بازنشانی " solid />}
         <ForgotPasswordButton
           data-test="singinWithPassword-button"
           onClick={() =>

@@ -8,6 +8,8 @@ import Navigation from "../components/navigation/navigation.component";
 import { store, persistor } from "../redux/store";
 // import Footer from "../components/footer/footer.component";
 import Axios from "axios";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 Axios.defaults.baseURL = "http://localhost:6060/api/v1";
 Axios.defaults.headers.common["Access-Control-Allow-Origin"] =
@@ -40,6 +42,7 @@ function MyApp({ Component, pageProps }) {
       <div>
         <Navigation />
         <Component {...pageProps} />
+        <ToastContainer rtl />
         {/* <footer>
           <Footer />
         </footer> */}

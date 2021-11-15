@@ -130,10 +130,44 @@ const INITIAL_STATE = {
       payValue: "2,000,000",
     },
   ],
+
+  activeTourGuides: [],
+
+  tourUnderConstruction: {
+    data: {
+      name: "",
+      duration: 0,
+      price: 0,
+      startLocation: null,
+      destination: null,
+      startDates: [],
+      maxGroupSize: 0,
+      difficulty: "",
+      guides: null,
+      imageCover: null,
+      gradientColor: { from: null, to: null },
+      images: null,
+      summary: null,
+    },
+    errors: {},
+  },
+
+  isFetching: false,
 };
 
 const toursReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case toursActionTypes.CREATE_TOUR_START:
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case toursActionTypes.CREATE_TOUR_SUCCESS:
+    case toursActionTypes.CREATE_TOUR_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+      };
     case toursActionTypes.TOGGLE_FILTER_PANEL:
       return {
         ...state,
@@ -146,6 +180,30 @@ const toursReducer = (state = INITIAL_STATE, action) => {
           ...state.filterItems,
           [action.payload.itemName]: action.payload.value,
         },
+      };
+    case toursActionTypes.SET_TOUR_DATA_ITEM:
+      return {
+        ...state,
+        tourUnderConstruction: {
+          ...state.tourUnderConstruction,
+          data: {
+            ...state.tourUnderConstruction.data,
+            [action.payload.itemName]: action.payload.value,
+          },
+        },
+      };
+    case toursActionTypes.SET_TOUR_DATA_ERRORS:
+      return {
+        ...state,
+        tourUnderConstruction: {
+          ...state.tourUnderConstruction,
+          errors: action.payload,
+        },
+      };
+    case toursActionTypes.SET_ACTIVE_TOUR_GUIDES:
+      return {
+        ...state,
+        activeTourGuides: action.payload,
       };
     default:
       return state;

@@ -8,37 +8,49 @@ import {
   signUpSuccess,
   resetPasswordFailure,
   tokenSent,
+  updateMeSuccess,
+  updateMeFailure,
+  updateMyPasswordSuccess,
+  updateMyPasswordFailure,
 } from "./user.actions";
+import { showLoadingToast, showToast } from "../../utils/functions";
 
 export function* signInWithEmail({ payload }) {
   try {
+    showLoadingToast("در حال ورود ...");
     const user = yield post("users/login", payload);
     yield put(signInSuccess(user.data.user));
+    showToast("success", "ورود با موفقیت انجام شد");
   } catch (error) {
     yield put(signInFailure(error.message));
-    console.log(error);
+    showToast("error", error.message);
   }
 }
 
 export function* signUp({ payload }) {
   try {
+    showLoadingToast("در حال ثبت نام ...");
     const user = yield post("users/signup", payload);
     yield put(signUpSuccess(user.data.user));
-    console.log(user);
+    showToast("success", "ثبت نام با موفقیت انجام شد");
   } catch (error) {
     yield put(signUpFailure(error.message));
+    showToast("error", error.message);
   }
 }
 
 export function* forgotPassword({ payload }) {
   try {
+    showLoadingToast("در حال ارسال ایمیل ...");
     const response = yield post(`users/forgotPassword`, {
       email: payload,
     });
     console.log(response);
     yield put(tokenSent(response.message));
+    showToast("success", "ایمیل با موفقیت ارسال شد");
   } catch (error) {
     yield put(resetPasswordFailure(error.message));
+    showToast("error", error.message);
   }
 }
 
@@ -46,13 +58,40 @@ export function* resetPassword({
   payload: { token, password, confirmPassword },
 }) {
   try {
+    showLoadingToast("در حال انجام عملیات ...");
     const user = yield patch(`users/resetPassword/${token}/`, {
       password,
       confirmPassword,
     });
     yield put(signInSuccess(user.data.user));
+    showToast("success", "کلمه عبور به روزرسانی شد");
   } catch (error) {
     yield put(resetPasswordFailure(error.message));
+    showToast("error", error.message);
+  }
+}
+
+export function* updateMe({ payload }) {
+  try {
+    showLoadingToast("در حال اعمال تغییرات ...");
+    const user = yield patch(`users/updateMe/`, payload);
+    yield put(updateMeSuccess(user.data.user));
+    showToast("success", "اطلاعات به روزرسانی شد");
+  } catch (error) {
+    yield put(updateMeFailure(error.message));
+    showToast("error", error.message);
+  }
+}
+
+export function* updateMyPassword({ payload }) {
+  try {
+    showLoadingToast("در حال انجام عملیات ...");
+    yield patch(`users/updateMyPassword/`, payload);
+    yield put(updateMyPasswordSuccess());
+    showToast("success", "کلمه عبور به روزرسانی شد");
+  } catch (error) {
+    yield put(updateMyPasswordFailure(error.message));
+    showToast("error", error.message);
   }
 }
 
@@ -72,11 +111,21 @@ export function* onResetPassword() {
   yield takeLatest(userActionTypes.RESET_PASSWORD, resetPassword);
 }
 
+export function* onUpdateMe() {
+  yield takeLatest(userActionTypes.UPDATE_ME, updateMe);
+}
+
+export function* onUpdateMyPassword() {
+  yield takeLatest(userActionTypes.UPDATE_MY_PASSWORD, updateMyPassword);
+}
+
 export function* userSagas() {
   yield all([
     call(onEmailSignInStart),
     call(onSignUpStart),
     call(onForgotPassword),
     call(onResetPassword),
+    call(onUpdateMe),
+    call(onUpdateMyPassword),
   ]);
 }

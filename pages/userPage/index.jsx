@@ -13,6 +13,7 @@ import SettinIcon from "../../public/assets/icons/cogs-on-wheels-interface-symbo
 
 import InfoSection from "../../components/user-page-sections/edit-info.component";
 import DashboardSection from "../../components/user-page-sections/dashboard.component";
+import { getActiveTourGuides } from "../../redux/tours/tours.actions";
 
 const selectCorrectContent = (selectedSidebarItem) => {
   switch (selectedSidebarItem) {
@@ -25,7 +26,7 @@ const selectCorrectContent = (selectedSidebarItem) => {
   }
 };
 
-const UserPage = ({ currentUser }) => {
+const UserPage = ({ currentUser, getActiveTourGuides }) => {
   const router = nextRouter.useRouter();
 
   const [selectedSidebarItem, setSelectedSidebarItem] = React.useState();
@@ -36,6 +37,10 @@ const UserPage = ({ currentUser }) => {
     }
     setSelectedSidebarItem(router.query.selectedSection);
   }, [router, currentUser]);
+
+  React.useEffect(() => {
+    getActiveTourGuides();
+  }, [getActiveTourGuides]);
 
   return (
     <PageContainer>
@@ -77,7 +82,10 @@ const UserPage = ({ currentUser }) => {
   );
 };
 
+const mapDispatchToProps = (dispatch) => ({
+  getActiveTourGuides: () => dispatch(getActiveTourGuides()),
+});
 const mapStateToProps = ({ user: { currentUser } }) => ({
   currentUser,
 });
-export default connect(mapStateToProps)(UserPage);
+export default connect(mapStateToProps, mapDispatchToProps)(UserPage);

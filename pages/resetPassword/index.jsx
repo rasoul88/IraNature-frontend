@@ -2,17 +2,18 @@ import React from "react";
 import { connect } from "react-redux";
 import * as nextRouter from "next/router";
 import { PageContainer, FormContainer } from "./index.styles";
-import {
-  InputContainer,
-  InputField,
-  SubmitButton,
-  ErrorText,
-} from "../signin/index.styles";
+import { InputContainer, InputField, ErrorText } from "../signin/index.styles";
 import SecondaryHeading from "../../components/heading/heading.component";
+import SubmitButton from "../../components/submit-button/submit-button.component";
+import SpinButton from "../../components/spin-button/spin-button.component";
 import KeyIcon from "../../public/assets/icons/key2.svg";
 import { resetPassword } from "../../redux/user/user.actions";
 
-export const UnconnectedResetPassword = ({ currentUser, resetPassword }) => {
+export const UnconnectedResetPassword = ({
+  currentUser,
+  resetPassword,
+  isFetching,
+}) => {
   const router = nextRouter.useRouter();
   const passwordRef = React.useRef();
   const confirmPasswordRef = React.useRef();
@@ -97,20 +98,26 @@ export const UnconnectedResetPassword = ({ currentUser, resetPassword }) => {
               کلمه های عبور با هم یکسان نیستند
             </ErrorText>
           )}
-          <SubmitButton type="submit" value="بازنشانی" />
+          {isFetching ? (
+            <SpinButton />
+          ) : (
+            <SubmitButton type="submit" value="بازنشانی" />
+          )}
         </form>
       </FormContainer>
     </PageContainer>
   );
 };
 
-const mapStateToProps = ({ user: { currentUser } }) => ({
+const mapStateToProps = ({ user: { currentUser, isFetching } }) => ({
   currentUser,
+  isFetching,
 });
 
 const mapDipatchToProps = (dispatch) => ({
   resetPassword: (credentials) => dispatch(resetPassword(credentials)),
 });
+
 export default connect(
   mapStateToProps,
   mapDipatchToProps

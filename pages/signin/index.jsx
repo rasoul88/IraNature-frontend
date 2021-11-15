@@ -44,6 +44,7 @@ export const UnconnectedSignInSignUpPage = ({
   emailSignInStart,
   signUpStart,
   forgotPassword,
+  isFetching,
 }) => {
   const [state, URDispatch] = React.useReducer(reducer, {
     mode: "signin",
@@ -75,17 +76,19 @@ export const UnconnectedSignInSignUpPage = ({
                 data-test="forgot-password-form"
                 URDispatch={URDispatch}
                 forgotPassword={forgotPassword}
+                isFetching={isFetching}
               />
             ) : (
               <SignInForm
                 data-test="signin-form"
                 URDispatch={URDispatch}
                 emailSignInStart={emailSignInStart}
+                isFetching={isFetching}
               />
             )}
           </SignInAndForgotFormContainer>
           <SignUpFormContainer mode={state.mode}>
-            <SignUpForm signUpStart={signUpStart} />
+            <SignUpForm signUpStart={signUpStart} isFetching={isFetching} />
           </SignUpFormContainer>
         </SignInSignUp>
       </FormsContainer>
@@ -131,8 +134,9 @@ export const UnconnectedSignInSignUpPage = ({
   );
 };
 
-const mapStateToProps = ({ user: { currentUser } }) => ({
+const mapStateToProps = ({ user: { currentUser, isFetching } }) => ({
   currentUser,
+  isFetching,
 });
 
 const mapDipatchToProps = (dispatch) => ({

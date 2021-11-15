@@ -10,14 +10,16 @@ import SubmitButton from "../../components/submit-button/submit-button.component
 import UserIcon from "../../public/assets/icons/user.svg";
 import KeyIcon from "../../public/assets/icons/key2.svg";
 import MailIcon from "../../public/assets/icons/envelop.svg";
+import SpinButton from "../spin-button/spin-button.component";
 
-const SignUpForm = ({ signUpStart }) => {
+const SignUpForm = ({ signUpStart, isFetching }) => {
   const credentialsRef = React.useRef([]);
   const [errors, setErrors] = React.useState({
     nameErr: false,
     emailErr: false,
     passErr: false,
     confirmPassErr: false,
+    notSamePasswords: false,
   });
 
   const onFormSubmit = (event) => {
@@ -32,6 +34,15 @@ const SignUpForm = ({ signUpStart }) => {
         emailErr: !email,
         passErr: !password,
         confirmPassErr: !confirmPassword,
+      });
+    }
+    if (password !== confirmPassword) {
+      return setErrors({
+        nameErr: false,
+        emailErr: false,
+        passErr: false,
+        confirmPassErr: false,
+        notSamePasswords: true,
       });
     }
     setErrors({
@@ -103,7 +114,10 @@ const SignUpForm = ({ signUpStart }) => {
           لطفا تکرار کلمه عبور را وارد کنید
         </ErrorText>
       )}
-      <SubmitButton value="ثبت نام" />
+      {errors.notSamePasswords && (
+        <ErrorText>کلمه عبور و تکرار آن یکسان نیست</ErrorText>
+      )}
+      {isFetching ? <SpinButton /> : <SubmitButton value="ثبت نام" />}
     </form>
   );
 };

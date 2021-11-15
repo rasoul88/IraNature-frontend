@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { get } from "axios";
 import {
   SectionContainer,
   HeadingContainer,
@@ -20,84 +19,44 @@ import CustomCkeckbox from "../custom-check-box/custom-check-box.component";
 import { CheckboxItem } from "../custom-check-box/custom-check-box.styles";
 import CustomDatePicker from "../data-picker/date-picker.component";
 import ImageUpload from "../image-upload/image-upload.component";
-import { createTourStart } from "../../redux/tours/tours.actions";
+import {
+  createTourStart,
+  setTourDataItem,
+  setTourDataErrors,
+  getActiveTourGuides,
+} from "../../redux/tours/tours.actions";
+import SpinButton from "../spin-button/spin-button.component";
+
 // import { hexTorgba } from "../../utils/functions";
 
-const INITIAL_STATE = {
-  data: {
-    name: "",
-    duration: 0,
-    price: 0,
-    startLocation: null,
-    destination: null,
-    startDates: [],
-    maxGroupSize: 0,
-    difficulty: "",
-    guides: null,
-    imageCover: null,
-    gradientColor: { from: null, to: null },
-    images: null,
-    summary: null,
-  },
-  errors: {},
-  activeTourGuides: [],
-};
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "setTourData":
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          [action.payload.itemName]: action.payload.value,
-        },
-      };
-    case "setTourErrors":
-      return {
-        ...state,
-        errors: action.payload,
-      };
-    case "setTourGuides":
-      return {
-        ...state,
-        activeTourGuides: action.payload,
-      };
-    default:
-      return state;
-  }
-};
-
-const DashboardSection = ({ createTourStart }) => {
-  const [{ data, errors, activeTourGuides }, URDispatch] = React.useReducer(
-    reducer,
-    INITIAL_STATE
-  );
-
+const DashboardSection = ({
+  createTourStart,
+  setTourDataItem,
+  setTourDataErrors,
+  tourData,
+  tourErrors,
+  activeTourGuides,
+  isFetching,
+}) => {
   const tourDataChangeHandler = (itemName, value) => {
-    URDispatch({ type: "setTourData", payload: { itemName, value } });
+    setTourDataItem(itemName, value);
   };
 
   const onCreateHandler = () => {
     let errors = {};
-    for (const item in data) {
-      if (item === "gradientColor" && data[item].from && data[item].to)
+    for (const item in tourData) {
+      if (item === "gradientColor" && tourData[item].from && tourData[item].to)
         continue;
-      if (typeof data[item] === "number" && data[item] > 0) continue;
-      if (!data[item] || !data[item][0]) {
+      if (typeof tourData[item] === "number" && tourData[item] > 0) continue;
+      if (!tourData[item] || !tourData[item][0]) {
         errors[item] = true;
       }
     }
-    URDispatch({ type: "setTourErrors", payload: errors });
+    setTourDataErrors(errors);
     if (Object.keys(errors).length === 0) {
-      createTourStart(data);
+      createTourStart(tourData);
     }
   };
-
-  React.useEffect(() => {
-    get("users/tourGuides").then((res) =>
-      URDispatch({ type: "setTourGuides", payload: res.data.users })
-    );
-  }, []);
 
   return (
     <SectionContainer>
@@ -119,7 +78,9 @@ const DashboardSection = ({ createTourStart }) => {
                   tourDataChangeHandler("name", event.target.value)
                 }
               />
-              {errors.name && <ErrorText>لطفا نام تور را وارد کنید</ErrorText>}
+              {tourErrors.name && (
+                <ErrorText>لطفا نام تور را وارد کنید</ErrorText>
+              )}
             </div>
           </DataItem>
           <DataItem>
@@ -129,13 +90,13 @@ const DashboardSection = ({ createTourStart }) => {
                 min={0}
                 max={20}
                 step={1}
-                values={[data.duration]}
+                values={[tourData.duration]}
                 onChange={(newValue) =>
                   tourDataChangeHandler("duration", newValue[0] * 1)
                 }
                 valueLabelDisplay="on"
               />
-              {errors.duration && (
+              {tourErrors.duration && (
                 <ErrorText>لطفا مدت تور را مشخص کنید</ErrorText>
               )}
             </div>
@@ -147,13 +108,13 @@ const DashboardSection = ({ createTourStart }) => {
                 min={0}
                 max={40}
                 step={1}
-                values={[data.maxGroupSize]}
+                values={[tourData.maxGroupSize]}
                 onChange={(newValue) =>
                   tourDataChangeHandler("maxGroupSize", newValue[0] * 1)
                 }
                 valueLabelDisplay="on"
               />
-              {errors.maxGroupSize && (
+              {tourErrors.maxGroupSize && (
                 <ErrorText>لطفا حداکثر افراد را مشخص کنید</ErrorText>
               )}
             </div>
@@ -162,7 +123,7 @@ const DashboardSection = ({ createTourStart }) => {
             <h4>درجه سختی:</h4>
             <div>
               <CustomCkeckbox
-                selectedValues={data.difficulty}
+                selectedValues={tourData.difficulty}
                 onChange={(newValue) =>
                   tourDataChangeHandler("difficulty", newValue)
                 }
@@ -172,7 +133,7 @@ const DashboardSection = ({ createTourStart }) => {
                 <CheckboxItem key="medium">متوسط</CheckboxItem>
                 <CheckboxItem key="easy">آسان</CheckboxItem>
               </CustomCkeckbox>
-              {errors.difficulty && (
+              {tourErrors.difficulty && (
                 <ErrorText>لطفا درجه سختی تور را مشخص کنید</ErrorText>
               )}
             </div>
@@ -190,7 +151,7 @@ const DashboardSection = ({ createTourStart }) => {
                   tourDataChangeHandler("price", event.target.value * 1)
                 }
               />
-              {errors.price && (
+              {tourErrors.price && (
                 <ErrorText>لطفا هزینه تور را وارد کنید</ErrorText>
               )}
             </div>
@@ -204,7 +165,7 @@ const DashboardSection = ({ createTourStart }) => {
                   tourDataChangeHandler("imageCover", newValue)
                 }
               />
-              {errors.imageCover && (
+              {tourErrors.imageCover && (
                 <ErrorText>لطفا تصویر کاور را بارگزاری کنید</ErrorText>
               )}
             </div>
@@ -219,7 +180,7 @@ const DashboardSection = ({ createTourStart }) => {
                   tourDataChangeHandler("images", newValue)
                 }
               />
-              {errors.images && (
+              {tourErrors.images && (
                 <ErrorText>لطفا تصویرهای تور را بارگزاری کنید</ErrorText>
               )}
             </div>
@@ -228,12 +189,12 @@ const DashboardSection = ({ createTourStart }) => {
             <h4> تاریخ های شروع:</h4>
             <div>
               <CustomDatePicker
-                selectedDates={data.startDates}
+                selectedDates={tourData.startDates}
                 onChange={(newValue) =>
                   tourDataChangeHandler("startDates", newValue)
                 }
               />
-              {errors.startDates && (
+              {tourErrors.startDates && (
                 <ErrorText>
                   لطفا حداقل یک تاریخ برای شروع تور مشخص کنید
                 </ErrorText>
@@ -250,7 +211,7 @@ const DashboardSection = ({ createTourStart }) => {
                   tourDataChangeHandler("startLocation", event.target.value)
                 }
               />
-              {errors.startLocation && (
+              {tourErrors.startLocation && (
                 <ErrorText>لطفا شهر مبدا تور را مشخص کنید</ErrorText>
               )}
             </div>
@@ -265,7 +226,7 @@ const DashboardSection = ({ createTourStart }) => {
                   tourDataChangeHandler("destination", event.target.value)
                 }
               />
-              {errors.destination && (
+              {tourErrors.destination && (
                 <ErrorText>لطفا شهر مقصد تور را مشخص کنید</ErrorText>
               )}
             </div>
@@ -304,7 +265,7 @@ const DashboardSection = ({ createTourStart }) => {
                   optionContainer: { textAlign: "right", fontSize: "14px" },
                 }}
               />
-              {errors.guides && (
+              {tourErrors.guides && (
                 <ErrorText>لطفا حداقل یک راهنما انتخاب کنید</ErrorText>
               )}
             </div>
@@ -319,17 +280,17 @@ const DashboardSection = ({ createTourStart }) => {
                   const newColor = event.target.value;
                   tourDataChangeHandler("gradientColor", {
                     from: newColor,
-                    to: data.gradientColor.to,
+                    to: tourData.gradientColor.to,
                   });
                 }}
               />
-              {data.gradientColor.from && data.gradientColor.to && (
+              {tourData.gradientColor.from && tourData.gradientColor.to && (
                 <CoverPreview
-                  gradientColor={`linear-gradient(to right bottom, ${data.gradientColor.from},  ${data.gradientColor.to}),`}
+                  gradientColor={`linear-gradient(to right bottom, ${tourData.gradientColor.from},  ${tourData.gradientColor.to}),`}
                   backgroundImage={
-                    data.imageCover &&
-                    data.imageCover[0] &&
-                    URL.createObjectURL(data.imageCover[0])
+                    tourData.imageCover &&
+                    tourData.imageCover[0] &&
+                    URL.createObjectURL(tourData.imageCover[0])
                   }
                 />
               )}
@@ -339,12 +300,12 @@ const DashboardSection = ({ createTourStart }) => {
                   // const newColor = hexTorgba(event.target.value);
                   const newColor = event.target.value;
                   tourDataChangeHandler("gradientColor", {
-                    from: data.gradientColor.from,
+                    from: tourData.gradientColor.from,
                     to: newColor,
                   });
                 }}
               />
-              {errors.gradientColor && (
+              {tourErrors.gradientColor && (
                 <ErrorText>لطفا هر دو رنگ را انتخاب کنید</ErrorText>
               )}
             </div>
@@ -357,13 +318,17 @@ const DashboardSection = ({ createTourStart }) => {
                   tourDataChangeHandler("summary", event.target.value)
                 }
               />
-              {errors.summary && (
+              {tourErrors.summary && (
                 <ErrorText>لطفا برای تور یک خلاصه بنویسید</ErrorText>
               )}
             </div>
           </DataItem>
           <ButtonContainer>
-            <SubmitButton value="ایجاد تور" onClick={onCreateHandler} />
+            {isFetching ? (
+              <SpinButton />
+            ) : (
+              <SubmitButton value="ایجاد تور" onClick={onCreateHandler} />
+            )}
           </ButtonContainer>
         </form>
       </CreateTourContainer>
@@ -371,11 +336,20 @@ const DashboardSection = ({ createTourStart }) => {
   );
 };
 
-// const mapStateToProps = ({ user: { currentUser } }) => ({
-//   currentUser,
-// });
+const mapStateToProps = ({
+  tours: { tourUnderConstruction, activeTourGuides, isFetching },
+}) => ({
+  tourData: tourUnderConstruction.data,
+  tourErrors: tourUnderConstruction.errors,
+  activeTourGuides,
+  isFetching,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   createTourStart: (data) => dispatch(createTourStart(data)),
+  setTourDataItem: (itemName, value) =>
+    dispatch(setTourDataItem(itemName, value)),
+  setTourDataErrors: (data) => dispatch(setTourDataErrors(data)),
+  getActiveTourGuides: () => dispatch(getActiveTourGuides()),
 });
-export default connect(null, mapDispatchToProps)(DashboardSection);
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardSection);

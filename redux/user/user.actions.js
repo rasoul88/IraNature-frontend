@@ -57,3 +57,31 @@ export const resetPasswordFailure = (error) => ({
 export const clearError = () => ({
   type: userActionTypes.CLEAR_ERROR,
 });
+
+export const updateMe = (credentials) => ({
+  type: userActionTypes.UPDATE_ME,
+  payload: credentials,
+});
+
+export const updateMeSuccess = (user) => ({
+  type: userActionTypes.UPDATE_ME_SUCCESS,
+  payload: user,
+});
+export const updateMeFailure = (error) => ({
+  type: userActionTypes.UPDATE_ME_FAILURE,
+  payload: error,
+});
+
+export const updateMyPassword = (credentials) => ({
+  type: userActionTypes.UPDATE_MY_PASSWORD,
+  payload: credentials,
+});
+
+export const updateMyPasswordSuccess = () => ({
+  type: userActionTypes.UPDATE_MY_PASSWORD_SUCCESS,
+});
+
+export const updateMyPasswordFailure = (error) => ({
+  type: userActionTypes.UPDATE_MY_PASSWORD_FAILURE,
+  payload: error,
+});

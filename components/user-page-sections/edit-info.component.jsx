@@ -14,10 +14,13 @@ import {
   ErrorText,
 } from "./user-page-sections.styles";
 
+import { updateMe, updateMyPassword } from "../../redux/user/user.actions";
+
 import PhotoSelector from "../../components/photo-selector/photo-selector.component";
 import SecodaryHeading from "../../components/heading/heading.component";
 import CustomInput from "../../components/custom-input/custom-input.component";
 import SubmitButton from "../../components/submit-button/submit-button.component";
+import SpinButton from "../../components/spin-button/spin-button.component";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -39,7 +42,12 @@ const reducer = (state, action) => {
   }
 };
 
-const InfoSection = ({ currentUser }) => {
+const InfoSection = ({
+  currentUser,
+  updateMe,
+  updateMyPassword,
+  isFetching,
+}) => {
   const [{ data, errors }, URDispatch] = React.useReducer(reducer, {
     data: {
       name: currentUser.name,
@@ -65,6 +73,7 @@ const InfoSection = ({ currentUser }) => {
       return URDispatch({ type: "setUserErrors", payload: errors });
     }
     URDispatch({ type: "setUserErrors", payload: {} });
+    updateMe({ name: data.name, email: data.email });
   };
 
   const onPasswordChangeSubmit = () => {
@@ -82,17 +91,28 @@ const InfoSection = ({ currentUser }) => {
       return URDispatch({ type: "setUserErrors", payload: errors });
     }
     URDispatch({ type: "setUserErrors", payload: {} });
+    updateMyPassword({
+      passwordCurrent: data.oldPassword,
+      password: data.newPassword,
+      confirmPassword: data.confirmNewPassword,
+    });
   };
+
   return (
     <SectionContainer>
       <EditInfoContainer>
         <UserPictureContainer>
           <UserPicture>
-            <Image
+            {/* <Image
               src="/assets/img/nat-4.jpg"
               alt="user"
               width="160px"
               height="160px"
+            /> */}
+            <img
+              src={`http://localhost:6060/img/users/${currentUser.photo}`}
+              alt="gooo"
+              style={{ width: "100%", height: "100%" }}
             />
           </UserPicture>
           <PhotoSelectorContainer>
@@ -144,12 +164,16 @@ const InfoSection = ({ currentUser }) => {
             </div>
           </DataItem>
           {errors.sameInfo && (
-            <ErrorText style={{ textAlign: "center" }}>
+            <ErrorText style={{ textAlign: "center", marginTop: "-15px" }}>
               شما اطلاعات خود را تغییر نداده اید
             </ErrorText>
           )}
           <ButtonContainer>
-            <SubmitButton value="ویرایش" onClick={onInfoEditSubmit} />
+            {isFetching ? (
+              <SpinButton />
+            ) : (
+              <SubmitButton value="ویرایش" onClick={onInfoEditSubmit} />
+            )}
           </ButtonContainer>
         </div>
       </EditInfoContainer>
@@ -224,17 +248,21 @@ const InfoSection = ({ currentUser }) => {
             </div>
           </DataItem>
           {errors.samePasswords && (
-            <ErrorText style={{ textAlign: "center" }}>
+            <ErrorText style={{ textAlign: "center", marginTop: "-15px" }}>
               کلمه عبور قبلی و جدید شما مشابه هستند
             </ErrorText>
           )}
           {errors.notMatch && (
-            <ErrorText style={{ textAlign: "center" }}>
+            <ErrorText style={{ textAlign: "center", marginTop: "-15px" }}>
               کلمه عبور جدید و تکرار آن یکسان نمی باشد
             </ErrorText>
           )}
           <ButtonContainer>
-            <SubmitButton value="تغییر" onClick={onPasswordChangeSubmit} />
+            {isFetching ? (
+              <SpinButton />
+            ) : (
+              <SubmitButton value="تغییر" onClick={onPasswordChangeSubmit} />
+            )}
           </ButtonContainer>
         </div>
       </ChangePasswordContainer>
@@ -242,7 +270,13 @@ const InfoSection = ({ currentUser }) => {
   );
 };
 
-const mapStateToProps = ({ user: { currentUser } }) => ({
+const mapStateToProps = ({ user: { currentUser, isFetching } }) => ({
   currentUser,
+  isFetching,
 });
-export default connect(mapStateToProps)(InfoSection);
+
+const mapDispatchToProps = (dispatch) => ({
+  updateMe: (credentials) => dispatch(updateMe(credentials)),
+  updateMyPassword: (credentials) => dispatch(updateMyPassword(credentials)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(InfoSection);

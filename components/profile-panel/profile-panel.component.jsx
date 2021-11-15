@@ -16,6 +16,7 @@ import HikerIcon from "../../public/assets/icons/backpacker-hiking-svgrepo-com.s
 import LeftIcon from "../../public/assets/icons/chevron-left-svgrepo-com.svg";
 import SettinIcon from "../../public/assets/icons/cogs-on-wheels-interface-symbol-for-settings-edition-button-svgrepo-com.svg";
 import PhotoSelector from "../photo-selector/photo-selector.component";
+import { connect } from "react-redux";
 
 const ProfilePanel = ({
   currentUser,
@@ -36,11 +37,16 @@ const ProfilePanel = ({
         />
       </HeaderContainer>
       <UserPicture>
-        <Image
+        {/* <Image
           src="/assets/img/nat-4.jpg"
           alt="user"
           width="140px"
           height="140px"
+        /> */}
+        <img
+          src={`http://localhost:6060/img/users/${currentUser?.photo}`}
+          alt="gooo"
+          style={{ width: "100%", height: "100%" }}
         />
       </UserPicture>
       <h4>{currentUser?.name}</h4>
@@ -102,4 +108,8 @@ const ProfilePanel = ({
   );
 };
 
-export default ProfilePanel;
+const mapStateToProps = ({ user: { currentUser } }) => ({
+  currentUser,
+});
+
+export default connect(mapStateToProps)(ProfilePanel);

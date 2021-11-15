@@ -60,7 +60,7 @@ export const CameraFolderContainer = styled.div`
   }
 
   & svg:first-child {
-    margin-top: -2px;
+    margin-top: 6px;
     margin-right: 0.8rem;
   }
 `;

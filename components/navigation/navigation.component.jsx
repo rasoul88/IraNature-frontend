@@ -58,10 +58,7 @@ const Navigation = ({ currentUser, removeCurrentUser }) => {
             data-test="user-controller"
             onClick={() => URDispatch({ type: "profilePanel" })}
           >
-            <Avatar
-              name={currentUser.name}
-              // image={props.currentUser.photo}
-            />
+            <Avatar name={currentUser.name} image={currentUser.photo} />
             <p>{currentUser.name}</p>
           </Controller>
         ) : (
@@ -78,7 +75,6 @@ const Navigation = ({ currentUser, removeCurrentUser }) => {
           toggle={toggleStates.profilePanel}
           URDispatch={URDispatch}
           removeCurrentUser={removeCurrentUser}
-          currentUser={currentUser}
         />
       )}
       <BackgroundContainer toggle={toggleStates.menu}>

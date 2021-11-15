@@ -100,7 +100,7 @@ export const Controller = styled.label`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 1.5rem;
+  padding: 0 1rem;
 
   @media only screen and (max-width: 56.25em) {
     top: 4.5rem;
