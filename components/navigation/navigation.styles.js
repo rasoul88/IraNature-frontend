@@ -87,7 +87,7 @@ export const IconContainer = styled.label`
 
 export const Controller = styled.label`
   background-color: white;
-  width: 20rem;
+  width: ${(props) => (props.width ? props.width : "20rem")};
   height: 6rem;
   border-radius: 200px;
   position: fixed;

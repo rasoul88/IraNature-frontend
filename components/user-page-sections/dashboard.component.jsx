@@ -26,6 +26,7 @@ import {
   getActiveTourGuides,
 } from "../../redux/tours/tours.actions";
 import SpinButton from "../spin-button/spin-button.component";
+import { showToast } from "../../utils/functions";
 
 // import { hexTorgba } from "../../utils/functions";
 
@@ -53,6 +54,12 @@ const DashboardSection = ({
       }
     }
     setTourDataErrors(errors);
+    if (Object.keys(errors).length > 0) {
+      showToast(
+        "error",
+        "برخی از فیلدها را وارد نکرده اید یا اشتباه وارد کرده اید. لطفا بررسی کنید."
+      );
+    }
     if (Object.keys(errors).length === 0) {
       createTourStart(tourData);
     }

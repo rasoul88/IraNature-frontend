@@ -3,6 +3,7 @@ import { persistReducer } from "redux-persist";
 // import storage from "redux-persist/lib/storage";
 import userReducer from "./user/user.reducer";
 import toursReducer from "./tours/tours.reducer";
+import userPageReducer from "./userPage/userPage.reducer";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 
 const createNoopStorage = () => {
@@ -24,15 +25,28 @@ const storage =
     ? createWebStorage("local")
     : createNoopStorage();
 
-const persistConfig = {
+const rootPersistConfig = {
   key: "root",
   storage,
-  whitelist: ["user"],
+  whitelist: [],
+};
+
+const userPersistConfig = {
+  key: "user",
+  storage: storage,
+  whitelist: ["currentUser"],
+};
+
+const userPagePersistConfig = {
+  key: "userPage",
+  storage: storage,
+  whitelist: ["selectedTab"],
 };
 
 const rootReducer = combineReducers({
-  user: userReducer,
+  user: persistReducer(userPersistConfig, userReducer),
   tours: toursReducer,
+  userPage: persistReducer(userPagePersistConfig, userPageReducer),
 });
 
-export default persistReducer(persistConfig, rootReducer);
+export default persistReducer(rootPersistConfig, rootReducer);

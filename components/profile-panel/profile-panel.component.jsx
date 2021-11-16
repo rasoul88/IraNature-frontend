@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import Image from "next/image";
 import * as nextRouter from "next/router";
 import {
@@ -16,13 +17,15 @@ import HikerIcon from "../../public/assets/icons/backpacker-hiking-svgrepo-com.s
 import LeftIcon from "../../public/assets/icons/chevron-left-svgrepo-com.svg";
 import SettinIcon from "../../public/assets/icons/cogs-on-wheels-interface-symbol-for-settings-edition-button-svgrepo-com.svg";
 import PhotoSelector from "../photo-selector/photo-selector.component";
-import { connect } from "react-redux";
+import { changeSelectedTab } from "../../redux/userPage/userPage.actions";
+import { removeCurrentUser } from "../../redux/user/user.actions";
 
 const ProfilePanel = ({
   currentUser,
   toggle,
   URDispatch,
   removeCurrentUser,
+  changeSelectedTab,
 }) => {
   const router = nextRouter.useRouter();
   return (
@@ -45,7 +48,7 @@ const ProfilePanel = ({
         /> */}
         <img
           src={`http://localhost:6060/img/users/${currentUser?.photo}`}
-          alt="gooo"
+          // alt={currentUser?.name.split("")[0]}
           style={{ width: "100%", height: "100%" }}
         />
       </UserPicture>
@@ -54,12 +57,13 @@ const ProfilePanel = ({
         <PhotoSelector />
       </PhotoSelectorContainer>
       <ItemBanner
-        onClick={() =>
+        onClick={() => {
+          changeSelectedTab("tours");
           router.push({
             pathname: "/userPage",
-            query: { selectedSection: "tours" },
-          })
-        }
+            // query: { selectedSection: "tours" },
+          });
+        }}
       >
         <BannerContent>
           <HikerIcon />
@@ -71,12 +75,13 @@ const ProfilePanel = ({
         <LeftIcon />
       </ItemBanner>
       <ItemBanner
-        onClick={() =>
+        onClick={() => {
+          changeSelectedTab("info");
           router.push({
             pathname: "/userPage",
-            query: { selectedSection: "info" },
-          })
-        }
+            // query: { selectedSection: "tours" },
+          });
+        }}
       >
         <BannerContent>
           <SettinIcon />
@@ -88,12 +93,13 @@ const ProfilePanel = ({
         <LeftIcon />
       </ItemBanner>
       <ItemBanner
-        onClick={() =>
+        onClick={() => {
+          changeSelectedTab("dashboard");
           router.push({
             pathname: "/userPage",
-            query: { selectedSection: "dashboard" },
-          })
-        }
+            // query: { selectedSection: "tours" },
+          });
+        }}
       >
         <BannerContent>
           <DashboardIcon />
@@ -112,4 +118,9 @@ const mapStateToProps = ({ user: { currentUser } }) => ({
   currentUser,
 });
 
-export default connect(mapStateToProps)(ProfilePanel);
+const mapDispatchToProps = (dispatch) => ({
+  changeSelectedTab: (selectedTab) => dispatch(changeSelectedTab(selectedTab)),
+  removeCurrentUser: () => dispatch(removeCurrentUser()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfilePanel);

@@ -168,6 +168,11 @@ const toursReducer = (state = INITIAL_STATE, action) => {
         ...state,
         isFetching: false,
       };
+    case toursActionTypes.RESET_CREATE_TOUR_DATA:
+      return {
+        ...state,
+        tourUnderConstruction: INITIAL_STATE.tourUnderConstruction,
+      };
     case toursActionTypes.TOGGLE_FILTER_PANEL:
       return {
         ...state,

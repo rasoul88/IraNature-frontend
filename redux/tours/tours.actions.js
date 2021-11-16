@@ -31,6 +31,10 @@ export const setTourDataErrors = (errors) => ({
   payload: errors,
 });
 
+export const resetCreateTourData = () => ({
+  type: toursActionTypes.RESET_CREATE_TOUR_DATA,
+});
+
 export const getActiveTourGuides = () => ({
   type: toursActionTypes.GET_ACTIVE_TOUR_GUIDES,
 });

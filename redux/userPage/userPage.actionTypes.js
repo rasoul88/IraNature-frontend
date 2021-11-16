@@ -1,0 +1,7 @@
+const userPageActionTypes = {
+  CHANGE_SELECTED_TAB: "CHANGE_SELECTED_TAB",
+  GET_MY_CREATED_TOURS: "GET_MY_CREATED_TOURS",
+  SET_MY_CREATED_TOURS: "SET_MY_CREATED_TOURS",
+};
+
+export default userPageActionTypes;

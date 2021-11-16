@@ -214,3 +214,10 @@ export const ErrorText = styled.p`
   font-size: 1.2rem;
   color: red;
 `;
+
+export const MyToursContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;

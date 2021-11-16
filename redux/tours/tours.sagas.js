@@ -5,8 +5,10 @@ import {
   createTourSuccess,
   createTourFailure,
   setActiveTourGuides,
+  resetCreateTourData,
 } from "./tours.actions";
 import { showLoadingToast, showToast } from "../../utils/functions";
+import { changeSelectedTab } from "../../redux/userPage/userPage.actions";
 
 export function* getActiveTourGuides() {
   try {
@@ -42,6 +44,8 @@ export function* createTour({ payload }) {
     console.log("newResponse", newResponse);
     yield put(createTourSuccess());
     showToast("success", "تور شما با موفقیت ایجاد شد");
+    yield put(resetCreateTourData());
+    yield put(changeSelectedTab("tours"));
   } catch (error) {
     console.log(error);
     yield put(createTourFailure(error.message));

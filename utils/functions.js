@@ -1,11 +1,21 @@
 import { toast } from "react-toastify";
 import Spin from "../public/assets/icons/Spin.svg";
+
 export const hexTorgba = (color, alpha) => {
   if (alpha === undefined) alpha = 1;
   const r = parseInt(color.substr(1, 2), 16);
   const g = parseInt(color.substr(3, 2), 16);
   const b = parseInt(color.substr(5, 2), 16);
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+};
+
+export const createGradientbackground = (from, to) => {
+  return `linear-gradient(to right bottom, ${from},${to})`;
+};
+
+export const createGradientText = (from, to) => {
+  return `linear-gradient(to right bottom,${hexTorgba(from, 0.85)}, 
+  ${hexTorgba(to, 0.85)})`;
 };
 
 export const showToast = (mode, message, onClose) => {

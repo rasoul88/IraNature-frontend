@@ -13,12 +13,16 @@ import SettinIcon from "../../public/assets/icons/cogs-on-wheels-interface-symbo
 
 import InfoSection from "../../components/user-page-sections/edit-info.component";
 import DashboardSection from "../../components/user-page-sections/dashboard.component";
+import MyCreatedToursSection from "../../components/user-page-sections/tours.component";
 import { getActiveTourGuides } from "../../redux/tours/tours.actions";
+import { changeSelectedTab } from "../../redux/userPage/userPage.actions";
+import HomeIcon from "../../public/assets/icons/home-svgrepo-com.svg";
+import { Controller } from "../../components/navigation/navigation.styles";
 
-const selectCorrectContent = (selectedSidebarItem) => {
-  switch (selectedSidebarItem) {
+const selectCorrectContent = (selectedTab) => {
+  switch (selectedTab) {
     case "tours":
-      return <div>tours</div>;
+      return <MyCreatedToursSection />;
     case "info":
       return <InfoSection />;
     case "dashboard":
@@ -26,16 +30,18 @@ const selectCorrectContent = (selectedSidebarItem) => {
   }
 };
 
-const UserPage = ({ currentUser, getActiveTourGuides }) => {
+const UserPage = ({
+  currentUser,
+  getActiveTourGuides,
+  selectedTab,
+  changeSelectedTab,
+}) => {
   const router = nextRouter.useRouter();
-
-  const [selectedSidebarItem, setSelectedSidebarItem] = React.useState();
 
   React.useEffect(() => {
     if (!currentUser) {
       router.push("/signin");
     }
-    setSelectedSidebarItem(router.query.selectedSection);
   }, [router, currentUser]);
 
   React.useEffect(() => {
@@ -44,11 +50,20 @@ const UserPage = ({ currentUser, getActiveTourGuides }) => {
 
   return (
     <PageContainer>
+      <Controller
+        width="16rem"
+        style={{ position: "fixed", left: "4rem" }}
+        onClick={() => router.push("/")}
+        mode="return"
+      >
+        <HomeIcon />
+        <p>صفحه اصلی</p>
+      </Controller>
       <div>
         <Sidebar>
           <SidebarItem
-            selected={selectedSidebarItem === "tours"}
-            onClick={() => setSelectedSidebarItem("tours")}
+            selected={selectedTab === "tours"}
+            onClick={() => changeSelectedTab("tours")}
           >
             <div>
               <HikerIcon />
@@ -56,8 +71,8 @@ const UserPage = ({ currentUser, getActiveTourGuides }) => {
             </div>
           </SidebarItem>
           <SidebarItem
-            selected={selectedSidebarItem === "info"}
-            onClick={() => setSelectedSidebarItem("info")}
+            selected={selectedTab === "info"}
+            onClick={() => changeSelectedTab("info")}
           >
             <div>
               <SettinIcon />
@@ -65,8 +80,8 @@ const UserPage = ({ currentUser, getActiveTourGuides }) => {
             </div>
           </SidebarItem>
           <SidebarItem
-            selected={selectedSidebarItem === "dashboard"}
-            onClick={() => setSelectedSidebarItem("dashboard")}
+            selected={selectedTab === "dashboard"}
+            onClick={() => changeSelectedTab("dashboard")}
           >
             <div>
               <DashboardIcon />
@@ -75,17 +90,24 @@ const UserPage = ({ currentUser, getActiveTourGuides }) => {
           </SidebarItem>
         </Sidebar>
         <ContentContainer>
-          {selectCorrectContent(selectedSidebarItem, currentUser)}
+          {selectCorrectContent(selectedTab, currentUser)}
         </ContentContainer>
       </div>
     </PageContainer>
   );
 };
 
+const mapStateToProps = ({
+  user: { currentUser },
+  userPage: { selectedTab },
+}) => ({
+  currentUser,
+  selectedTab,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   getActiveTourGuides: () => dispatch(getActiveTourGuides()),
+  changeSelectedTab: (selectedTab) => dispatch(changeSelectedTab(selectedTab)),
 });
-const mapStateToProps = ({ user: { currentUser } }) => ({
-  currentUser,
-});
+
 export default connect(mapStateToProps, mapDispatchToProps)(UserPage);
