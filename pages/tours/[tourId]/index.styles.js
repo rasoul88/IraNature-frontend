@@ -50,15 +50,16 @@ export const HeaderContentContainer = styled.div`
 `;
 
 export const GradientText = styled.h4`
-  font-size: 4rem;
+  font-size: 3.5rem;
   font-weight: 300;
   text-transform: uppercase;
   text-align: right;
   color: white;
-  padding: 0rem 1.5rem;
+  padding: 0.6rem 1.5rem;
   background-image: ${(props) => props.gradientText};
   z-index: 2;
   text-align: center;
+  white-space: nowrap;
 
   & span {
     line-height: 1;
@@ -68,27 +69,33 @@ export const GradientText = styled.h4`
 `;
 
 export const HeaderContentItemsContainer = styled.div`
-  width: 60%;
+  /* width: 60%; */
   display: flex;
   align-items: center;
   justify-content: space-around;
+  background: ${(props) => props.gradientText};
+  padding: 0 1rem;
 `;
 
 export const HeaderContentItem = styled.div`
-  width: 40%;
+  /* width: 40%; */
   display: flex;
   align-items: center;
   justify-content: center;
-  color: black;
+  color: white;
   font-weight: bold;
+  white-space: nowrap;
 
   & svg {
-    fill: black;
+    fill: white;
     width: 3rem;
     height: 3rem;
-    margin-left: 1rem;
-    stroke: black;
+    stroke: white;
     stroke-width: 8;
+  }
+
+  & > span {
+    margin-right: 0.7rem;
   }
 `;
 
@@ -161,6 +168,9 @@ export const AboutContainer = styled.div`
     padding-top: 2rem;
     padding-bottom: 4rem;
   }
+  @media only screen and (max-width: 37em) {
+    padding: 0 3rem;
+  }
   & p {
     text-align: right;
   }
@@ -169,6 +179,7 @@ export const AboutContainer = styled.div`
 export const InfoItem = styled.div`
   display: flex;
   align-items: center;
+  white-space: nowrap;
 
   & > svg {
     width: 4rem;
@@ -181,7 +192,7 @@ export const InfoItem = styled.div`
   }
 
   & > h4 {
-    margin-left: 1.2rem;
+    margin: 0 1.2rem;
   }
 `;
 
@@ -192,6 +203,10 @@ export const GallerySection = styled.div`
   align-items: center;
   justify-content: center;
   padding-bottom: 6rem;
+
+  @media only screen and (min-width: 37em) {
+    transform: scale(0.9);
+  }
 `;
 
 export const CommentsSection = styled.div`
@@ -205,6 +220,9 @@ export const CommentsInfoContainer = styled.div`
   justify-content: space-between;
   direction: rtl;
   padding: 0 6rem;
+  @media only screen and (max-width: 37em) {
+    padding: 0 3rem;
+  }
 `;
 
 export const CommentsContainer = styled.div`
@@ -221,4 +239,12 @@ export const CommentsContainer = styled.div`
   }
 
   ${scrollbarStyle}
+`;
+
+export const ReviewWriterSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 5rem;
 `;

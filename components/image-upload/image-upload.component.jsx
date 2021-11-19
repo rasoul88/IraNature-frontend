@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Container, Label, ImageContainer } from "./image-upload.styles";
 import ImageIcon from "../../public/assets/icons/image-photo-svgrepo-com.svg";
 import CloseIcon from "../../public/assets/icons/fill-close-svgrepo-com.svg";
+import { CoverPreview } from "../user-page-sections/user-page-sections.styles";
 
 const ImageUpload = ({ id, multiple, onChange }) => {
   const [imagesUrl, setImagesUrl] = React.useState([]);
@@ -56,7 +57,8 @@ const ImageUpload = ({ id, multiple, onChange }) => {
       {imagesUrl.map((img, index) => (
         <ImageContainer key={index}>
           <CloseIcon onClick={() => onDeleteImage(index)} />
-          <Image src={img} alt="alt" layout="fill" objectFit="contain" />
+          {/* <Image src={img} alt="alt" layout="fill" objectFit="contain" /> */}
+          <CoverPreview backgroundImage={img} />
         </ImageContainer>
       ))}
       <>

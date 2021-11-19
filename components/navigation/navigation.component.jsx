@@ -53,7 +53,7 @@ const Navigation = ({ currentUser }) => {
       {router.pathname !== "/signin" &&
         router.pathname !== "/userPage" &&
         (currentUser ? (
-          <div>
+          <div style={{ zIndex: "10" }}>
             <Controller
               data-test="user-controller"
               onClick={() => URDispatch({ type: "profilePanel" })}

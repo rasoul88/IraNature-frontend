@@ -29,7 +29,7 @@ const Header = () => {
           backgroundColor="white"
           animation="moveInBottom"
         >
-          تور های ما را ببینید
+          محبوب ترین تورها
         </CustomButton>
       </TextBoxContainer>
     </HeaderContainer>

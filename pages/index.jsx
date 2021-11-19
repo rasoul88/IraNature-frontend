@@ -6,7 +6,7 @@ import Tours from "../components/tours-section/tours.component";
 import Stories from "../components/stories-section/stories.component";
 import Footer from "../components/footer/footer.component";
 
-export default function Home() {
+export default function Home({ ssrTop3Tours }) {
   return (
     <div>
       <Head>
@@ -19,7 +19,7 @@ export default function Home() {
         <Header />
         <About />
         <Features />
-        <Tours />
+        <Tours tours={ssrTop3Tours} />
         <Stories />
       </main>
 
@@ -28,4 +28,17 @@ export default function Home() {
       </footer>
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const res = await fetch("http://localhost:6060/api/v1/tours/top-3-tours");
+  const ssrTop3Tours = await res.json();
+
+  return {
+    props: {
+      ssrTop3Tours,
+    },
+
+    revalidate: 1000, // In seconds
+  };
 }

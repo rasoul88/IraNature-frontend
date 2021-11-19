@@ -48,6 +48,13 @@ const DashboardSection = ({
     for (const item in tourData) {
       if (item === "gradientColor" && tourData[item].from && tourData[item].to)
         continue;
+      if (
+        item === "startDate" &&
+        tourData[item].year &&
+        tourData[item].month &&
+        tourData[item].day
+      )
+        continue;
       if (typeof tourData[item] === "number" && tourData[item] > 0) continue;
       if (!tourData[item] || !tourData[item][0]) {
         errors[item] = true;
@@ -136,9 +143,9 @@ const DashboardSection = ({
                 }
                 singleChoice={true}
               >
-                <CheckboxItem key="hard">سخت</CheckboxItem>
-                <CheckboxItem key="medium">متوسط</CheckboxItem>
-                <CheckboxItem key="easy">آسان</CheckboxItem>
+                <CheckboxItem key="سخت">سخت</CheckboxItem>
+                <CheckboxItem key="متوسط">متوسط</CheckboxItem>
+                <CheckboxItem key="راحت">راحت</CheckboxItem>
               </CustomCkeckbox>
               {tourErrors.difficulty && (
                 <ErrorText>لطفا درجه سختی تور را مشخص کنید</ErrorText>
@@ -193,18 +200,16 @@ const DashboardSection = ({
             </div>
           </DataItem>
           <DataItem>
-            <h4> تاریخ های شروع:</h4>
+            <h4> تاریخ شروع:</h4>
             <div>
               <CustomDatePicker
-                selectedDates={tourData.startDates}
+                selectedDate={tourData.startDate}
                 onChange={(newValue) =>
-                  tourDataChangeHandler("startDates", newValue)
+                  tourDataChangeHandler("startDate", newValue)
                 }
               />
-              {tourErrors.startDates && (
-                <ErrorText>
-                  لطفا حداقل یک تاریخ برای شروع تور مشخص کنید
-                </ErrorText>
+              {tourErrors.startDate && (
+                <ErrorText>لطفا یک تاریخ برای شروع تور مشخص کنید</ErrorText>
               )}
             </div>
           </DataItem>

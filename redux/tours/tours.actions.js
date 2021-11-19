@@ -43,3 +43,8 @@ export const setActiveTourGuides = (guides) => ({
   type: toursActionTypes.SET_ACTIVE_TOUR_GUIDES,
   payload: guides,
 });
+
+export const submitReview = (review) => ({
+  type: toursActionTypes.SUBMIT_REVIEW,
+  payload: review,
+});

@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import Axios from "axios";
 import {
   PageContainer,
   ContentContainer,
@@ -16,6 +17,7 @@ export const UnconnectedToursPage = ({
   page,
   toursData,
   setFilterItem,
+  ssrTours,
 }) => {
   const filterItemsChangeHandler = (itemName, value) => {
     setFilterItem(itemName, value);
@@ -26,14 +28,14 @@ export const UnconnectedToursPage = ({
       <ContentContainer panelStatus={panelStatus}>
         <SecondaryHeading> تورهای فعال</SecondaryHeading>
         <CardsContainer>
-          {toursData.map((tour) => (
-            <Card data-test="tour-card" key={tour.id} {...tour} />
+          {ssrTours.data.docs.map((tour) => (
+            <Card data-test="tour-card" key={tour.id} tour={tour} />
           ))}
         </CardsContainer>
         <PaginateContainer>
           <Paginate
             data-test="tours-pagination"
-            maxPage={18}
+            maxPage={ssrTours.pages}
             onChange={(newValue) => filterItemsChangeHandler("page", newValue)}
             selectedPage={page}
           />
@@ -58,3 +60,18 @@ export default connect(
   mapStateToProps,
   mapDipatchToProps
 )(UnconnectedToursPage);
+
+export async function getStaticProps() {
+  const res = await fetch("http://localhost:6060/api/v1/tours");
+  const ssrTours = await res.json();
+  // const ssrTours = await Axios.get("http://localhost:6060/api/v1/tours");
+  // console.log(ssrTours);
+
+  return {
+    props: {
+      ssrTours,
+    },
+
+    revalidate: 1000, // In seconds
+  };
+}

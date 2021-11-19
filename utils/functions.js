@@ -45,3 +45,12 @@ export const showLoadingToast = (message) => {
     icon: <Spin style={{ transform: "scale(1.5)", fill: "#666" }} />,
   });
 };
+
+export const objectDateToString = (objDate) => {
+  return `${objDate.year}/${objDate.month}/${objDate.day}`;
+};
+
+// export const stringDateToObject = (stringDate) => {
+//   const arrDate = stringDate.split("/");
+//   return { year: arrDate[0], month: arrDate[1], day: arrDate[2] };
+// };

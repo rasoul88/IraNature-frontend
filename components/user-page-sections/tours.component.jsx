@@ -18,7 +18,7 @@ const MyCreatedTours = ({ myCreatedTours, getMyCreatedTours }) => {
     >
       <MyToursContainer>
         {myCreatedTours.map((tour) => (
-          <Card key={tour._id} {...tour} />
+          <Card key={tour._id} tour={tour} />
         ))}
       </MyToursContainer>
     </SectionContainer>

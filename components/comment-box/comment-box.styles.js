@@ -10,6 +10,11 @@ export const Container = styled.div`
   box-shadow: 0 1rem 3rem rgb(0 0 0 / 30%);
   border-radius: 10px;
   margin: 0 2rem;
+  height: 25rem;
+
+  @media only screen and (max-width: 22em) {
+    min-width: 100%;
+  }
 
   @media only screen and (hover: none) {
     scroll-snap-align: center;
@@ -45,6 +50,26 @@ export const InfoContainer = styled.div`
 
 export const ContentContainer = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-end;
+  overflow-y: auto;
+  direction: ltr;
+  text-align: right;
+  padding: 0 0.5rem;
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: white;
+    border-radius: 8px;
+  }
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    background-color: white;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    /* background: linear-gradient(45deg, #021b79, #0575e6, #205e9b); */
+    background-color: ${(props) => props.iconColor};
+  }
 `;

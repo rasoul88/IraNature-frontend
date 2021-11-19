@@ -22,16 +22,7 @@ import {
   createGradientText,
 } from "../../utils/functions";
 
-const Card = (props) => {
-  const {
-    id,
-    title,
-    items,
-    backgroundImage,
-    gradientColor,
-    gradientText,
-    payValue,
-  } = props;
+const Card = ({ tour }) => {
   const [isOpen, setOpen] = useState(false);
   const router = useRouter();
   return (
@@ -43,50 +34,50 @@ const Card = (props) => {
     >
       <FrontContainer>
         <ImageContainer
-          gradientColor={gradientColor}
-          // gradientColor={createGradientbackground(
-          //   tour.gradientColor.from,
-          //   tour.gradientColor.to
-          // )}
-          backgroundImage={backgroundImage}
-          // backgroundImage={`http://localhost:6060/img/tours/${tour.imageCover}`}
+          // gradientColor={gradientColor}
+          gradientColor={createGradientbackground(
+            tour.gradientColor.from,
+            tour.gradientColor.to
+          )}
+          // backgroundImage={backgroundImage}
+          backgroundImage={`http://localhost:6060/img/tours/${tour.imageCover}`}
         >
           &nbsp;
         </ImageContainer>
         <HeadingContainer
-          gradientColor={gradientColor}
-          // gradientColor={createGradientbackground(
-          //   tour.gradientColor.from,
-          //   tour.gradientColor.to
-          // )}
-          gradientText={gradientText}
-          // gradientColor={createGradientText(
-          //   tour.gradientColor.from,
-          //   tour.gradientColor.to
-          // )}
+          // gradientColor={gradientColor}
+          gradientColor={createGradientbackground(
+            tour.gradientColor.from,
+            tour.gradientColor.to
+          )}
+          // gradientText={gradientText}
+          gradientText={createGradientText(
+            tour.gradientColor.from,
+            tour.gradientColor.to
+          )}
         >
-          <SpanContainer>{title}</SpanContainer>
-          {/* <SpanContainer>{tour.name}</SpanContainer> */}
+          {/* <SpanContainer>{title}</SpanContainer> */}
+          <SpanContainer>{tour.name}</SpanContainer>
         </HeadingContainer>
         <DetailsContainer>
           <ul>
-            {items.map((item, index) => (
+            {/* {items.map((item, index) => (
               <li key={index}>{item}</li>
-            ))}
-            {/* <li>{tour.destination}</li>
-            <li>روزه {tour.duration} تور</li>
-            <li>نفر {tour.maxGroupSize} تا</li>
-            <li>{tour.guides.length}تعداد راهنما:</li>
-            <li>{tour.difficulty}دشواری:</li> */}
+            ))} */}
+            <li>{tour.destination}</li>
+            <li>تور {tour.duration} روزه</li>
+            <li>تا {tour.maxGroupSize} نفر</li>
+            <li>تعداد راهنما: {tour.guides.length} نفر</li>
+            <li>دشواری: {tour.difficulty}</li>
           </ul>
         </DetailsContainer>
       </FrontContainer>
       <BackContainer
-        gradientColor={gradientColor}
-        // gradientColor={createGradientbackground(
-        //   tour.gradientColor.from,
-        //   tour.gradientColor.to
-        // )}
+        // gradientColor={gradientColor}
+        gradientColor={createGradientbackground(
+          tour.gradientColor.from,
+          tour.gradientColor.to
+        )}
         isOpen={isOpen}
       >
         {/* <DetailButton onClick={() => setOpen(!isOpen)} >&#11167;</DetailButton> */}
@@ -97,14 +88,14 @@ const Card = (props) => {
         <CtaContainer>
           <PriceContainer>
             <OnlyContainer>فقط</OnlyContainer>
-            <ValueContainer>{payValue}</ValueContainer>
-            {/* <ValueContainer>{tour.price}</ValueContainer> */}
+            {/* <ValueContainer>{payValue}</ValueContainer> */}
+            <ValueContainer>{tour.price.toLocaleString()}</ValueContainer>
           </PriceContainer>
           <CustomButton
             onClick={() =>
               router.push({
-                pathname: `/tours/${id}`,
-                // pathname: `/tours/${tour._id}`,
+                // pathname: `/tours/${id}`,
+                pathname: `/tours/${tour._id}`,
               })
             }
             color="#999"

@@ -15,6 +15,7 @@ export const ToursContainer = styled.div`
 
 export const CardsContainer = styled.div`
   display: flex;
+  flex-direction: row-reverse;
   justify-content: center;
   margin-top: 8rem;
 

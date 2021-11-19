@@ -37,30 +37,31 @@ export const ImageContainer = styled.div`
 `;
 
 export const HeadingContainer = styled.h4`
-  font-size: 2.8rem;
+  font-size: 2.4rem;
   font-weight: 300;
   text-transform: uppercase;
   text-align: right;
   color: white;
   position: absolute;
-  top: 10.9rem;
+  top: 10.4rem;
   right: 0rem;
-  width: 75%;
+  max-width: 85%;
   padding: 0rem 1.5rem;
   background-image: ${(props) => props.gradientText};
   z-index: 2;
-
-  @media only screen and (max-width: 1500px) {
+  white-space: nowrap;
+  line-height: 2.5;
+  /* @media only screen and (max-width: 1500px) {
     width: 85%;
   }
 
   @media only screen and (max-width: 56.25em) {
     width: 60%;
-  }
-
+  } */
+  /* 
   @media only screen and (max-width: 450px) {
     width: 80%;
-  }
+  } */
 `;
 
 export const SpanContainer = styled.span`

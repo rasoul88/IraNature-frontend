@@ -6,32 +6,28 @@ import {
   InfoContainer,
 } from "./comment-box.styles";
 import Rating from "../rating/rating.component";
-const CommentBox = ({
-  name,
-  image,
-  rating,
-  review,
-  createdDate,
-  iconColor,
-}) => {
+import * as moment from "moment-jalaali";
+const timeDifference = parseInt(moment().format("jM")) >= 7 ? 3.5 : 4.5;
+
+const CommentBox = ({ review, iconColor }) => {
   return (
     <Container>
       <HeaderContainer>
         <InfoContainer>
-          <Avatar name={name} image={image} />
-          <div>
-            <h4>{name}</h4>
-            <p>{createdDate}</p>
+          <Avatar name={review.user.name} image={review.user.photo} />
+          <div style={{ marginRight: "1rem" }}>
+            <h4>{review.user.name}</h4>
+            <p>
+              {moment(review.createdAt, "YYYY-M-D HH:mm")
+                .locale("fa")
+                .add(timeDifference, "h")
+                .format("jYYYY/jM/jD HH:mm")}
+            </p>
           </div>
         </InfoContainer>
-        <Rating rating="3" iconColor={iconColor} />
+        <Rating rating={review.rating} iconColor={iconColor} />
       </HeaderContainer>
-      <ContentContainer>
-        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده
-        از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و
-        سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای
-        متنوع با هدف بهبود ابزارهای کاربردی می باشد.
-      </ContentContainer>
+      <ContentContainer iconColor={iconColor}>{review.review}</ContentContainer>
     </Container>
   );
 };

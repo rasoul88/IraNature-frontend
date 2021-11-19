@@ -203,6 +203,7 @@ export const CoverPreview = styled.div`
   height: 17rem;
   background-size: cover;
   background-blend-mode: screen;
+  background-position: center;
   background-image: ${(props) => props.gradientColor}
     url(${(props) => props.backgroundImage});
 `;
@@ -216,8 +217,15 @@ export const ErrorText = styled.p`
 `;
 
 export const MyToursContainer = styled.div`
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(31.5rem, 1fr));
+  grid-gap: 4rem;
+  justify-items: center;
+  direction: rtl;
+  margin-top: 6rem;
 `;

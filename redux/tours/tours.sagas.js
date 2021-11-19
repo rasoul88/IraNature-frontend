@@ -7,7 +7,11 @@ import {
   setActiveTourGuides,
   resetCreateTourData,
 } from "./tours.actions";
-import { showLoadingToast, showToast } from "../../utils/functions";
+import {
+  showLoadingToast,
+  showToast,
+  objectDateToString,
+} from "../../utils/functions";
 import { changeSelectedTab } from "../../redux/userPage/userPage.actions";
 
 export function* getActiveTourGuides() {
@@ -25,7 +29,11 @@ export function* createTour({ payload }) {
     const bodyData = {};
     for (const item in payload) {
       if (item === "imageCover" || item === "images") continue;
-      bodyData[item] = payload[item];
+      if (item === "startDate") {
+        bodyData[item] = objectDateToString(payload[item]);
+      } else {
+        bodyData[item] = payload[item];
+      }
     }
     const response = yield post("tours", bodyData);
     const tour = response.data.doc;
@@ -47,8 +55,18 @@ export function* createTour({ payload }) {
     yield put(resetCreateTourData());
     yield put(changeSelectedTab("tours"));
   } catch (error) {
-    console.log(error);
     yield put(createTourFailure(error.message));
+    showToast("error", error.message);
+  }
+}
+
+export function* submitReview({ payload }) {
+  try {
+    showLoadingToast("در حال ثبت دیدگاه ...");
+    const review = yield post("reviews", payload);
+    console.log(review);
+    showToast("success", "دیدگاه شما با موفقیت ثبت شد");
+  } catch (error) {
     showToast("error", error.message);
   }
 }
@@ -64,6 +82,14 @@ export function* onGetActiveTourGuides() {
   );
 }
 
+export function* onSubmitReview() {
+  yield takeLatest(toursActionTypes.SUBMIT_REVIEW, submitReview);
+}
+
 export function* toursSagas() {
-  yield all([call(onCreateTour), call(onGetActiveTourGuides)]);
+  yield all([
+    call(onCreateTour),
+    call(onGetActiveTourGuides),
+    call(onSubmitReview),
+  ]);
 }
