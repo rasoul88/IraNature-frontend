@@ -1,4 +1,6 @@
+import React from "react";
 import { useRouter } from "next/router";
+import { connect } from "react-redux";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import {
@@ -35,8 +37,8 @@ import {
   createGradientText,
 } from "../../../utils/functions";
 import ReviewWriter from "../../../components/review-writer/review-writer.component";
-import * as moment from "moment-jalaali";
-const timeDifference = parseInt(moment().format("jM")) >= 7 ? 3.5 : 4.5;
+import { removeUpdatedCurrentTourPageData } from "../../../redux/tours/tours.actions";
+
 const createGalleryImages = (images) => {
   return images.map((image) => ({
     original: `http://localhost:6060/img/tours/${image}`,
@@ -44,9 +46,20 @@ const createGalleryImages = (images) => {
   }));
 };
 
-const TourPage = ({ ssrTour }) => {
+const TourPage = ({
+  ssrTour,
+  updatedcurrentTourPageData,
+  removeUpdatedCurrentTourPageData,
+}) => {
   const router = useRouter();
   // const { tourId } = router.query;
+
+  React.useEffect(() => {
+    return () => {
+      //remove updatedcurrentTourPageData in redux
+      removeUpdatedCurrentTourPageData();
+    };
+  }, [removeUpdatedCurrentTourPageData]);
 
   if (router.isFallback) {
     return (
@@ -63,17 +76,9 @@ const TourPage = ({ ssrTour }) => {
     );
   }
 
-  const doc = ssrTour?.data.doc;
+  const doc = updatedcurrentTourPageData || ssrTour?.data.doc;
   // console.log("router.isFallback", router.isFallback);
-  console.log("ssrTour", ssrTour);
-  console.log(
-    "moment",
-    // moment("2013-8-25 16:40", "YYYY-M-D HH:mm").format("jYYYY/jM/jD HH:mm")
-    moment("2021-11-19 19:24", "YYYY-M-D HH:mm")
-      .locale("fa")
-      .add(timeDifference, "h")
-      .format("jYYYY/jM/jD HH:mm")
-  );
+
   return (
     <div style={{ backgroundColor: "#fafafa", width: "100vw" }}>
       <Controller
@@ -140,8 +145,11 @@ const TourPage = ({ ssrTour }) => {
               ویژگی ها
             </SecodaryHeading>
             <InfoItem iconColor={doc.gradientColor.from}>
-              <p>{doc.startDate}</p>
-              <h4>تاریخ شروع</h4>
+              <p>
+                {doc.startDate.slice(0, 4)}/{doc.startDate.slice(4, 6)}/
+                {doc.startDate.slice(6, 8)}
+              </p>
+              <h4>تاریخ حرکت بعدی</h4>
               <CalenderIcon />
             </InfoItem>
             <InfoItem iconColor={doc.gradientColor.from}>
@@ -158,7 +166,12 @@ const TourPage = ({ ssrTour }) => {
               {doc.ratingsAverage === 0 ? (
                 <p>بدون امتیاز</p>
               ) : (
-                <p>{doc.ratingsAverage} / 5</p>
+                <p>
+                  <span style={{ fontWeight: "bold" }}>
+                    {doc.ratingsAverage}
+                  </span>{" "}
+                  / 5
+                </p>
               )}
               <h4>امتیاز</h4>
               <StarIcon />
@@ -265,8 +278,16 @@ export async function getStaticProps({ params }) {
       ssrTour,
     },
 
-    revalidate: 1, // In seconds
+    revalidate: 5, // In seconds
   };
 }
 
-export default TourPage;
+const mapStateToProps = ({ tours: { updatedcurrentTourPageData } }) => ({
+  updatedcurrentTourPageData,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  removeUpdatedCurrentTourPageData: () =>
+    dispatch(removeUpdatedCurrentTourPageData()),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(TourPage);

@@ -79,15 +79,18 @@ const UserPage = ({
               <p>ویرایش اطلاعات</p>
             </div>
           </SidebarItem>
-          <SidebarItem
-            selected={selectedTab === "dashboard"}
-            onClick={() => changeSelectedTab("dashboard")}
-          >
-            <div>
-              <DashboardIcon />
-              <p>داشبورد</p>
-            </div>
-          </SidebarItem>
+          {(currentUser.role === "admin" ||
+            currentUser.role === "lead-guide") && (
+            <SidebarItem
+              selected={selectedTab === "dashboard"}
+              onClick={() => changeSelectedTab("dashboard")}
+            >
+              <div>
+                <DashboardIcon />
+                <p>داشبورد</p>
+              </div>
+            </SidebarItem>
+          )}
         </Sidebar>
         <ContentContainer>
           {selectCorrectContent(selectedTab, currentUser)}

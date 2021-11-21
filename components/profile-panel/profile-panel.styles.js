@@ -17,7 +17,7 @@ export const PanelContainer = styled.div`
   transition: all 0.3s;
   transform: ${(props) => (props.toggle ? "scale(1)" : "scale(0)")};
   transform-origin: 80% top;
-  z-index: 1000;
+  z-index: 10000;
   & > h4 {
     margin: 1rem;
     color: #333;

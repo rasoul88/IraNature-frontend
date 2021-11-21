@@ -6,7 +6,7 @@ const INITIAL_STATE = {
     name: "",
     days: [1, 20],
     price: [200000, 4000000],
-    cities: null,
+    startLocation: null,
     dateRange: {
       from: null,
       to: null,
@@ -52,6 +52,10 @@ const INITIAL_STATE = {
   },
 
   isFetching: false,
+
+  updatedcurrentTourPageData: null,
+
+  updatedToursData: null,
 };
 
 const toursReducer = (state = INITIAL_STATE, action) => {
@@ -109,6 +113,28 @@ const toursReducer = (state = INITIAL_STATE, action) => {
         ...state,
         activeTourGuides: action.payload,
       };
+    case toursActionTypes.UPDATE_CURRENT_TOUR_PAGE_SUCCESS:
+      return {
+        ...state,
+        updatedcurrentTourPageData: action.payload,
+      };
+    case toursActionTypes.REMOVE_UPDATED_CURRENT_TOUR_PAGE_DATA:
+      return {
+        ...state,
+        updatedcurrentTourPageData: null,
+      };
+    case toursActionTypes.GET_FILTERED_TOURS:
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case toursActionTypes.SET_UPDATED_TOURS_DATA:
+      return {
+        ...state,
+        isFetching: false,
+        updatedToursData: action.payload,
+      };
+
     default:
       return state;
   }

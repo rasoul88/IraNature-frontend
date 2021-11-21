@@ -16,9 +16,13 @@ import CustomInput from "../custom-input/custom-input.component";
 import CustomDatePicker from "../data-picker/date-picker.component";
 import CustomCkeckbox from "../custom-check-box/custom-check-box.component";
 import { CheckboxItem } from "../custom-check-box/custom-check-box.styles";
+import SpinButton from "../../components/spin-button/spin-button.component";
 
 import { toggleFilterPanel } from "../../redux/tours/tours.actions";
-import { setFilterItem } from "../../redux/tours/tours.actions";
+import {
+  setFilterItem,
+  getFilteredTours,
+} from "../../redux/tours/tours.actions";
 
 export const UnconnectedFilterPanel = ({
   panelStatus,
@@ -27,9 +31,18 @@ export const UnconnectedFilterPanel = ({
   activeCities,
   toggleFilterPanel,
   setFilterItem,
+  getFilteredTours,
+  isFetching,
 }) => {
-  const { name, price, cities, days, dateRange, difficulty, maxParticipants } =
-    filterItems;
+  const {
+    name,
+    price,
+    startLocation,
+    days,
+    dateRange,
+    difficulty,
+    maxParticipants,
+  } = filterItems;
 
   const filterItemsChangeHandler = (itemName, value) => {
     setFilterItem(itemName, value);
@@ -120,13 +133,13 @@ export const UnconnectedFilterPanel = ({
             data-test="cities-multiselector"
             id="multiselect-react-dropdown"
             options={activeCities}
-            selectedValues={cities}
+            selectedValues={startLocation}
             onSelect={(newValue) =>
-              filterItemsChangeHandler("cities", newValue)
+              filterItemsChangeHandler("startLocation", [
+                newValue[newValue.length - 1],
+              ])
             }
-            onRemove={(newValue) =>
-              filterItemsChangeHandler("cities", newValue)
-            }
+            onRemove={() => filterItemsChangeHandler("startLocation", null)}
             displayValue="name"
             placeholder="انتخاب"
             showArrow={true}
@@ -158,9 +171,9 @@ export const UnconnectedFilterPanel = ({
               filterItemsChangeHandler("difficulty", newValue)
             }
           >
-            <CheckboxItem key="hard">سخت</CheckboxItem>
-            <CheckboxItem key="medium">متوسط</CheckboxItem>
-            <CheckboxItem key="easy">آسان</CheckboxItem>
+            <CheckboxItem key="سخت">سخت</CheckboxItem>
+            <CheckboxItem key="متوسط">متوسط</CheckboxItem>
+            <CheckboxItem key="راحت">راحت</CheckboxItem>
           </CustomCkeckbox>
         </FilterItemContainer>
         <FilterItemContainer>
@@ -179,31 +192,37 @@ export const UnconnectedFilterPanel = ({
             valueLabelDisplay="on"
           />
         </FilterItemContainer>
-        <CustomButton
-          style={{ margin: "2rem 0" }}
-          backgroundColor="#1976D2"
-          color="white"
-          onClick={() => console.log("heyyyyy im fired", name)}
-        >
-          اعمال فیلتر ها
-        </CustomButton>
+        {isFetching ? (
+          <SpinButton />
+        ) : (
+          <CustomButton
+            style={{ margin: "2rem 0" }}
+            backgroundColor="#1976D2"
+            color="white"
+            onClick={() => getFilteredTours()}
+          >
+            اعمال فیلتر ها
+          </CustomButton>
+        )}
       </ContentContainer>
     </PanelContainer>
   );
 };
 
 const mapStateToProps = ({
-  tours: { panelStatus, filterItems, dataLimits, activeCities },
+  tours: { panelStatus, filterItems, dataLimits, activeCities, isFetching },
 }) => ({
   panelStatus,
   filterItems,
   dataLimits,
   activeCities,
+  isFetching,
 });
 
 const mapDipatchToProps = (dispatch) => ({
   toggleFilterPanel: () => dispatch(toggleFilterPanel()),
   setFilterItem: (itemName, value) => dispatch(setFilterItem(itemName, value)),
+  getFilteredTours: () => dispatch(getFilteredTours()),
 });
 
 export default connect(

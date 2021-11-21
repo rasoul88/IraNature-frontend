@@ -48,3 +48,31 @@ export const submitReview = (review) => ({
   type: toursActionTypes.SUBMIT_REVIEW,
   payload: review,
 });
+
+export const deleteReview = (reviewId) => ({
+  type: toursActionTypes.DELETE_REVIEW,
+  payload: reviewId,
+});
+
+export const updateCurrentTourPageStart = (tourId) => ({
+  type: toursActionTypes.UPDATE_CURRENT_TOUR_PAGE_START,
+  payload: tourId,
+});
+
+export const updateCurrentTourPageSuccess = (tour) => ({
+  type: toursActionTypes.UPDATE_CURRENT_TOUR_PAGE_SUCCESS,
+  payload: tour,
+});
+
+export const removeUpdatedCurrentTourPageData = () => ({
+  type: toursActionTypes.REMOVE_UPDATED_CURRENT_TOUR_PAGE_DATA,
+});
+
+export const getFilteredTours = () => ({
+  type: toursActionTypes.GET_FILTERED_TOURS,
+});
+
+export const setUpdatedToursData = (tours) => ({
+  type: toursActionTypes.SET_UPDATED_TOURS_DATA,
+  payload: tours,
+});

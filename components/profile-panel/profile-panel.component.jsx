@@ -92,24 +92,26 @@ const ProfilePanel = ({
         </BannerContent>
         <LeftIcon />
       </ItemBanner>
-      <ItemBanner
-        onClick={() => {
-          changeSelectedTab("dashboard");
-          router.push({
-            pathname: "/userPage",
-            // query: { selectedSection: "tours" },
-          });
-        }}
-      >
-        <BannerContent>
-          <DashboardIcon />
-          <div>
-            <h5>داشبورد</h5>
-            <p> ایجاد تور جدید و ...</p>
-          </div>
-        </BannerContent>
-        <LeftIcon />
-      </ItemBanner>
+      {(currentUser.role === "admin" || currentUser.role === "lead-guide") && (
+        <ItemBanner
+          onClick={() => {
+            changeSelectedTab("dashboard");
+            router.push({
+              pathname: "/userPage",
+              // query: { selectedSection: "tours" },
+            });
+          }}
+        >
+          <BannerContent>
+            <DashboardIcon />
+            <div>
+              <h5>داشبورد</h5>
+              <p> ایجاد تور جدید و ...</p>
+            </div>
+          </BannerContent>
+          <LeftIcon />
+        </ItemBanner>
+      )}
     </PanelContainer>
   );
 };

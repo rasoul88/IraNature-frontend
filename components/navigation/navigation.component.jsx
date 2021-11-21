@@ -67,13 +67,15 @@ const Navigation = ({ currentUser }) => {
             />
           </div>
         ) : (
-          <Controller
-            data-test="login-controller"
-            onClick={() => handleMenuItemClick("/signin")}
-          >
-            <LoginIcon />
-            <p>ثبت نام | ورود</p>
-          </Controller>
+          <div style={{ zIndex: "10" }}>
+            <Controller
+              data-test="login-controller"
+              onClick={() => handleMenuItemClick("/signin")}
+            >
+              <LoginIcon />
+              <p>ثبت نام | ورود</p>
+            </Controller>
+          </div>
         ))}
 
       <BackgroundContainer toggle={toggleStates.menu}>

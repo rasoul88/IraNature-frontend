@@ -11,6 +11,8 @@ export const Container = styled.div`
   border-radius: 10px;
   margin: 0 2rem;
   height: 25rem;
+  position: relative;
+  background-color: white;
 
   @media only screen and (max-width: 22em) {
     min-width: 100%;
@@ -71,5 +73,21 @@ export const ContentContainer = styled.div`
     border-radius: 8px;
     /* background: linear-gradient(45deg, #021b79, #0575e6, #205e9b); */
     background-color: ${(props) => props.iconColor};
+  }
+`;
+
+export const DeleteButton = styled.div`
+  position: absolute;
+  left: 3px;
+  bottom: -2px;
+  cursor: pointer;
+
+  & svg {
+    fill: ${(props) => props.iconColor};
+    transition: all 0.2s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 `;

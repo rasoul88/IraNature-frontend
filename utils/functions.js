@@ -47,7 +47,9 @@ export const showLoadingToast = (message) => {
 };
 
 export const objectDateToString = (objDate) => {
-  return `${objDate.year}/${objDate.month}/${objDate.day}`;
+  return `${objDate.year}${objDate.month < 10 ? "0" : ""}${objDate.month}${
+    objDate.day < 10 ? "0" : ""
+  }${objDate.day}`;
 };
 
 // export const stringDateToObject = (stringDate) => {

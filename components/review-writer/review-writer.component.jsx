@@ -24,27 +24,45 @@ const reducer = (state, action) => {
       };
   }
 };
-const ReviewWriter = ({ tourId, submitReview, gradientColor }) => {
+const ReviewWriter = ({ currentUser, tourId, submitReview, gradientColor }) => {
   const [{ rating, review, errors }, URDispatch] = React.useReducer(reducer, {
     rating: 0,
     review: "",
     errors: {
       rating: false,
       review: false,
+      notLogedIn: false,
     },
   });
 
+  const reviewRef = React.useRef("");
+
   const onSubmitReview = () => {
+    if (!currentUser) {
+      return URDispatch({
+        type: "setErrors",
+        payload: { rating: false, review: false, notLogedIn: true },
+      });
+    }
     if (rating === 0 || review.length === 0) {
       return URDispatch({
         type: "setErrors",
-        payload: { rating: rating === 0, review: review.length === 0 },
+        payload: {
+          rating: rating === 0,
+          review: review.length === 0,
+          notLogedIn: false,
+        },
       });
     }
     URDispatch({
       type: "setErrors",
       payload: { rating: false, review: false },
     });
+    URDispatch({
+      type: "setRating",
+      payload: 0,
+    });
+    reviewRef.current.value = "";
     submitReview({
       review,
       rating,
@@ -69,6 +87,7 @@ const ReviewWriter = ({ tourId, submitReview, gradientColor }) => {
         <h4>: دیدگاه</h4>
         <textarea
           type="text"
+          ref={reviewRef}
           placeholder="دیدگاه خود را بنویسید..."
           onBlur={(event) =>
             URDispatch({ type: "setReview", payload: event.target.value })
@@ -82,11 +101,19 @@ const ReviewWriter = ({ tourId, submitReview, gradientColor }) => {
       >
         ثبت دیدگاه
       </CustomButton>
+      {errors.notLogedIn && (
+        <p style={{ textAlign: "center", marginTop: "4rem" }}>
+          !برای ثبت دیدگاه باید به حساب کاربری خود وارد شوید
+        </p>
+      )}
     </Container>
   );
 };
 
+const mapStateToProps = ({ user: { currentUser } }) => ({
+  currentUser,
+});
 const mapDispatchToProps = (dispatch) => ({
   submitReview: (review) => dispatch(submitReview(review)),
 });
-export default connect(null, mapDispatchToProps)(ReviewWriter);
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewWriter);

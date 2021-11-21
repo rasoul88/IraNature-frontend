@@ -1,11 +1,14 @@
-import { all, call, takeLatest, put } from "redux-saga/effects";
-import { get, post, patch } from "axios";
+import { all, call, takeLatest, put, delay, select } from "redux-saga/effects";
+import axios, { get, post, patch } from "axios";
 import toursActionTypes from "./tours.actionTypes";
 import {
   createTourSuccess,
   createTourFailure,
   setActiveTourGuides,
   resetCreateTourData,
+  updateCurrentTourPageStart,
+  updateCurrentTourPageSuccess,
+  setUpdatedToursData,
 } from "./tours.actions";
 import {
   showLoadingToast,
@@ -13,6 +16,7 @@ import {
   objectDateToString,
 } from "../../utils/functions";
 import { changeSelectedTab } from "../../redux/userPage/userPage.actions";
+import { createQuery } from "../utils";
 
 export function* getActiveTourGuides() {
   try {
@@ -66,6 +70,44 @@ export function* submitReview({ payload }) {
     const review = yield post("reviews", payload);
     console.log(review);
     showToast("success", "دیدگاه شما با موفقیت ثبت شد");
+    yield delay(500);
+    yield put(updateCurrentTourPageStart(review.data.doc.tour));
+  } catch (error) {
+    showToast("error", error.message);
+  }
+}
+
+export function* deleteReview({ payload }) {
+  try {
+    showLoadingToast("در حال حذف دیدگاه ...");
+    yield axios.delete(`reviews/${payload.reviewId}`);
+    showToast("success", "دیدگاه شما با موفقیت حذف شد");
+    yield put(updateCurrentTourPageStart(payload.tourId));
+  } catch (error) {
+    showToast("error", error.message);
+  }
+}
+
+export function* updateCurrentTourPage({ payload }) {
+  try {
+    const tour = yield get(`tours/${payload}`);
+    console.log(tour.doc);
+    yield put(updateCurrentTourPageSuccess(tour.data.doc));
+  } catch (error) {
+    showToast("error", error.message);
+  }
+}
+
+export const getToursState = (state) => state.tours;
+
+export function* getFilteredTours() {
+  try {
+    const toursState = yield select(getToursState);
+    const query = createQuery(toursState.filterItems, toursState.dataLimits);
+    console.log("query:", query);
+    const tours = yield get(`tours?${query}`);
+    console.log("tours:", tours);
+    yield put(setUpdatedToursData(tours));
   } catch (error) {
     showToast("error", error.message);
   }
@@ -86,10 +128,27 @@ export function* onSubmitReview() {
   yield takeLatest(toursActionTypes.SUBMIT_REVIEW, submitReview);
 }
 
+export function* onDeleteReview() {
+  yield takeLatest(toursActionTypes.DELETE_REVIEW, deleteReview);
+}
+
+export function* onUpdateCurrentTourPage() {
+  yield takeLatest(
+    toursActionTypes.UPDATE_CURRENT_TOUR_PAGE_START,
+    updateCurrentTourPage
+  );
+}
+
+export function* onGetFilteredTours() {
+  yield takeLatest(toursActionTypes.GET_FILTERED_TOURS, getFilteredTours);
+}
 export function* toursSagas() {
   yield all([
     call(onCreateTour),
     call(onGetActiveTourGuides),
     call(onSubmitReview),
+    call(onDeleteReview),
+    call(onUpdateCurrentTourPage),
+    call(onGetFilteredTours),
   ]);
 }
