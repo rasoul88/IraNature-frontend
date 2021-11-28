@@ -14,6 +14,8 @@ const INITIAL_STATE = {
     maxParticipants: [40],
     difficulty: [],
     page: 1,
+    fields:
+      "name,destination,duration,maxGroupSize,guides,difficulty,maxGroupSize,price,imageCover,gradientColor",
   },
 
   dataLimits: {

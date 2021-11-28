@@ -40,7 +40,7 @@ const Card = ({ tour }) => {
             tour.gradientColor.to
           )}
           // backgroundImage={backgroundImage}
-          backgroundImage={`http://localhost:6060/img/tours/${tour.imageCover}`}
+          backgroundImage={`${process.env.NEXT_PUBLIC_BASE_SERVER_STATICS_URL}/img/tours/${tour.imageCover}`}
         >
           &nbsp;
         </ImageContainer>

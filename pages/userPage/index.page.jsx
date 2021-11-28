@@ -45,7 +45,12 @@ const UserPage = ({
   }, [router, currentUser]);
 
   React.useEffect(() => {
-    getActiveTourGuides();
+    if (
+      currentUser &&
+      (currentUser.role === "admin" || currentUser.role === "lead-guide")
+    ) {
+      getActiveTourGuides();
+    }
   }, [getActiveTourGuides]);
 
   return (
@@ -79,8 +84,8 @@ const UserPage = ({
               <p>ویرایش اطلاعات</p>
             </div>
           </SidebarItem>
-          {(currentUser.role === "admin" ||
-            currentUser.role === "lead-guide") && (
+          {(currentUser?.role === "admin" ||
+            currentUser?.role === "lead-guide") && (
             <SidebarItem
               selected={selectedTab === "dashboard"}
               onClick={() => changeSelectedTab("dashboard")}

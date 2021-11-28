@@ -4,6 +4,7 @@ import { pageInRight } from "../../utils/animations";
 export const SectionContainer = styled.div`
   width: 100%;
   height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -217,10 +218,6 @@ export const ErrorText = styled.p`
 `;
 
 export const MyToursContainer = styled.div`
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; */
   padding: 0 2rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(31.5rem, 1fr));

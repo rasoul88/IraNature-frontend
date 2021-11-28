@@ -7,14 +7,21 @@ const Rating = ({ rating, iconColor, selectable, onChange }) => {
       {Array(5 - rating * 1)
         .fill()
         .map((el, index) => (
-          <Star key={5 - index} onClick={() => onChange(5 - index)} />
+          <Star
+            key={5 - index}
+            onClick={() => {
+              if (selectable) onChange(5 - index);
+            }}
+          />
         ))}
       {Array(rating * 1)
         .fill()
         .map((el, index) => (
           <FillStar
             key={rating - index}
-            onClick={() => onChange(rating - index)}
+            onClick={() => {
+              if (selectable) onChange(rating - index);
+            }}
           />
         ))}
     </Container>

@@ -18,6 +18,9 @@ export const FooterContainer = styled.div`
 
 export const LogoContainer = styled.div`
   margin-top: 4rem;
+  width: 120px;
+  height: 120px;
+  position: relative;
 
   & svg {
     border: none !important;

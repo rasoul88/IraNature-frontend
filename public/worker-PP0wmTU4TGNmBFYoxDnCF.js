@@ -1,0 +1,1 @@
+self.addEventListener("notificationclose",(function(o){console.log("Notification was closed",o)}));

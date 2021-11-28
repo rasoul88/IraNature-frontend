@@ -14,7 +14,6 @@ import {
   getFilteredTours,
   setFilterItem,
 } from "../../redux/tours/tours.actions";
-import Spin from "../../public/assets/icons/Spin.svg";
 
 export const UnconnectedToursPage = ({
   panelStatus,
@@ -23,7 +22,6 @@ export const UnconnectedToursPage = ({
   ssrTours,
   updatedToursData,
   getFilteredTours,
-  isFetching,
 }) => {
   const filterItemsChangeHandler = (itemName, value) => {
     setFilterItem(itemName, value);
@@ -63,7 +61,7 @@ export const UnconnectedToursPage = ({
 };
 
 export async function getStaticProps() {
-  const res = await fetch("http://localhost:6060/api/v1/tours");
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_SERVER_URL}/tours`);
   const ssrTours = await res.json();
   // const ssrTours = await Axios.get("http://localhost:6060/api/v1/tours");
   // console.log(ssrTours);

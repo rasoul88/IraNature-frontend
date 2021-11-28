@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { pageInRight } from "../../utils/animations";
 
 export const PageContainer = styled.div`
   padding: 15rem 15%;

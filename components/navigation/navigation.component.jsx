@@ -51,7 +51,6 @@ const Navigation = ({ currentUser }) => {
         <Icon toggle={toggleStates.menu}>&nbsp;</Icon>
       </IconContainer>
       {router.pathname !== "/signin" &&
-        router.pathname !== "/userPage" &&
         (currentUser ? (
           <div style={{ zIndex: "10" }}>
             <Controller

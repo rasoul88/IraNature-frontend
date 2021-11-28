@@ -41,8 +41,8 @@ import { removeUpdatedCurrentTourPageData } from "../../../redux/tours/tours.act
 
 const createGalleryImages = (images) => {
   return images.map((image) => ({
-    original: `http://localhost:6060/img/tours/${image}`,
-    thumbnail: `http://localhost:6060/img/tours/${image}`,
+    original: `${process.env.NEXT_PUBLIC_BASE_SERVER_STATICS_URL}/img/tours/${image}`,
+    thumbnail: `${process.env.NEXT_PUBLIC_BASE_SERVER_STATICS_URL}/img/tours/${image}`,
   }));
 };
 
@@ -94,7 +94,7 @@ const TourPage = ({
           doc.gradientColor.from,
           doc.gradientColor.to
         )}
-        backgroundImage={`http://localhost:6060/img/tours/${doc.imageCover}`}
+        backgroundImage={`${process.env.NEXT_PUBLIC_BASE_SERVER_STATICS_URL}/img/tours/${doc.imageCover}`}
       >
         <HeaderContentContainer>
           <GradientText
@@ -270,7 +270,9 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const { tourId } = params;
-  const res = await fetch(`http://localhost:6060/api/v1/tours/${tourId}`);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_SERVER_URL}/tours/${tourId}`
+  );
   const ssrTour = await res.json();
 
   return {

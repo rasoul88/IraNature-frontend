@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import Image from "next/image";
 import * as nextRouter from "next/router";
 import {
   PanelContainer,
@@ -47,7 +46,7 @@ const ProfilePanel = ({
           height="140px"
         /> */}
         <img
-          src={`http://localhost:6060/img/users/${currentUser?.photo}`}
+          src={`${process.env.NEXT_PUBLIC_BASE_SERVER_STATICS_URL}/img/users/${currentUser?.photo}`}
           // alt={currentUser?.name.split("")[0]}
           style={{ width: "100%", height: "100%" }}
         />
@@ -58,6 +57,7 @@ const ProfilePanel = ({
       </PhotoSelectorContainer>
       <ItemBanner
         onClick={() => {
+          URDispatch({ type: "profilePanel" });
           changeSelectedTab("tours");
           router.push({
             pathname: "/userPage",
@@ -76,6 +76,7 @@ const ProfilePanel = ({
       </ItemBanner>
       <ItemBanner
         onClick={() => {
+          URDispatch({ type: "profilePanel" });
           changeSelectedTab("info");
           router.push({
             pathname: "/userPage",
@@ -95,6 +96,7 @@ const ProfilePanel = ({
       {(currentUser.role === "admin" || currentUser.role === "lead-guide") && (
         <ItemBanner
           onClick={() => {
+            URDispatch({ type: "profilePanel" });
             changeSelectedTab("dashboard");
             router.push({
               pathname: "/userPage",

@@ -34,15 +34,8 @@ export const UnconnectedFilterPanel = ({
   getFilteredTours,
   isFetching,
 }) => {
-  const {
-    name,
-    price,
-    startLocation,
-    days,
-    dateRange,
-    difficulty,
-    maxParticipants,
-  } = filterItems;
+  const { price, startLocation, days, dateRange, difficulty, maxParticipants } =
+    filterItems;
 
   const filterItemsChangeHandler = (itemName, value) => {
     setFilterItem(itemName, value);
@@ -199,7 +192,10 @@ export const UnconnectedFilterPanel = ({
             style={{ margin: "2rem 0" }}
             backgroundColor="#1976D2"
             color="white"
-            onClick={() => getFilteredTours()}
+            onClick={() => {
+              filterItemsChangeHandler("page", 1);
+              getFilteredTours();
+            }}
           >
             اعمال فیلتر ها
           </CustomButton>

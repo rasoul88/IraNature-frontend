@@ -103,16 +103,11 @@ const InfoSection = ({
       <EditInfoContainer>
         <UserPictureContainer>
           <UserPicture>
-            {/* <Image
-              src="/assets/img/nat-4.jpg"
+            <Image
+              src={`${process.env.NEXT_PUBLIC_BASE_SERVER_STATICS_URL}/img/users/${currentUser.photo}`}
               alt="user"
               width="160px"
               height="160px"
-            /> */}
-            <img
-              src={`http://localhost:6060/img/users/${currentUser.photo}`}
-              alt="gooo"
-              style={{ width: "100%", height: "100%" }}
             />
           </UserPicture>
           <PhotoSelectorContainer>

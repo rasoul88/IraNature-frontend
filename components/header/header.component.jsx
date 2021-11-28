@@ -1,10 +1,10 @@
 import React from "react";
+import Image from "next/image";
 import {
   HeaderContainer,
   LogoContainer,
   TextBoxContainer,
   HeadingContainer,
-  Logo,
 } from "./header.styles";
 
 import CustomButton from "../custom-button/custom-button.component";
@@ -13,8 +13,11 @@ const Header = () => {
   return (
     <HeaderContainer>
       <LogoContainer>
-        {/* <TextLogo>iraNature</TextLogo> */}
-        <Logo />
+        <Image
+          src="/assets/logo/azadi-512x512.png"
+          alt="iranature"
+          layout="fill"
+        />
       </LogoContainer>
       <TextBoxContainer>
         <HeadingContainer>

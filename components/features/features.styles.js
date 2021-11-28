@@ -25,6 +25,7 @@ export const FeaturesContainer = styled.div`
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-gap: 2rem;
     backface-visibility: hidden;
+    direction: rtl;
   }
 
   @media only screen and (max-width: 56.25em) {

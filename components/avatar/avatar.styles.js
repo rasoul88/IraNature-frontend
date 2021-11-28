@@ -8,6 +8,7 @@ export const AvatarContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 
   overflow: hidden;
 

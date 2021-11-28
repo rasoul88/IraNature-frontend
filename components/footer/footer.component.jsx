@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import {
   FooterContainer,
   LogoContainer,
@@ -8,7 +9,6 @@ import {
   SocialIconContainer,
   Copyright,
 } from "./footer.styles";
-import Logo from "../../public/assets/logo/logo1.svg";
 import Instagram from "../../public/assets/icons/instagram.svg";
 import Linkedin from "../../public/assets/icons/linkedin.svg";
 import Twitter from "../../public/assets/icons/twitter.svg";
@@ -17,7 +17,11 @@ import Telegram from "../../public/assets/icons/telegram.svg";
 const Footer = () => (
   <FooterContainer>
     <LogoContainer>
-      <Logo />
+      <Image
+        src="/assets/logo/azadi-512x512.png"
+        alt="iranature"
+        layout="fill"
+      />
     </LogoContainer>
     <LinksContainer>
       <li>درباره ایرانیچر</li>

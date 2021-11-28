@@ -10,8 +10,6 @@ const MyCreatedTours = ({ myCreatedTours, getMyCreatedTours }) => {
     getMyCreatedTours();
   }, [getMyCreatedTours]);
 
-  console.log(myCreatedTours);
-
   return (
     <SectionContainer
     // style={{ maxHeight: "100vh", overflowX: "auto", margin: "0" }}

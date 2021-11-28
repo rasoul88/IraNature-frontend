@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 import { moveInRight, moveInLeft } from "../../utils/animations";
-import logo from "../../public/assets/logo/logo1.svg";
 
 export const HeaderContainer = styled.div`
   height: 95vh;
@@ -27,16 +26,17 @@ export const HeaderContainer = styled.div`
 `;
 
 export const LogoContainer = styled.div`
-  width: 100px;
-  position: absolute;
-  top: 2rem;
-  left: 2rem;
+  width: 120px;
+  height: 120px;
+  position: relative;
+  top: 3rem;
+  left: 3rem;
   @media only screen and (max-width: 28.75em) {
-    left: -2rem;
-    top: 1.5rem;
-    & svg {
+    width: 60px;
+    height: 60px;
+    /* & svg {
       transform: scale(0.8);
-    }
+    } */
   }
 `;
 
@@ -98,8 +98,4 @@ export const HeadingContainer = styled.h1`
       font-size: 2rem;
     }
   }
-`;
-
-export const Logo = styled(logo)`
-  border: none !important;
 `;

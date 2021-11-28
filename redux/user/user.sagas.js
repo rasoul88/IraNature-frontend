@@ -20,6 +20,7 @@ export function* signInWithEmail({ payload }) {
     showLoadingToast("در حال ورود ...");
     const user = yield post("users/login", payload);
     yield put(signInSuccess(user.data.user));
+    localStorage.setItem("token", user.token);
     showToast("success", "ورود با موفقیت انجام شد");
   } catch (error) {
     yield put(signInFailure(error.message));

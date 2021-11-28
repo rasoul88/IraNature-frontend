@@ -49,6 +49,10 @@ export const createQuery = (filterItems, dataLimits) => {
     if (item === "page") {
       query += `page=${filterItems[item]}&`;
     }
+
+    if (item === "fields") {
+      query += `fields=${filterItems[item]}&`;
+    }
   }
 
   query = query.slice(0, query.length - 1);

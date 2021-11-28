@@ -69,7 +69,7 @@ export const IconContainer = styled.label`
   }
   @media only screen and (max-width: 37.5em) {
     top: 3rem;
-    right: 3rem;
+    right: 2.7rem;
   }
 
   @media only screen and (max-width: 28.75em) {

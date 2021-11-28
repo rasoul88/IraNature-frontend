@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import { Container, Label, ImageContainer } from "./image-upload.styles";
 import ImageIcon from "../../public/assets/icons/image-photo-svgrepo-com.svg";
 import CloseIcon from "../../public/assets/icons/fill-close-svgrepo-com.svg";

@@ -12,7 +12,27 @@ export default function Home({ ssrTop3Tours }) {
       <Head>
         <title>IraNature</title>
         <meta name="description" content="Explor all Iran using IraNaure" />
+
+        {/* manifest alternatives for IOS devices */}
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="mobile-web-app-status-bar" content="black" />
+        <meta name="mobile-web-title" content="ایرانیچر" />
+        <link
+          rel="apple-touch-icon"
+          sizes="72x72 96x96 128x128 256x256"
+          href="/assets/img/favicon.png"
+        />
+
+        {/* manifest alternatives for Internet Explorer */}
+        <meta
+          name="msaplication-TitleImage"
+          content="/assets/img/favicon.png"
+        />
+        <meta name="msaplication-TitleColor" content="white" />
+        <meta name="theme-color" content="#3f51b5" />
+
         <link rel="icon" href="/favicon.ico" />
+        <link rel="manifest" href="/manifest.json" />
       </Head>
 
       <main>
@@ -31,7 +51,9 @@ export default function Home({ ssrTop3Tours }) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch("http://localhost:6060/api/v1/tours/top-3-tours");
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_SERVER_URL}/tours/top-3-tours`
+  );
   const ssrTop3Tours = await res.json();
 
   return {

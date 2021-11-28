@@ -30,7 +30,7 @@ const CustomRangeSlider = ({
         min={min}
         max={max}
         onChange={(values) => onChange(values)}
-        renderMark={({ props, index }) => (
+        renderMark={({ props }) => (
           <div
             {...props}
             style={{
