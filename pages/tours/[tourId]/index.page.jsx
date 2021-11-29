@@ -71,7 +71,7 @@ const TourPage = ({
           alignItems: "center",
         }}
       >
-        <Spin style={{ width: "30rem", height: "30rem" }} />;
+        <Spin style={{ width: "30rem", height: "30rem" }} />
       </div>
     );
   }

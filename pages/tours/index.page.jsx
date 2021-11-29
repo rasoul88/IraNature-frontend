@@ -14,6 +14,7 @@ import {
   getFilteredTours,
   setFilterItem,
 } from "../../redux/tours/tours.actions";
+import CardSkeleton from "../../components/card-skeleton/card-skeleton.component";
 
 export const UnconnectedToursPage = ({
   panelStatus,
@@ -22,6 +23,7 @@ export const UnconnectedToursPage = ({
   ssrTours,
   updatedToursData,
   getFilteredTours,
+  isFetching,
 }) => {
   const filterItemsChangeHandler = (itemName, value) => {
     setFilterItem(itemName, value);
@@ -40,9 +42,20 @@ export const UnconnectedToursPage = ({
       <ContentContainer panelStatus={panelStatus}>
         <SecondaryHeading> تورهای فعال</SecondaryHeading>
         <CardsContainer>
-          {tours.map((tour) => (
-            <Card data-test="tour-card" key={tour.id} tour={tour} />
-          ))}
+          {isFetching ? (
+            <>
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+            </>
+          ) : (
+            tours.map((tour) => (
+              <Card data-test="tour-card" key={tour.id} tour={tour} />
+            ))
+          )}
+          {!isFetching && tours.length === 0 && (
+            <h3 style={{ color: "#333" }}>توری با این مشخصات یافت نشد!{""}</h3>
+          )}
         </CardsContainer>
         <PaginateContainer>
           <Paginate

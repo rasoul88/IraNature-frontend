@@ -13,6 +13,7 @@ export const ContentContainer = styled.div`
   overflow: hidden;
   margin-left: ${(props) => (props.panelStatus ? "30rem" : "0")};
   transition: all 0.5s ease-in-out;
+  min-height: 100vh;
 
   /* for mobile size {
       width: 100%;
