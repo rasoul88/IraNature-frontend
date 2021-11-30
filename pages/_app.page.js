@@ -22,7 +22,6 @@ Axios.defaults.headers.common["Access-Control-Allow-Methods"] =
 // it is temporary and will be deleted beacuse in localhost:3000 (unsecure protocol) we can not use set-cookie with sameSite=none and secure=true
 let token;
 if (typeof Storage !== "undefined") {
-  //use the local storage
   token = localStorage.getItem("token");
 }
 Axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -35,6 +34,7 @@ Axios.interceptors.response.use(
     return response.data;
   },
   (error) => {
+    if (error.message === "Network Error") return Promise.reject(error);
     return Promise.reject(error.response.data);
   }
 );

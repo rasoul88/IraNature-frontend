@@ -24,7 +24,14 @@ export function* signInWithEmail({ payload }) {
     showToast("success", "ورود با موفقیت انجام شد");
   } catch (error) {
     yield put(signInFailure(error.message));
-    showToast("error", error.message);
+    if (error.message === "Network Error") {
+      showToast(
+        "error",
+        "اتصال شما به اینترنت در حال حاضر قطع می باشد، برای انجام این عملیات باید به اینترنت متصل متصل باشید"
+      );
+    } else {
+      showToast("error", error.message);
+    }
   }
 }
 
@@ -36,7 +43,14 @@ export function* signUp({ payload }) {
     showToast("success", "ثبت نام با موفقیت انجام شد");
   } catch (error) {
     yield put(signUpFailure(error.message));
-    showToast("error", error.message);
+    if (error.message === "Network Error") {
+      showToast(
+        "error",
+        "اتصال شما به اینترنت در حال حاضر قطع می باشد، برای انجام این عملیات باید به اینترنت متصل متصل باشید"
+      );
+    } else {
+      showToast("error", error.message);
+    }
   }
 }
 
@@ -51,7 +65,14 @@ export function* forgotPassword({ payload }) {
     showToast("success", "ایمیل با موفقیت ارسال شد");
   } catch (error) {
     yield put(resetPasswordFailure(error.message));
-    showToast("error", error.message);
+    if (error.message === "Network Error") {
+      showToast(
+        "error",
+        "اتصال شما به اینترنت در حال حاضر قطع می باشد، برای انجام این عملیات باید به اینترنت متصل متصل باشید"
+      );
+    } else {
+      showToast("error", error.message);
+    }
   }
 }
 
@@ -68,19 +89,33 @@ export function* resetPassword({
     showToast("success", "کلمه عبور به روزرسانی شد");
   } catch (error) {
     yield put(resetPasswordFailure(error.message));
-    showToast("error", error.message);
+    if (error.message === "Network Error") {
+      showToast(
+        "error",
+        "اتصال شما به اینترنت در حال حاضر قطع می باشد، برای انجام این عملیات باید به اینترنت متصل متصل باشید"
+      );
+    } else {
+      showToast("error", error.message);
+    }
   }
 }
 
 export function* updateMe({ payload }) {
   try {
     showLoadingToast("در حال اعمال تغییرات ...");
-    const user = yield patch(`users/updateMe/`, payload);
+    const user = yield patch(`users/updateMe`, payload);
     yield put(updateMeSuccess(user.data.user));
     showToast("success", "اطلاعات به روزرسانی شد");
   } catch (error) {
     yield put(updateMeFailure(error.message));
-    showToast("error", error.message);
+    if (error.message === "Network Error") {
+      showToast(
+        "error",
+        "اتصال شما به اینترنت در حال حاضر قطع می باشد، برای انجام این عملیات باید به اینترنت متصل متصل باشید"
+      );
+    } else {
+      showToast("error", error.message);
+    }
   }
 }
 
@@ -92,7 +127,14 @@ export function* updateMyPassword({ payload }) {
     showToast("success", "کلمه عبور به روزرسانی شد");
   } catch (error) {
     yield put(updateMyPasswordFailure(error.message));
-    showToast("error", error.message);
+    if (error.message === "Network Error") {
+      showToast(
+        "error",
+        "اتصال شما به اینترنت در حال حاضر قطع می باشد، برای انجام این عملیات باید به اینترنت متصل متصل باشید"
+      );
+    } else {
+      showToast("error", error.message);
+    }
   }
 }
 

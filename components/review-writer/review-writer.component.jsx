@@ -63,6 +63,7 @@ const ReviewWriter = ({ currentUser, tourId, submitReview, gradientColor }) => {
       payload: 0,
     });
     reviewRef.current.value = "";
+
     submitReview({
       review,
       rating,

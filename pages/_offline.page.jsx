@@ -28,7 +28,7 @@ const OfflineFallback = () => {
         mode="return"
       >
         <ReturnIcon />
-        <p>بازگشت به تورها</p>
+        <p>صفحه قبل</p>
       </Controller>
       <OfflineIcon style={{ width: "100%", height: "100%" }} />
       <h3

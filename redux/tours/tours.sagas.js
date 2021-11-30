@@ -60,7 +60,14 @@ export function* createTour({ payload }) {
     yield put(changeSelectedTab("tours"));
   } catch (error) {
     yield put(createTourFailure(error.message));
-    showToast("error", error.message);
+    if (error.message === "Network Error") {
+      showToast(
+        "error",
+        "اتصال شما به اینترنت در حال حاضر قطع می باشد، برای انجام این عملیات باید به اینترنت متصل متصل باشید"
+      );
+    } else {
+      showToast("error", error.message);
+    }
   }
 }
 
@@ -73,7 +80,14 @@ export function* submitReview({ payload }) {
     yield delay(500);
     yield put(updateCurrentTourPageStart(review.data.doc.tour));
   } catch (error) {
-    showToast("error", error.message);
+    if (error.message === "Network Error") {
+      showToast(
+        "warning",
+        "اتصال شما به اینترنت در حال حاضر قطع می باشد. دیدگاه شما ذخیره شده است و بلافاصله بعد از اتصال شما به اینترنت به سرور ارسال خواهد شد"
+      );
+    } else {
+      showToast("error", error.message);
+    }
   }
 }
 
@@ -84,7 +98,14 @@ export function* deleteReview({ payload }) {
     showToast("success", "دیدگاه شما با موفقیت حذف شد");
     yield put(updateCurrentTourPageStart(payload.tourId));
   } catch (error) {
-    showToast("error", error.message);
+    if (error.message === "Network Error") {
+      showToast(
+        "warning",
+        "اتصال شما به اینترنت در حال حاضر قطع می باشد. دیدگاه شما بلافاصله بعد از اتصال به اینترنت حذف خواهد شد"
+      );
+    } else {
+      showToast("error", error.message);
+    }
   }
 }
 
@@ -94,7 +115,14 @@ export function* updateCurrentTourPage({ payload }) {
     console.log(tour.doc);
     yield put(updateCurrentTourPageSuccess(tour.data.doc));
   } catch (error) {
-    showToast("error", error.message);
+    if (error.message === "Network Error") {
+      showToast(
+        "error",
+        "اتصال شما به اینترنت در حال حاضر قطع می باشد، برای انجام این عملیات باید به اینترنت متصل متصل باشید"
+      );
+    } else {
+      showToast("error", error.message);
+    }
   }
 }
 
@@ -109,7 +137,14 @@ export function* getFilteredTours() {
     console.log("tours:", tours);
     yield put(setUpdatedToursData(tours));
   } catch (error) {
-    showToast("error", error.message);
+    if (error.message === "Network Error") {
+      showToast(
+        "error",
+        "اتصال شما به اینترنت در حال حاضر قطع می باشد، برای انجام این عملیات باید به اینترنت متصل متصل باشید"
+      );
+    } else {
+      showToast("error", error.message);
+    }
   }
 }
 

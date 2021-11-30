@@ -37,7 +37,10 @@ import {
   createGradientText,
 } from "../../../utils/functions";
 import ReviewWriter from "../../../components/review-writer/review-writer.component";
-import { removeUpdatedCurrentTourPageData } from "../../../redux/tours/tours.actions";
+import {
+  updateCurrentTourPageStart,
+  removeUpdatedCurrentTourPageData,
+} from "../../../redux/tours/tours.actions";
 
 const createGalleryImages = (images) => {
   return images.map((image) => ({
@@ -47,21 +50,24 @@ const createGalleryImages = (images) => {
 };
 
 const TourPage = ({
-  ssrTour,
+  // ssrTour,
   updatedcurrentTourPageData,
+  updateCurrentTourPageStart,
   removeUpdatedCurrentTourPageData,
 }) => {
   const router = useRouter();
-  // const { tourId } = router.query;
+  const { tourId } = router.query;
 
   React.useEffect(() => {
+    updateCurrentTourPageStart(tourId);
     return () => {
-      //remove updatedcurrentTourPageData in redux
       removeUpdatedCurrentTourPageData();
     };
-  }, [removeUpdatedCurrentTourPageData]);
+  }, [tourId, updateCurrentTourPageStart, removeUpdatedCurrentTourPageData]);
 
-  if (router.isFallback) {
+  const doc = updatedcurrentTourPageData;
+
+  if (!doc) {
     return (
       <div
         style={{
@@ -76,7 +82,7 @@ const TourPage = ({
     );
   }
 
-  const doc = updatedcurrentTourPageData || ssrTour?.data.doc;
+  // const doc = updatedcurrentTourPageData || ssrTour?.data.doc;
   // console.log("router.isFallback", router.isFallback);
 
   return (
@@ -261,28 +267,28 @@ const TourPage = ({
   );
 };
 
-export async function getStaticPaths() {
-  return {
-    paths: [],
-    fallback: true,
-  };
-}
+// export async function getStaticPaths() {
+//   return {
+//     paths: [],
+//     fallback: true,
+//   };
+// }
 
-export async function getStaticProps({ params }) {
-  const { tourId } = params;
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_SERVER_URL}/tours/${tourId}`
-  );
-  const ssrTour = await res.json();
+// export async function getStaticProps({ params }) {
+//   const { tourId } = params;
+//   const res = await fetch(
+//     `${process.env.NEXT_PUBLIC_BASE_SERVER_URL}/tours/${tourId}`
+//   );
+//   const ssrTour = await res.json();
 
-  return {
-    props: {
-      ssrTour,
-    },
+//   return {
+//     props: {
+//       ssrTour,
+//     },
 
-    revalidate: 5, // In seconds
-  };
-}
+//     revalidate: 1, // In seconds
+//   };
+// }
 
 const mapStateToProps = ({ tours: { updatedcurrentTourPageData } }) => ({
   updatedcurrentTourPageData,
@@ -291,5 +297,7 @@ const mapStateToProps = ({ tours: { updatedcurrentTourPageData } }) => ({
 const mapDispatchToProps = (dispatch) => ({
   removeUpdatedCurrentTourPageData: () =>
     dispatch(removeUpdatedCurrentTourPageData()),
+  updateCurrentTourPageStart: (tourId) =>
+    dispatch(updateCurrentTourPageStart(tourId)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(TourPage);
