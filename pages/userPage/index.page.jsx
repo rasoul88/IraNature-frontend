@@ -40,18 +40,15 @@ const UserPage = ({
 
   React.useEffect(() => {
     if (!currentUser) {
-      router.push("/signin");
+      router.push("/");
     }
-  }, [router, currentUser]);
-
-  React.useEffect(() => {
     if (
       currentUser &&
       (currentUser.role === "admin" || currentUser.role === "lead-guide")
     ) {
       getActiveTourGuides();
     }
-  }, [getActiveTourGuides]);
+  }, [router, currentUser, getActiveTourGuides]);
 
   return (
     <PageContainer>
@@ -97,9 +94,7 @@ const UserPage = ({
             </SidebarItem>
           )}
         </Sidebar>
-        <ContentContainer>
-          {selectCorrectContent(selectedTab, currentUser)}
-        </ContentContainer>
+        <ContentContainer>{selectCorrectContent(selectedTab)}</ContentContainer>
       </div>
     </PageContainer>
   );

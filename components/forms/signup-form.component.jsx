@@ -14,13 +14,7 @@ import SpinButton from "../spin-button/spin-button.component";
 
 const SignUpForm = ({ signUpStart, isFetching }) => {
   const credentialsRef = React.useRef([]);
-  const [errors, setErrors] = React.useState({
-    nameErr: false,
-    emailErr: false,
-    passErr: false,
-    confirmPassErr: false,
-    notSamePasswords: false,
-  });
+  const [errors, setErrors] = React.useState({});
 
   const onFormSubmit = (event) => {
     event.preventDefault();
@@ -38,19 +32,15 @@ const SignUpForm = ({ signUpStart, isFetching }) => {
     }
     if (password !== confirmPassword) {
       return setErrors({
-        nameErr: false,
-        emailErr: false,
-        passErr: false,
-        confirmPassErr: false,
         notSamePasswords: true,
       });
     }
-    setErrors({
-      nameErr: false,
-      emailErr: false,
-      passErr: false,
-      confirmPassErr: false,
-    });
+    if (password.length < 8) {
+      return setErrors({
+        tooShort: true,
+      });
+    }
+    setErrors({});
     signUpStart({
       name,
       email,
@@ -116,6 +106,11 @@ const SignUpForm = ({ signUpStart, isFetching }) => {
       )}
       {errors.notSamePasswords && (
         <ErrorText>کلمه عبور و تکرار آن یکسان نیست</ErrorText>
+      )}
+      {errors.tooShort && (
+        <ErrorText data-test="name-error-text">
+          کلمه عبور حداقل باید ۸ کاراکتر باشد
+        </ErrorText>
       )}
       {isFetching ? <SpinButton /> : <SubmitButton value="ثبت نام" />}
     </form>

@@ -40,6 +40,7 @@ export function* signUp({ payload }) {
     showLoadingToast("در حال ثبت نام ...");
     const user = yield post("users/signup", payload);
     yield put(signUpSuccess(user.data.user));
+    localStorage.setItem("token", user.token);
     showToast("success", "ثبت نام با موفقیت انجام شد");
   } catch (error) {
     yield put(signUpFailure(error.message));
@@ -86,6 +87,7 @@ export function* resetPassword({
       confirmPassword,
     });
     yield put(signInSuccess(user.data.user));
+    localStorage.setItem("token", user.token);
     showToast("success", "کلمه عبور به روزرسانی شد");
   } catch (error) {
     yield put(resetPasswordFailure(error.message));
@@ -122,8 +124,9 @@ export function* updateMe({ payload }) {
 export function* updateMyPassword({ payload }) {
   try {
     showLoadingToast("در حال انجام عملیات ...");
-    yield patch(`users/updateMyPassword/`, payload);
+    const user = yield patch(`users/updateMyPassword/`, payload);
     yield put(updateMyPasswordSuccess());
+    localStorage.setItem("token", user.token);
     showToast("success", "کلمه عبور به روزرسانی شد");
   } catch (error) {
     yield put(updateMyPasswordFailure(error.message));

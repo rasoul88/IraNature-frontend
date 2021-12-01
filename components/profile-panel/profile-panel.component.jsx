@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import * as nextRouter from "next/router";
+import Image from "next/image";
 import {
   PanelContainer,
   HeaderContainer,
@@ -34,21 +35,17 @@ const ProfilePanel = ({
         <LogoutIcon
           onClick={() => {
             removeCurrentUser();
+            localStorage.removeItem("token");
             URDispatch({ type: "profilePanel" });
           }}
         />
       </HeaderContainer>
       <UserPicture>
-        {/* <Image
-          src="/assets/img/nat-4.jpg"
-          alt="user"
+        <Image
+          src={`${process.env.NEXT_PUBLIC_BASE_SERVER_STATICS_URL}/img/users/${currentUser?.photo}`}
+          alt={currentUser?.name.split("")[0]}
           width="140px"
           height="140px"
-        /> */}
-        <img
-          src={`${process.env.NEXT_PUBLIC_BASE_SERVER_STATICS_URL}/img/users/${currentUser?.photo}`}
-          // alt={currentUser?.name.split("")[0]}
-          style={{ width: "100%", height: "100%" }}
         />
       </UserPicture>
       <h4>{currentUser?.name}</h4>

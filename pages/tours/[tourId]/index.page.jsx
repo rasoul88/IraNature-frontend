@@ -41,6 +41,7 @@ import {
   updateCurrentTourPageStart,
   removeUpdatedCurrentTourPageData,
 } from "../../../redux/tours/tours.actions";
+import TourPageSkeleton from "../../../components/tourPage-skeleton/tourPage-skeleton.component";
 
 const createGalleryImages = (images) => {
   return images.map((image) => ({
@@ -68,18 +69,7 @@ const TourPage = ({
   const doc = updatedcurrentTourPageData;
 
   if (!doc) {
-    return (
-      <div
-        style={{
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Spin style={{ width: "30rem", height: "30rem" }} />
-      </div>
-    );
+    return <TourPageSkeleton />;
   }
 
   // const doc = updatedcurrentTourPageData || ssrTour?.data.doc;

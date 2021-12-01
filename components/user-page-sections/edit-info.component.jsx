@@ -50,8 +50,8 @@ const InfoSection = ({
 }) => {
   const [{ data, errors }, URDispatch] = React.useReducer(reducer, {
     data: {
-      name: currentUser.name,
-      email: currentUser.email,
+      name: currentUser?.name,
+      email: currentUser?.email,
       oldPassword: "",
       newPassword: "",
       confirmNewPassword: "",
@@ -90,6 +90,10 @@ const InfoSection = ({
       errors.samePasswords = true;
       return URDispatch({ type: "setUserErrors", payload: errors });
     }
+    if (data.newPassword.length < 8) {
+      errors.tooShort = true;
+      return URDispatch({ type: "setUserErrors", payload: errors });
+    }
     URDispatch({ type: "setUserErrors", payload: {} });
     updateMyPassword({
       passwordCurrent: data.oldPassword,
@@ -104,7 +108,7 @@ const InfoSection = ({
         <UserPictureContainer>
           <UserPicture>
             <Image
-              src={`${process.env.NEXT_PUBLIC_BASE_SERVER_STATICS_URL}/img/users/${currentUser.photo}`}
+              src={`${process.env.NEXT_PUBLIC_BASE_SERVER_STATICS_URL}/img/users/${currentUser?.photo}`}
               alt="user"
               width="160px"
               height="160px"
@@ -126,7 +130,7 @@ const InfoSection = ({
               <CustomInput
                 data-test="name-input"
                 type="text"
-                defaultValue={currentUser.name}
+                defaultValue={currentUser?.name}
                 onBlur={(event) => {
                   URDispatch({
                     type: "setUserData",
@@ -145,7 +149,7 @@ const InfoSection = ({
               <CustomInput
                 data-test="email-input"
                 type="email"
-                defaultValue={currentUser.email}
+                defaultValue={currentUser?.email}
                 onBlur={(event) => {
                   URDispatch({
                     type: "setUserData",
@@ -180,7 +184,7 @@ const InfoSection = ({
             </SecodaryHeading>
           </HeadingContainer>
           <DataItem>
-            <h4>کلمه عبور قبلی:</h4>
+            <h4>کلمه عبور فعلی:</h4>
             <div>
               <CustomInput
                 data-test="name-input"
@@ -196,7 +200,7 @@ const InfoSection = ({
                 }}
               />
               {errors.oldPassword && (
-                <ErrorText>لطفا کلمه عبور قبلی را وارد کنید</ErrorText>
+                <ErrorText>لطفا کلمه عبور فعلی را وارد کنید</ErrorText>
               )}
             </div>
           </DataItem>
@@ -244,12 +248,17 @@ const InfoSection = ({
           </DataItem>
           {errors.samePasswords && (
             <ErrorText style={{ textAlign: "center", marginTop: "-15px" }}>
-              کلمه عبور قبلی و جدید شما مشابه هستند
+              کلمه عبور فعلی و جدید شما مشابه هستند
             </ErrorText>
           )}
           {errors.notMatch && (
             <ErrorText style={{ textAlign: "center", marginTop: "-15px" }}>
               کلمه عبور جدید و تکرار آن یکسان نمی باشد
+            </ErrorText>
+          )}
+          {errors.tooShort && (
+            <ErrorText style={{ textAlign: "center", marginTop: "-15px" }}>
+              کلمه عبور جدید حداقل باید 8 کاراکتر باشد
             </ErrorText>
           )}
           <ButtonContainer>
