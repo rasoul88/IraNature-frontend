@@ -4,12 +4,13 @@ import "../styles/globals.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { PersistGate } from "redux-persist/integration/react";
-import Navigation from "../components/navigation/navigation.component";
-import { store, persistor } from "../redux/store";
-// import Footer from "../components/footer/footer.component";
 import Axios from "axios";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+import Navigation from "../components/navigation/navigation.component";
+import { store, persistor } from "../redux/store";
+import { askForNotificationPermission } from "../utils/notificationActivate";
 
 Axios.defaults.baseURL = "https://iranature-r.herokuapp.com/api/v1";
 Axios.defaults.headers.common["Access-Control-Allow-Origin"] =
@@ -39,24 +40,9 @@ Axios.interceptors.response.use(
   }
 );
 function MyApp({ Component, pageProps }) {
-  // const [deferredPrompt, setdeferredPrompt] = React.useState(null);
-
   React.useEffect(() => {
     AOS.init();
-
-    // if ("serviceWorker" in navigator) {
-    //   navigator.serviceWorker.register("./sw.js").then((e) => {
-    //     console.log("Service Worker Registeered");
-    //     console.log(e);
-    //   });
-    // }
-
-    // window.addEventListener("beforeinstallprompt", (event) => {
-    //   console.log("beforeinstallprompt fired", event);
-    //   event.preventDefault();
-    //   setdeferredPrompt(event);
-    //   return false;
-    // });
+    askForNotificationPermission();
   }, []);
 
   return (
@@ -65,32 +51,6 @@ function MyApp({ Component, pageProps }) {
       <div>
         <Navigation />
         <Component {...pageProps} />
-        {/* <button
-          onClick={() => {
-            if (deferredPrompt) {
-              deferredPrompt.prompt();
-
-              deferredPrompt.userChoice.then(function (choiceResult) {
-                console.log(choiceResult.outcome);
-
-                if (choiceResult.outcome === "dismissed") {
-                  console.log("User cancelled installation");
-                } else {
-                  console.log("User added to home screen");
-                  console.log(
-                    "deferredPrompt after installation",
-                    deferredPrompt
-                  );
-                }
-              });
-
-              console.log("deferredPrompt", deferredPrompt);
-              setdeferredPrompt(null);
-            }
-          }}
-        >
-          hellllo
-        </button> */}
         <ToastContainer rtl />
         {/* <footer>
           <Footer />

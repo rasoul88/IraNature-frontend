@@ -31,7 +31,6 @@ import ParticipantsIcon from "../../../public/assets/icons/users.svg";
 import StarIcon from "../../../public/assets/icons/star-full.svg";
 import Avatar from "../../../components/avatar/avatar.component";
 import CommentBox from "../../../components/comment-box/comment-box.component";
-import Spin from "../../../public/assets/icons/Spin.svg";
 import {
   createGradientbackground,
   createGradientText,
