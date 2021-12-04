@@ -56,3 +56,30 @@ export const objectDateToString = (objDate) => {
 //   const arrDate = stringDate.split("/");
 //   return { year: arrDate[0], month: arrDate[1], day: arrDate[2] };
 // };
+
+export const dataURItoBlob = (dataURI) => {
+  var byteString = atob(dataURI.split(",")[1]);
+  var mimeString = dataURI.split(",")[0].split(":")[1].split(";")[0];
+  var ab = new ArrayBuffer(byteString.length);
+  var ia = new Uint8Array(ab);
+  for (var i = 0; i < byteString.length; i++) {
+    ia[i] = byteString.charCodeAt(i);
+  }
+  var blob = new Blob([ab], { type: mimeString });
+  return blob;
+};
+
+export const getDeviceType = () => {
+  const ua = navigator.userAgent;
+  if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+    return "tablet";
+  }
+  if (
+    /Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(
+      ua
+    )
+  ) {
+    return "mobile";
+  }
+  return "desktop";
+};

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const PanelContainer = styled.div`
   width: 42rem;
-  height: 60rem;
+  height: 65rem;
   position: fixed;
   top: 14rem;
   right: 14rem;

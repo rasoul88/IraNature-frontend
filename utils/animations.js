@@ -69,3 +69,13 @@ export const pageInRight = keyframes`
         transform: translateX(0);
     }
 `;
+
+export const cameraOpening = keyframes`
+    0% {
+        transform: translateY(100%);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+`;

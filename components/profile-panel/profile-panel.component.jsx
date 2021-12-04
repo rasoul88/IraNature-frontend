@@ -50,7 +50,7 @@ const ProfilePanel = ({
       </UserPicture>
       <h4>{currentUser?.name}</h4>
       <PhotoSelectorContainer>
-        <PhotoSelector />
+        <PhotoSelector forPanel={true} />
       </PhotoSelectorContainer>
       <ItemBanner
         onClick={() => {
@@ -58,7 +58,6 @@ const ProfilePanel = ({
           changeSelectedTab("tours");
           router.push({
             pathname: "/userPage",
-            // query: { selectedSection: "tours" },
           });
         }}
       >
@@ -77,7 +76,6 @@ const ProfilePanel = ({
           changeSelectedTab("info");
           router.push({
             pathname: "/userPage",
-            // query: { selectedSection: "tours" },
           });
         }}
       >
@@ -97,7 +95,6 @@ const ProfilePanel = ({
             changeSelectedTab("dashboard");
             router.push({
               pathname: "/userPage",
-              // query: { selectedSection: "tours" },
             });
           }}
         >

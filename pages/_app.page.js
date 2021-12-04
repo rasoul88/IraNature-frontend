@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Navigation from "../components/navigation/navigation.component";
 import { store, persistor } from "../redux/store";
 import { askForNotificationPermission } from "../utils/notificationActivate";
+import { getDeviceType } from "../utils/functions";
 
 Axios.defaults.baseURL = "https://iranature-r.herokuapp.com/api/v1";
 Axios.defaults.headers.common["Access-Control-Allow-Origin"] =
@@ -43,6 +44,7 @@ function MyApp({ Component, pageProps }) {
   React.useEffect(() => {
     AOS.init();
     askForNotificationPermission();
+    console.log(getDeviceType());
   }, []);
 
   return (
