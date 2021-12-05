@@ -132,7 +132,6 @@ export function* getFilteredTours() {
   try {
     const toursState = yield select(getToursState);
     const query = createQuery(toursState.filterItems, toursState.dataLimits);
-    console.log("query:", query);
     const tours = yield get(`tours?${query}`);
     console.log("tours:", tours);
     yield put(setUpdatedToursData(tours));

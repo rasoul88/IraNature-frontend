@@ -45,7 +45,7 @@ function Layout({ Component, pageProps }) {
     AOS.init();
     askForNotificationPermission();
     store.dispatch(setDeviceType(getDeviceType()));
-  }, [setDeviceType]);
+  }, []);
 
   return (
     <Provider store={store}>

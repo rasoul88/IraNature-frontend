@@ -47,8 +47,7 @@ const PhotoTaker = ({ setIsCameraOpen, forPanel, onCapture, deviceType }) => {
       })
       .then((stream) => {
         videoRef.current.srcObject = stream;
-      })
-      .catch((err) => {});
+      });
   }, [videoRef, cameraMode]);
 
   const onCloseCamera = () => {

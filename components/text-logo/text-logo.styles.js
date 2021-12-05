@@ -6,7 +6,7 @@ export const Logo = styled.h2`
   font-family: "Dancing Script", cursive;
   display: inline-block;
   background: linear-gradient(to bottom, green 35%, white, red 80%);
-  -webkit-background-clip: text;
+  background-clip: text;
   color: transparent;
   letter-spacing: 0.2rem;
   transition: all 0.2s;

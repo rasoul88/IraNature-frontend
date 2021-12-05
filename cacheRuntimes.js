@@ -1,6 +1,5 @@
 "use strict";
 
-// Workbox RuntimeCaching config: https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-build#.RuntimeCachingEntry
 module.exports = [
   // {
   //   urlPattern: /^https:\/\/fonts\.(?:gstatic)\.com\/.*/i,
