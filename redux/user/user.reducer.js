@@ -3,6 +3,7 @@ const INITIAL_STATE = {
   currentUser: null,
   error: null,
   isFetching: false,
+  deviceType: null,
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -51,6 +52,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         error: null,
+      };
+    case userActionTypes.SET_DEVICE_TYPE:
+      return {
+        ...state,
+        deviceType: action.payload,
       };
     default:
       return state;

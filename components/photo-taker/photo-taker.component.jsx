@@ -11,11 +11,13 @@ import {
   RetryButton,
 } from "./photo-taker.styles";
 import { dataURItoBlob } from "../../utils/functions";
+import { connect } from "react-redux";
 
-const PhotoTaker = ({ setIsCameraOpen, forPanel, onCapture }) => {
+const PhotoTaker = ({ setIsCameraOpen, forPanel, onCapture, deviceType }) => {
   const videoRef = React.useRef(null);
   const canvasRef = React.useRef(null);
   const [photo, setPhoto] = React.useState(null);
+  const [cameraMode, setCameraMode] = React.useState("front");
 
   useEffect(() => {
     if (!("mediaDevices" in navigator)) {
@@ -36,12 +38,18 @@ const PhotoTaker = ({ setIsCameraOpen, forPanel, onCapture }) => {
       };
     }
     navigator.mediaDevices
-      .getUserMedia({ video: true, audio: false })
+      .getUserMedia({
+        video:
+          cameraMode === "front"
+            ? { facingMode: "user" }
+            : { facingMode: { exact: "environment" } },
+        audio: false,
+      })
       .then((stream) => {
         videoRef.current.srcObject = stream;
       })
       .catch((err) => {});
-  }, [videoRef]);
+  }, [videoRef, cameraMode]);
 
   const onCloseCamera = () => {
     videoRef.current.srcObject.getVideoTracks().forEach((track) => {
@@ -55,23 +63,21 @@ const PhotoTaker = ({ setIsCameraOpen, forPanel, onCapture }) => {
       <CloseCamera onClick={() => onCloseCamera()} />
       <Player show={!photo} ref={videoRef} autoPlay={true}></Player>
       <Canvas
-        width={
-          videoRef.current?.videoHeight > videoRef.current?.videoWidth
-            ? 480
-            : 640
-        }
-        height={
-          videoRef.current?.videoHeight > videoRef.current?.videoWidth
-            ? 640
-            : 480
-        }
+        width={deviceType !== "desktop" ? 480 : 640}
+        height={deviceType !== "desktop" ? 640 : 480}
         id="canvas"
         show={photo}
         ref={canvasRef}
       ></Canvas>
       <ButtonsContainer>
-        {!photo ? (
-          <FlipCameraButton />
+        {!photo && deviceType !== "desktop" ? (
+          <FlipCameraButton
+            onClick={() =>
+              setCameraMode((preState) =>
+                preState === "front" ? "back" : "front"
+              )
+            }
+          />
         ) : (
           <span style={{ width: "4rem", height: "4rem" }}></span>
         )}
@@ -83,12 +89,8 @@ const PhotoTaker = ({ setIsCameraOpen, forPanel, onCapture }) => {
                 videoRef.current,
                 0,
                 0,
-                videoRef.current?.videoHeight > videoRef.current?.videoWidth
-                  ? 480
-                  : 640,
-                videoRef.current?.videoHeight > videoRef.current?.videoWidth
-                  ? 640
-                  : 480
+                deviceType !== "desktop" ? 480 : 640,
+                deviceType !== "desktop" ? 640 : 480
               );
 
               setPhoto(dataURItoBlob(canvasRef.current.toDataURL()));
@@ -112,4 +114,7 @@ const PhotoTaker = ({ setIsCameraOpen, forPanel, onCapture }) => {
   );
 };
 
-export default PhotoTaker;
+const mapStateToProps = ({ user: { deviceType } }) => ({
+  deviceType,
+});
+export default connect(mapStateToProps)(PhotoTaker);

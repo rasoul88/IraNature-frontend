@@ -12,7 +12,7 @@ import Navigation from "../components/navigation/navigation.component";
 import { store, persistor } from "../redux/store";
 import { askForNotificationPermission } from "../utils/notificationActivate";
 import { getDeviceType } from "../utils/functions";
-
+import { setDeviceType } from "../redux/user/user.actions";
 Axios.defaults.baseURL = "https://iranature-r.herokuapp.com/api/v1";
 Axios.defaults.headers.common["Access-Control-Allow-Origin"] =
   "http://localhost:3000";
@@ -40,12 +40,12 @@ Axios.interceptors.response.use(
     return Promise.reject(error.response.data);
   }
 );
-function MyApp({ Component, pageProps }) {
+function Layout({ Component, pageProps }) {
   React.useEffect(() => {
     AOS.init();
     askForNotificationPermission();
-    console.log(getDeviceType());
-  }, []);
+    store.dispatch(setDeviceType(getDeviceType()));
+  }, [setDeviceType]);
 
   return (
     <Provider store={store}>
@@ -62,4 +62,4 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
-export default MyApp;
+export default Layout;

@@ -41,10 +41,7 @@ export const LinksContainer = styled.ul`
     transition: 0.5s ease-in-out;
     border-radius: 1rem;
     color: white;
-
-    &::selection {
-      background-color: transparent;
-    }
+    user-select: none;
 
     &:hover {
       background-color: white;
@@ -86,19 +83,22 @@ export const SocialIconContainer = styled.a`
   text-decoration: none;
   border-radius: 50%;
   transition: 0.5s;
+  /* padding: 5px; */
 
   & svg {
     fill: gray;
-    justify-self: center;
     transition: 0.5s;
     cursor: pointer;
-    transform: scale(0.9);
+    transform: scale(0.7);
   }
 
   @media only screen and (hover: none) {
     border-color: ${(props) => props.color};
     & svg {
       fill: ${(props) => props.color};
+      margin-left: 3px;
+      margin-top: 2px;
+      transform: scale(0.8);
     }
   }
 

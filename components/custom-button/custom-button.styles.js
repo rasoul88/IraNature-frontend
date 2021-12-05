@@ -38,6 +38,7 @@ export const Button = styled.a`
     cursor: pointer;
     backface-visibility: hidden;
     text-align: center;
+    user-select: none;
   }
 
   &:hover {

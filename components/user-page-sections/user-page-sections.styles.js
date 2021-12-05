@@ -94,6 +94,7 @@ export const DataItem = styled.div`
 
     & .DatePicker {
       width: 100%;
+      z-index: 99;
     }
 
     & #multiselect-react-dropdown .optionListContainer {

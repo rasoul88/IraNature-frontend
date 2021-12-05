@@ -85,3 +85,8 @@ export const updateMyPasswordFailure = (error) => ({
   type: userActionTypes.UPDATE_MY_PASSWORD_FAILURE,
   payload: error,
 });
+
+export const setDeviceType = (type) => ({
+  type: userActionTypes.SET_DEVICE_TYPE,
+  payload: type,
+});
