@@ -41,7 +41,7 @@ const configurePushSub = () => {
       if (newSub) return post("/subscriptions", newSub);
     })
     .then((res) => {
-      console.log(res);
+      console.log("new subscription", res);
     })
     .catch(function (err) {
       console.log(err);
