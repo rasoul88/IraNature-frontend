@@ -79,3 +79,13 @@ export const cameraOpening = keyframes`
         transform: scale(1);
     }
 `;
+
+export const cameraRising = keyframes`
+    0% {
+        transform: translateY(100%);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+`;

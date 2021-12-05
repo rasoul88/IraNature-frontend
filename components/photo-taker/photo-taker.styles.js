@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { cameraOpening } from "../../utils/animations";
+import { cameraOpening, cameraRising } from "../../utils/animations";
 import CloseIcon from "../../public/assets/icons/close-svgrepo-com.svg";
 import CaptureIcon from "../../public/assets/icons/camera-diaphragm-svgrepo-com.svg";
 import FlipCameraIcon from "../../public/assets/icons/camera-change-svgrepo-com.svg";
@@ -38,7 +38,8 @@ export const Container = styled.div`
   z-index: 10000;
   overflow: hidden;
   box-shadow: 0 1rem 3rem rgb(0 0 0 / 30%);
-  animation: ${cameraOpening} 0.5s;
+  animation-name: ${(props) => (props.forPanel ? cameraOpening : cameraRising)};
+  animation-duration: 0.5s;
   transform-origin: 72% 34.7%;
 
   @media only screen and (max-width: 37.5em) {
