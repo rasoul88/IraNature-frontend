@@ -34,6 +34,7 @@ import CommentBox from "../../../components/comment-box/comment-box.component";
 import {
   createGradientbackground,
   createGradientText,
+  stringDateToShowingDate,
 } from "../../../utils/functions";
 import ReviewWriter from "../../../components/review-writer/review-writer.component";
 import {
@@ -50,7 +51,6 @@ const createGalleryImages = (images) => {
 };
 
 const TourPage = ({
-  // ssrTour,
   updatedcurrentTourPageData,
   updateCurrentTourPageStart,
   removeUpdatedCurrentTourPageData,
@@ -140,10 +140,7 @@ const TourPage = ({
               ویژگی ها
             </SecodaryHeading>
             <InfoItem iconColor={doc.gradientColor.from}>
-              <p>
-                {doc.startDate.slice(0, 4)}/{doc.startDate.slice(4, 6)}/
-                {doc.startDate.slice(6, 8)}
-              </p>
+              <p>{stringDateToShowingDate(doc.startDate)}</p>
               <h4>تاریخ حرکت بعدی</h4>
               <CalenderIcon />
             </InfoItem>

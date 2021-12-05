@@ -52,6 +52,10 @@ export const objectDateToString = (objDate) => {
   }${objDate.day}`;
 };
 
+export const stringDateToShowingDate = (strDate) => {
+  return `${strDate.slice(0, 4)}/${strDate.slice(4, 6)}/${strDate.slice(6, 8)}`;
+};
+
 // export const stringDateToObject = (stringDate) => {
 //   const arrDate = stringDate.split("/");
 //   return { year: arrDate[0], month: arrDate[1], day: arrDate[2] };

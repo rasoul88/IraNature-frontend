@@ -4,7 +4,10 @@ import "@hassanmojab/react-modern-calendar-datepicker/lib/DatePicker.css";
 import DatePicker, {
   utils,
 } from "@hassanmojab/react-modern-calendar-datepicker";
-import { objectDateToString } from "../../utils/functions";
+import {
+  objectDateToString,
+  stringDateToShowingDate,
+} from "../../utils/functions";
 
 const CustomDatePicker = ({
   selectedRange,
@@ -14,11 +17,15 @@ const CustomDatePicker = ({
 }) => {
   const dataRange =
     selectedRange && selectedRange.from && selectedRange.to
-      ? ` ${objectDateToString(selectedRange.to)} از ${objectDateToString(
-          selectedRange.from
+      ? ` ${stringDateToShowingDate(
+          objectDateToString(selectedRange.to)
+        )} از ${stringDateToShowingDate(
+          objectDateToString(selectedRange.from)
         )} تا`
       : "";
-  const datesString = selectedDate ? `${objectDateToString(selectedDate)}` : "";
+  const datesString = selectedDate
+    ? `${stringDateToShowingDate(objectDateToString(selectedDate))}`
+    : "";
   const renderCustomInput = ({ ref }) => (
     <input
       ref={ref}
