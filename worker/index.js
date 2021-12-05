@@ -39,7 +39,8 @@ self.addEventListener("push", function (event) {
   var options = {
     body: data.content,
     icon: "/assets/logo/azadi-128x128.png",
-    badge: "/assets/logo/azadi-64x64.png",
+    badge: "/assets/logo/azadi-128x128.png",
+    lang: "fa-IR",
     actions: [
       {
         action: "confirm",
