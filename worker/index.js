@@ -41,6 +41,7 @@ self.addEventListener("push", function (event) {
     icon: "/assets/logo/azadi-128x128.png",
     badge: "/assets/logo/azadi-128x128.png",
     lang: "fa-IR",
+    vibrate: [200, 100, 200],
     actions: [
       {
         action: "confirm",
