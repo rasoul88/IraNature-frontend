@@ -48,9 +48,6 @@ function Layout({ Component, pageProps }) {
         <Navigation />
         <Component {...pageProps} />
         <ToastContainer rtl />
-        {/* <footer>
-          <Footer />
-        </footer> */}
       </div>
     </Provider>
   );

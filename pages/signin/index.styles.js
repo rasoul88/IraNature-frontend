@@ -220,6 +220,7 @@ export const SocialIconContainer = styled.a`
     justify-self: center;
     transition: 0.5s;
     cursor: pointer;
+    transform: scale(0.7);
   }
 
   @media only screen and (hover: none) {

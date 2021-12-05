@@ -89,7 +89,7 @@ export const SocialIconContainer = styled.a`
     fill: gray;
     transition: 0.5s;
     cursor: pointer;
-    transform: scale(0.7);
+    /* transform: scale(0.7); */
   }
 
   @media only screen and (hover: none) {

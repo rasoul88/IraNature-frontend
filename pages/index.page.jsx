@@ -61,6 +61,6 @@ export async function getStaticProps() {
       ssrTop3Tours,
     },
 
-    revalidate: 1000, // In seconds
+    revalidate: 300, // In seconds
   };
 }
