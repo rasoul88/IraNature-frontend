@@ -13,6 +13,7 @@ import { store, persistor } from "../redux/store";
 import { askForNotificationPermission } from "../utils/notificationActivate";
 import { getDeviceType } from "../utils/functions";
 import { setDeviceType } from "../redux/user/user.actions";
+
 Axios.defaults.baseURL = "https://iranature-r.herokuapp.com/api/v1";
 Axios.defaults.headers.common["Access-Control-Allow-Origin"] =
   "http://localhost:3000";
@@ -20,13 +21,6 @@ Axios.defaults.headers.common["Access-Control-Allow-Origin"] =
 Axios.defaults.withCredentials = true;
 Axios.defaults.headers.common["Access-Control-Allow-Methods"] =
   "GET,PUT,POST,DELETE";
-
-// it is temporary and will be deleted beacuse in localhost:3000 (unsecure protocol) we can not use set-cookie with sameSite=none and secure=true
-let token;
-if (typeof Storage !== "undefined") {
-  token = localStorage.getItem("token");
-}
-Axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
 Axios.defaults.headers.common["Access-Control-Allow-Headers"] =
   "Origin, X-Requested-With, Content-Type, Accept";

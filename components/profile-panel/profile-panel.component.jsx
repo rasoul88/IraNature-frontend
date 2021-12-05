@@ -35,7 +35,6 @@ const ProfilePanel = ({
         <LogoutIcon
           onClick={() => {
             removeCurrentUser();
-            localStorage.removeItem("token");
             URDispatch({ type: "profilePanel" });
           }}
         />
