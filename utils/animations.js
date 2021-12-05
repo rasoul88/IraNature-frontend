@@ -72,10 +72,10 @@ export const pageInRight = keyframes`
 
 export const cameraOpening = keyframes`
     0% {
-        transform: translateY(100%);
+        transform: scale(0);
     }
 
     100% {
-        transform: translateY(0);
+        transform: scale(1);
     }
 `;

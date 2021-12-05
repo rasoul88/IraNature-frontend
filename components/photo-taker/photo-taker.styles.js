@@ -24,17 +24,22 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* justify-content: ${(props) =>
+    props.deviceType === "desktop" ? "space-between" : "flex-start"}; */
   justify-content: space-between;
   width: 100%;
-  /* max-width: 42rem; */
-  height: 100%;
-  max-height: 65rem;
+  min-height: 100%;
+
+  /* for edit section */
+  ${(props) => !props.forPanel && "max-width: 45rem;min-height: 62rem;"}
+
   border-radius: 1rem;
   background-color: white;
   z-index: 10000;
   overflow: hidden;
   box-shadow: 0 1rem 3rem rgb(0 0 0 / 30%);
   animation: ${cameraOpening} 0.5s;
+  transform-origin: 72% 34.7%;
 
   @media only screen and (max-width: 37.5em) {
     width: ${(props) => (props.forPanel ? "100%" : "96%")};
@@ -72,8 +77,8 @@ export const ButtonsContainer = styled.div`
   width: 100%;
   justify-content: space-around;
   align-items: center;
-  margin-top: 1rem;
-  margin-bottom: 5rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 `;
 
 export const CaptureButton = styled(CaptureIcon)`

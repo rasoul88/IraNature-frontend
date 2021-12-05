@@ -2,14 +2,14 @@ import styled from "styled-components";
 
 export const PanelContainer = styled.div`
   width: 42rem;
-  height: 65rem;
+  min-height: 62rem;
   position: fixed;
   top: 14rem;
   right: 14rem;
   border-radius: 1rem;
   background: white;
   box-shadow: 0 1rem 3rem rgb(0 0 0 / 30%);
-  overflow: hidden;
+  /* overflow: hidden; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,6 +20,7 @@ export const PanelContainer = styled.div`
   z-index: 10000;
   & > h4 {
     margin: 1rem;
+    margin-bottom: 3rem;
     color: #333;
   }
 
@@ -32,8 +33,9 @@ export const PanelContainer = styled.div`
 
 export const HeaderContainer = styled.div`
   width: 100%;
-  height: 30%;
+  height: 19rem;
   overflow: hidden;
+  border-radius: 1rem;
   background-image: linear-gradient(
     to right bottom,
     rgba(24, 123, 205, 0.9),
@@ -83,7 +85,7 @@ export const ItemBanner = styled.div`
   background: white;
   border-radius: 0.5rem;
   cursor: pointer;
-  margin-top: 2rem;
+  margin-bottom: 2rem;
   display: flex;
   justify-content: space-between;
   transition: all 0.2s ease-in-out;
