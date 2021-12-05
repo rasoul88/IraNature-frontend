@@ -29,7 +29,7 @@ self.addEventListener("push", function (event) {
     title: "تور جدید",
     content:
       "یک تور جدید به تور های ما اضافه شد، اضافه شد. با ثبت نام در این تور یک سفر به یاد ماندنی داشته باشید ",
-    openUrl: "http://localhost:3000/tours",
+    openUrl: "https://irnature.vercel.app/tours",
   };
 
   if (event.data) {
@@ -39,7 +39,7 @@ self.addEventListener("push", function (event) {
   var options = {
     body: data.content,
     icon: "/assets/logo/azadi-128x128.png",
-    badge: "/assets/logo/azadi-128x128.png",
+    badge: "/assets/logo/azadi-64x64.png",
     lang: "fa-IR",
     dir: "rtl",
     vibrate: [200, 100, 200],
