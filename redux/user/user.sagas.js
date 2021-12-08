@@ -61,7 +61,10 @@ export function* forgotPassword({ payload }) {
     });
     console.log(response);
     yield put(tokenSent(response.message));
-    showToast("success", "ایمیل با موفقیت ارسال شد");
+    showToast(
+      "success",
+      "ایمیل با موفقیت ارسال شد، در صورت عدم مشاهده در ایمیل های دریافتی لطفا هرزنامه را بررسی کنید"
+    );
   } catch (error) {
     yield put(resetPasswordFailure(error.message));
     if (error.message === "Network Error") {
