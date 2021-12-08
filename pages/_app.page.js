@@ -14,9 +14,8 @@ import { askForNotificationPermission } from "../utils/notificationActivate";
 import { getDeviceType } from "../utils/functions";
 import { setDeviceType } from "../redux/user/user.actions";
 
-Axios.defaults.baseURL = "https://iranature-r.herokuapp.com/api/v1";
-Axios.defaults.headers.common["Access-Control-Allow-Origin"] =
-  "http://localhost:3000";
+Axios.defaults.baseURL = process.env.NEXT_PUBLIC_BASE_SERVER_URL;
+Axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
 
 Axios.defaults.withCredentials = true;
 Axios.defaults.headers.common["Access-Control-Allow-Methods"] =
