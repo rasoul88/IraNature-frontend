@@ -12,7 +12,7 @@ module.exports = withPWA({
     return config;
   },
   images: {
-    domains: ["iranature-r.herokuapp.com"],
+    domains: ["iranatureapi.rasoulsahraei.ir"],
   },
 
   pwa: {
